@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'Dust';
+    src: url('/assets/fonts/DUST-Type.otf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: 'Dust';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}

@@ -1,32 +1,69 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
+    <Header class="app__header" />
+    <main class="app__content">
+      <div v-click-outside="hide" />
+      <InDevelopment v-if="showIsInDevelopment && isInDevelopment" />
+      <router-view v-else />
+    </main>
+    <Footer class="app__footer" />
   </div>
 </template>
 
+<script lang="ts">
+import Vue from 'vue';
+import ClickOutside from 'vue-click-outside';
+import { mapGetters } from 'vuex';
+
+export default Vue.extend({
+  name: 'App',
+
+  components: {
+    Header: () => import('@/components/Header/Header.vue'),
+    InDevelopment: () => import('@/components/InDevelopment'),
+    Footer: () => import('@/components/Footer.vue'),
+  },
+
+  directives: {
+    ClickOutside,
+  },
+
+  data() {
+    return {
+      showIsInDevelopment: new Boolean(),
+    };
+  },
+
+  computed: {
+    ...mapGetters(['isInDevelopment']),
+  },
+
+  methods: {
+    hide() {
+      this.showIsInDevelopment = false;
+    },
+  },
+
+  mounted() {
+    this.showIsInDevelopment = true;
+  },
+});
+</script>
+
 <style lang="scss">
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  background: $gray-darkest;
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+.app {
+  &__content {
+    flex: 2;
   }
 }
 </style>
