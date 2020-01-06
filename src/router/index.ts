@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '../views/Home.vue';
+import { TokenService } from '../services/storage.service'
 
 Vue.use(VueRouter);
 
@@ -10,7 +10,8 @@ const routes = [
     name: 'home',
     component: () => import('@/views/Home.vue'),
     meta: {
-      title: 'DUST | Главная'
+      title: 'DUST | Главная',
+      public: true,
     }
   },
   {
@@ -26,7 +27,8 @@ const routes = [
     name: 'privacyPolicy',
     component: () => import('@/views/PrivacyPolicy.vue'),
     meta: {
-      title: 'DUST | Политика конфиденциальности'
+      title: 'DUST | Политика конфиденциальности',
+      public: true,
     }
   },
   {
@@ -34,7 +36,8 @@ const routes = [
     name: 'rules',
     component: () => import('@/views/Rules.vue'),
     meta: {
-      title: 'DUST | Правила'
+      title: 'DUST | Правила',
+      public: true,
     }
   },
   {
@@ -42,7 +45,8 @@ const routes = [
     name: 'about',
     component: () => import('@/views/About.vue'),
     meta: {
-      title: 'DUST | О нас'
+      title: 'DUST | О нас',
+      public: true,
     }
   },
 ];
@@ -53,31 +57,25 @@ const router = new VueRouter({
   routes,
 });
 
-// router.beforeEach((to, from, next) => {
-//   const isNotAuth = 1;
+router.beforeEach((to, from, next) => {
+  const isPublic = to.matched.some(record => record.meta.public)
+  const onlyWhenLoggedOut = to.matched.some(record => record.meta.onlyWhenLoggedOut)
+  const loggedIn = !!TokenService.getToken();
 
-//   // если авторизации быть не должно
-//   if(isNotAuth) {
-//     if (!store.getters.isLoggedIn) {
-//       next();
-//       return;
-//     }
-//     next("/");
-//   // иначе, если нужна авторизация
-//   } else if(isAuth) {
-//     if (isCurrentWidthSmall) {
-//       next('/download-app');
-//       return;
-//     } 
-//     if (isLoggedIn) {
-//       next();
-//       return;
-//     }
-//     next("/auth");
-//   }
-//   // всё равно на авторизацию
-//   next();
-// });
+  if (!isPublic && !loggedIn) {
+    return next({
+      path:'/login',
+      query: { redirect: to.fullPath }  // Store the full path to redirect the user to after login
+    });
+  }
+
+  // Do not allow user to visit login page or register page if they are logged in
+  if (loggedIn && onlyWhenLoggedOut) {
+    return next('/')
+  }
+
+  next();
+})
 
 router.afterEach((to) => {
   Vue.nextTick(() => {
