@@ -15,6 +15,15 @@ const routes = [
     }
   },
   {
+    path: '/login',
+    name: 'login',
+    component: () => import('@/views/Login.vue'),
+    meta: {
+      title: 'DUST | Вход',
+      public: true,
+    }
+  },
+  {
     path: '/profile',
     name: 'profile',
     component: () => import('@/views/Profile.vue'),
@@ -61,6 +70,10 @@ router.beforeEach((to, from, next) => {
   const isPublic = to.matched.some(record => record.meta.public)
   const onlyWhenLoggedOut = to.matched.some(record => record.meta.onlyWhenLoggedOut)
   const loggedIn = !!TokenService.getToken();
+
+  if(to.path == "/logout") {
+    return next({path:'/login'});
+  }
 
   if (!isPublic && !loggedIn) {
     return next({

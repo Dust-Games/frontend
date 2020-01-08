@@ -1,5 +1,5 @@
 <template>
-  <carousel perPage="1" :navigationEnabled="true" class="carousel">
+  <carousel :perPage="1" :navigationEnabled="true" class="carousel">
     <slide class="carousel__slide">
       Slide 1 Content
     </slide>

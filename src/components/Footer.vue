@@ -53,6 +53,7 @@ export default Vue.extend({
 .footer {
   background: $black;
   color: $gray-light;
+  font-size: 12px;
   padding: 20px;
 
   & > * > * + * {

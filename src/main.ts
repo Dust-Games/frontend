@@ -17,6 +17,9 @@ Vue.config.productionTip = false;
  */
 import '@/assets/icomoon/style.css';
 
+import ClickOutside from 'vue-click-outside';
+Vue.mixin(ClickOutside);
+
 /**
  * Слайдер-карусель для показа новостей
  */

@@ -6,17 +6,19 @@
       :profile="profile"
     />
     <header class="header">
-      <router-link class="header__link header__logo-wrapper" to="/">
-        <img class="header__logo" src="@/assets/logo.svg" />
-      </router-link>
-      <div class="header__nav">
-        <!-- <router-link class="header__link header__shop" to="/shop">
+      <div class="header__left-part">
+        <router-link class="header__link header__logo-wrapper" to="/">
+          <img class="header__logo" src="@/assets/logo.svg" />
+        </router-link>
+        <div class="header__nav">
+          <!-- <router-link class="header__link header__shop" to="/shop">
           <span class="header__shop-icon header__icon icon-cart" />
           <span class="header__shop-text">МАГАЗИН</span>
         </router-link> -->
-        <div class="header__link header__shop" @click="showInDevelopment()">
-          <span class="header__shop-icon header__icon icon-cart" />
-          <span class="header__shop-text">МАГАЗИН</span>
+          <div class="header__link header__shop" @click="showInDevelopment()">
+            <span class="header__shop-icon header__icon icon-cart" />
+            <span class="header__shop-text">МАГАЗИН</span>
+          </div>
         </div>
       </div>
       <div class="header__personal-info">
@@ -32,14 +34,18 @@
             {{ profile.notifications }}
           </span>
         </div>
-        <router-link class="header__link header__profile" to="/profile">
+        <HeaderUserDropdown
+          class="header__dropdown header__user-dropdown"
+          :profile="profile"
+        />
+        <!-- <router-link class="header__link header__profile" to="/profile">
           <span class="header__profile-icon header__icon icon-user" />
           <span class="header__profile-text">{{ profile.nickname }}</span>
         </router-link>
         <router-link
           class="header__link header__settings header__icon icon-cog"
           to="/settings"
-        />
+        /> -->
       </div>
     </header>
   </div>
@@ -56,6 +62,7 @@ export default Vue.extend({
 
   components: {
     HeaderMobile: () => import('./HeaderMobile'),
+    HeaderUserDropdown: () => import('./HeaderUserDropdown'),
   },
 
   data() {
@@ -80,13 +87,22 @@ export default Vue.extend({
   align-items: center;
 
   color: $white;
-  font-size: 22px;
+  font-size: 18px;
   max-width: 1080px;
   margin: 0 auto;
   padding: 10px 20px;
 
   &-wrapper {
     background: $black;
+  }
+
+  &__left-part {
+    display: flex;
+    align-items: center;
+
+    & > * + * {
+      margin-left: 30px;
+    }
   }
 
   @include header();
