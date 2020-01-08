@@ -3,6 +3,7 @@
     <div class="user-dropdown__button" @click="isOpen ? hide() : show()">
       <span class="user-dropdown__icon icon-user" />
       <span class="user-dropdown__nickname">{{ profile.nickname }}</span>
+      <span class="user-dropdown__icon icon-circle-down" />
     </div>
     <div v-show="isOpen" class="user-dropdown__dropdown" v-click-outside="hide">
       <router-link class="user-dropdown__link" to="/profile">
@@ -48,6 +49,10 @@ export default Vue.extend({
   &__button {
     user-select: none;
 
+    & > * + * {
+      padding-left: 5px;
+    }
+
     &:hover {
       cursor: pointer;
     }
@@ -59,7 +64,8 @@ export default Vue.extend({
     padding: 10px 0;
     background: $black;
     color: $white;
-    margin-left: -20px;
+    // margin-left: -20px;
+    right: calc(0 - 100%);
     min-width: 200px;
 
     display: flex;

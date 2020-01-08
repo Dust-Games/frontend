@@ -72,7 +72,7 @@ router.beforeEach((to, from, next) => {
   const loggedIn = !!TokenService.getToken();
 
   if(to.path == "/logout") {
-    return next({path:'/login'});
+    return next('/');
   }
 
   if (!isPublic && !loggedIn) {
