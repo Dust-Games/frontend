@@ -11,10 +11,12 @@
           <span class="header__shop-icon header__icon icon-cart" />
           <span class="header__shop-text">МАГАЗИН</span>
         </div>
-        <div class="header__balance">
-          <span class="header__balance-icon header__icon icon-balance" />
-          <span class="header__balance-text">{{
-            balance.toLocaleString('ru')
+        <div class="header__wallet header__link" @click="onToWallet()">
+          <span
+            class="header__wallet-icon header__icon icon-account_balance_wallet"
+          />
+          <span class="header__wallet-text">{{
+            balance.toLocaleString("ru")
           }}</span>
         </div>
         <div class="header__notifications">
@@ -37,23 +39,23 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import headerMixin from './header.mixin';
+import Vue from "vue";
+import headerMixin from "./header.mixin";
 
 export default Vue.extend({
-  name: 'HeaderMobile',
+  name: "HeaderMobile",
 
   mixins: [headerMixin],
 
   props: {
     balance: [String, Number],
-    profile: Object,
-  },
+    profile: Object
+  }
 });
 </script>
 
 <style lang="scss" scoped>
-@import './header.mixin.scss';
+@import "./header.mixin.scss";
 
 .header {
   &__hamburger {

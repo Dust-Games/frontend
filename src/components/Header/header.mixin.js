@@ -1,11 +1,15 @@
-import { mapActions } from 'vuex';
+import { mapActions } from "vuex";
 
 export default {
-    methods: {
-        ...mapActions(['setIsInDevelopment']),
+  methods: {
+    ...mapActions(["setIsInDevelopment"]),
 
-        showInDevelopment() {
-            this.setIsInDevelopment(true);
-        },
+    showInDevelopment() {
+      this.setIsInDevelopment(true);
     },
+
+    onToWallet() {
+      this.$router.push("/wallet");
+    }
+  }
 };

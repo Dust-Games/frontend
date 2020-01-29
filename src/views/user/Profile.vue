@@ -38,7 +38,7 @@
         <p class="profile__rating">
           <span class="profile__rating-title">Рейтинг: </span>
           <span class="profile__rating-text">
-            {{ profile.rating.toLocaleString('ru') }}
+            {{ profile.rating.toLocaleString("ru") }}
           </span>
         </p>
       </div>
@@ -47,25 +47,26 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import Vue from "vue";
+
 export default Vue.extend({
-  name: 'Profile',
+  name: "Profile",
 
   data() {
     return {
       profile: {
-        avatar: '@/assets/logo.png',
-        nickname: 'Nagibator',
+        avatar: "@/assets/avatar.png",
+        nickname: "Nagibator",
         level: 2,
-        rating: 1234,
+        rating: 1234
       },
       connections: [
-        { icon: 'icon-cog', to: '' },
-        { icon: 'icon-cog', to: '' },
-        { icon: 'icon-cog', to: '' },
-      ],
+        { icon: "icon-cog", to: "" },
+        { icon: "icon-cog", to: "" },
+        { icon: "icon-cog", to: "" }
+      ]
     };
-  },
+  }
 });
 </script>
 

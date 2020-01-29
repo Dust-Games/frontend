@@ -22,10 +22,12 @@
         </div>
       </div>
       <div class="header__personal-info">
-        <div class="header__balance">
-          <span class="header__balance-icon header__icon icon-balance" />
-          <span class="header__balance-text">{{
-            balance.toLocaleString('ru')
+        <div class="header__wallet header__link" @click="onToWallet()">
+          <span
+            class="header__wallet-icon header__icon icon-account_balance_wallet"
+          />
+          <span class="header__wallet-text">{{
+            balance.toLocaleString("ru")
           }}</span>
         </div>
         <div class="header__notifications">
@@ -52,17 +54,17 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import headerMixin from './header.mixin';
+import Vue from "vue";
+import headerMixin from "./header.mixin";
 
 export default Vue.extend({
-  name: 'Header',
+  name: "Header",
 
   mixins: [headerMixin],
 
   components: {
-    HeaderMobile: () => import('./HeaderMobile'),
-    HeaderUserDropdown: () => import('./HeaderUserDropdown'),
+    HeaderMobile: () => import("./HeaderMobile"),
+    HeaderUserDropdown: () => import("./HeaderUserDropdown")
   },
 
   data() {
@@ -70,16 +72,16 @@ export default Vue.extend({
       isInDevelopment: false,
       balance: 1000,
       profile: {
-        nickname: 'Nagibator',
-        notifications: 1,
-      },
+        nickname: "Nagibator",
+        notifications: 1
+      }
     };
-  },
+  }
 });
 </script>
 
 <style lang="scss" scoped>
-@import './header.mixin.scss';
+@import "./header.mixin.scss";
 
 .header {
   display: flex;
@@ -94,6 +96,12 @@ export default Vue.extend({
 
   &-wrapper {
     background: $black;
+  }
+
+  &__wallet {
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   &__left-part {
