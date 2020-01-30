@@ -1,7 +1,7 @@
-import Vue from 'vue';
-import App from './App.vue';
-import router from './router';
-import store from './store';
+import Vue from "vue";
+import App from "./App.vue";
+import router from "./router";
+import store from "./store";
 
 Vue.config.productionTip = false;
 
@@ -15,19 +15,19 @@ Vue.config.productionTip = false;
  * к нужному тегу. Например,
  * <span class="icon-eye"/> (это иконка глаза)
  */
-import '@/assets/icomoon/style.css';
+import "@/assets/icomoon/style.css";
 
-import ClickOutside from 'vue-click-outside';
+import ClickOutside from "vue-click-outside";
 Vue.mixin(ClickOutside);
 
 /**
  * Слайдер-карусель для показа новостей
  */
-import VueCarousel from 'vue-carousel';
+import VueCarousel from "vue-carousel";
 Vue.use(VueCarousel);
 
 new Vue({
   router,
   store,
-  render: h => h(App),
-}).$mount('#app');
+  render: h => h(App)
+}).$mount("#app");

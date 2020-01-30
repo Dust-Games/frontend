@@ -9,7 +9,7 @@ export default {
     },
 
     onToWallet() {
-      this.$router.push("/wallet");
+      this.$router.push("/user/wallet");
     }
   }
 };

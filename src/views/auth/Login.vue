@@ -7,10 +7,10 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import Vue from "vue";
 
 export default Vue.extend({
-  name: 'Login',
+  name: "Login",
 
   components: {
     // Input: () => import('@/ui-components/Input.vue'),
@@ -18,7 +18,7 @@ export default Vue.extend({
 
   data() {
     return {};
-  },
+  }
 });
 </script>
 

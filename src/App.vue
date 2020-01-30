@@ -11,42 +11,42 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import ClickOutside from 'vue-click-outside';
-import { mapGetters } from 'vuex';
+import Vue from "vue";
+import ClickOutside from "vue-click-outside";
+import { mapGetters } from "vuex";
 
 export default Vue.extend({
-  name: 'App',
+  name: "App",
 
   components: {
-    Header: () => import('@/components/Header/Header.vue'),
-    InDevelopment: () => import('@/components/InDevelopment'),
-    Footer: () => import('@/components/Footer.vue'),
+    Header: () => import("@/components/Header/Header.vue"),
+    InDevelopment: () => import("@/components/InDevelopment"),
+    Footer: () => import("@/components/Footer.vue")
   },
 
   directives: {
-    ClickOutside,
+    ClickOutside
   },
 
   data() {
     return {
-      showIsInDevelopment: new Boolean(),
+      showIsInDevelopment: new Boolean()
     };
   },
 
   computed: {
-    ...mapGetters(['isInDevelopment']),
+    ...mapGetters(["isInDevelopment"])
   },
 
   methods: {
     hide() {
       this.showIsInDevelopment = false;
-    },
+    }
   },
 
   mounted() {
     this.showIsInDevelopment = true;
-  },
+  }
 });
 </script>
 

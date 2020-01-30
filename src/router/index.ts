@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import { TokenService } from "../services/auth.service";
+// import { TokenService } from "../services/auth.service";
 
 Vue.use(VueRouter);
 
@@ -91,7 +91,8 @@ router.beforeEach((to, from, next) => {
   const onlyWhenLoggedOut = to.matched.some(
     record => record.meta.onlyWhenLoggedOut
   );
-  const loggedIn = !!TokenService.getToken();
+  // const loggedIn = !!TokenService.getToken();
+  const loggedIn = true;
 
   if (to.path == "/auth/logout") {
     return next("/");

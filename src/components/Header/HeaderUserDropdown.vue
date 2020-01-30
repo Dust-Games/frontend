@@ -6,10 +6,10 @@
       <span class="user-dropdown__icon icon-circle-down" />
     </div>
     <div v-show="isOpen" class="user-dropdown__dropdown" v-click-outside="hide">
-      <router-link class="user-dropdown__link" to="/profile">
+      <router-link class="user-dropdown__link" to="/user/profile">
         Профиль
       </router-link>
-      <router-link class="user-dropdown__link" to="/logout">
+      <router-link class="user-dropdown__link" to="/auth/logout">
         ВЫЙТИ
       </router-link>
     </div>
@@ -17,18 +17,18 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import Vue from "vue";
 
 export default Vue.extend({
-  name: 'HeaderUserDropdown',
+  name: "HeaderUserDropdown",
 
   props: {
-    profile: Object,
+    profile: Object
   },
 
   data() {
     return {
-      isOpen: false,
+      isOpen: false
     };
   },
 
@@ -39,8 +39,8 @@ export default Vue.extend({
 
     hide() {
       this.isOpen = false;
-    },
-  },
+    }
+  }
 });
 </script>
 
