@@ -26,6 +26,12 @@ Vue.use(vClickOutside);
 import VueCarousel from "vue-carousel";
 Vue.use(VueCarousel);
 
+/**
+ * Интернализация
+ */
+import VueI18n from 'vue-i18n';
+Vue.use(VueI18n);
+
 new Vue({
   router,
   store,
