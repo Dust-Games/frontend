@@ -9,9 +9,12 @@
       <router-link class="user-dropdown__link" to="/user/profile">
         Профиль
       </router-link>
-      <router-link class="user-dropdown__link" to="/auth/logout">
-        ВЫЙТИ
-      </router-link>
+      <div class="user-dropdown__logout" @click="onLogout()">
+        <span
+          class="user-dropdown__logout-icon user-dropdown__icon icon-bell"
+        />
+        <span class="user-dropdown__logout-text">Выйти</span>
+      </div>
     </div>
   </div>
 </template>

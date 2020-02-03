@@ -15,10 +15,10 @@
           <span class="header__shop-icon header__icon icon-cart" />
           <span class="header__shop-text">МАГАЗИН</span>
         </router-link> -->
-          <div class="header__link header__shop" @click="showInDevelopment()">
+          <!-- <div class="header__link header__shop" @click="showInDevelopment()">
             <span class="header__shop-icon header__icon icon-cart" />
             <span class="header__shop-text">МАГАЗИН</span>
-          </div>
+          </div> -->
         </div>
       </div>
       <div class="header__personal-info">
@@ -30,12 +30,12 @@
             balance.toLocaleString("ru")
           }}</span>
         </div>
-        <div class="header__notifications">
+        <!-- <div class="header__notifications">
           <span class="header__notifications-icon header__icon icon-bell" />
           <span class="header__notifications-text">
             {{ profile.notifications }}
           </span>
-        </div>
+        </div> -->
         <HeaderUserDropdown
           class="header__dropdown header__user-dropdown"
           :profile="profile"
@@ -70,7 +70,6 @@ export default Vue.extend({
   data() {
     return {
       isInDevelopment: false,
-      balance: 1000,
       profile: {
         nickname: "Nagibator",
         notifications: 1

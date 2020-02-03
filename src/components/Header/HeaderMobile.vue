@@ -7,10 +7,10 @@
       <span class="header__span" />
       <span class="header__span" />
       <header class="header__mobile-content">
-        <div class="header__link header__shop" @click="showInDevelopment()">
+        <!-- <div class="header__link header__shop" @click="showInDevelopment()">
           <span class="header__shop-icon header__icon icon-cart" />
           <span class="header__shop-text">МАГАЗИН</span>
-        </div>
+        </div> -->
         <div class="header__wallet header__link" @click="onToWallet()">
           <span
             class="header__wallet-icon header__icon icon-account_balance_wallet"
@@ -19,12 +19,12 @@
             balance.toLocaleString("ru")
           }}</span>
         </div>
-        <div class="header__notifications">
+        <!-- <div class="header__notifications">
           <span class="header__notifications-icon header__icon icon-bell" />
           <span class="header__notifications-text">
             {{ profile.notifications }}
           </span>
-        </div>
+        </div> -->
         <router-link class="header__link header__profile" to="/profile">
           <span class="header__profile-icon header__icon icon-user" />
           <span class="header__profile-text">{{ profile.nickname }}</span>

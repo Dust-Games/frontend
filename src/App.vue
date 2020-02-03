@@ -13,7 +13,7 @@
 <script lang="ts">
 import Vue from "vue";
 // import ClickOutside from "vue-click-outside";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default Vue.extend({
   name: "App",
@@ -39,6 +39,8 @@ export default Vue.extend({
   },
 
   methods: {
+    ...mapActions(["getBalance"]),
+
     hide() {
       this.showIsInDevelopment = false;
     }
@@ -46,6 +48,7 @@ export default Vue.extend({
 
   mounted() {
     this.showIsInDevelopment = true;
+    this.getBalance();
   }
 });
 </script>
