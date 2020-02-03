@@ -12,7 +12,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import ClickOutside from "vue-click-outside";
+// import ClickOutside from "vue-click-outside";
 import { mapGetters } from "vuex";
 
 export default Vue.extend({
@@ -24,9 +24,9 @@ export default Vue.extend({
     Footer: () => import("@/components/Footer.vue")
   },
 
-  directives: {
-    ClickOutside
-  },
+  // directives: {
+  //   ClickOutside
+  // },
 
   data() {
     return {
