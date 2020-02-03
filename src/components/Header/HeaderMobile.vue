@@ -29,10 +29,10 @@
           <span class="header__profile-icon header__icon icon-user" />
           <span class="header__profile-text">{{ profile.nickname }}</span>
         </router-link>
-        <router-link class="header__link header__settings" to="/settings">
-          <span class="header__settings-icon header__icon icon-cog" />
-          <span class="header__settings-text">Настройки</span>
-        </router-link>
+        <div class="header__logout" @click="onLogout()">
+          <span class="header__logout-icon header__icon icon-bell" />
+          <span class="header__logout-text">Выйти</span>
+        </div>
       </header>
     </div>
   </div>

@@ -1,25 +1,10 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import auth from "";
+import auth from "./auth.store";
+import other from "./other.store";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {
-    isInDevelopment: false
-  },
-  getters: {
-    isInDevelopment: state => state.isInDevelopment
-  },
-  mutations: {
-    setIsInDevelopment(state, value) {
-      state.isInDevelopment = value;
-    }
-  },
-  actions: {
-    setIsInDevelopment({ commit }, value) {
-      commit("setIsInDevelopment", value);
-    }
-  },
-  modules: {}
+  modules: { auth, other }
 });

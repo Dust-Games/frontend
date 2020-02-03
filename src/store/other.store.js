@@ -1,4 +1,6 @@
 export default {
+  namespaced: false,
+
   state: {
     isInDevelopment: false
   },
