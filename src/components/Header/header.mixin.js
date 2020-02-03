@@ -2,7 +2,7 @@ import { mapActions } from "vuex";
 
 export default {
   methods: {
-    ...mapActions(["setIsInDevelopment"]),
+    ...mapActions(["setIsInDevelopment", "logout"]),
 
     showInDevelopment() {
       this.setIsInDevelopment(true);
@@ -10,6 +10,10 @@ export default {
 
     onToWallet() {
       this.$router.push("/user/wallet");
+    },
+
+    onLogout() {
+      this.logout();
     }
   }
 };

@@ -1,11 +1,11 @@
 <template>
-  <div class="user-dropdown">
-    <div class="user-dropdown__button" @click="isOpen ? hide() : show()">
+  <div class="user-dropdown" v-click-outside="hide">
+    <div class="user-dropdown__button" @click="isOpen ? onHide() : onShow()">
       <span class="user-dropdown__icon icon-user" />
       <span class="user-dropdown__nickname">{{ profile.nickname }}</span>
       <span class="user-dropdown__icon icon-circle-down" />
     </div>
-    <div v-show="isOpen" class="user-dropdown__dropdown" v-click-outside="hide">
+    <div v-show="isOpen" class="user-dropdown__dropdown">
       <router-link class="user-dropdown__link" to="/user/profile">
         Профиль
       </router-link>
@@ -33,11 +33,11 @@ export default Vue.extend({
   },
 
   methods: {
-    show() {
+    onShow() {
       this.isOpen = true;
     },
 
-    hide() {
+    onHide() {
       this.isOpen = false;
     }
   }

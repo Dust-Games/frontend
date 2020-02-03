@@ -1,7 +1,8 @@
 export default {
+  namespaced: false,
+
   state: {
-    token: "",
-    status: ""
+    token: ""
   },
 
   getters: {
@@ -17,19 +18,18 @@ export default {
   actions: {
     async login({ commit }, user) {
       try {
-        let resp = await this.$axios.$post(
-          "http://18.222.253.172/auth/login",
-          user
-        );
-        console.log(resp);
+        // let resp = await this.$axios.$post(
+        //   "http://18.222.253.172/auth/login",
+        //   user
+        // );
+        // const token = resp;
 
-        const token = resp;
+        const token = "123456";
+
         localStorage.setItem("user-token", token);
-
         commit("setToken", token);
-        // you have your token, now log in your user :)
+
         // dispatch(USER_REQUEST);
-        resolve(resp);
       } catch (err) {
         localStorage.removeItem("user-token");
       }
