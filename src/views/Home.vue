@@ -16,9 +16,9 @@ export default {
   name: "Home",
 
   components: {
-    Carousel: () => import("@/components/Home/Carousel.vue"),
-    Tournaments: () => import("@/components/Home/Tournaments.vue"),
-    News: () => import("@/components/Home/News.vue")
+    Carousel: () => import("@components/Home/Carousel.vue"),
+    Tournaments: () => import("@components/Home/Tournaments.vue"),
+    News: () => import("@components/Home/News.vue")
   }
 };
 </script>

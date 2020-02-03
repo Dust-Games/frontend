@@ -14,7 +14,7 @@ const routes = [
   {
     path: "/",
     name: "home",
-    component: () => import("@/views/Home.vue"),
+    component: () => import("@views/Home.vue"),
     meta: {
       title: "DUST | Главная",
       public: true
@@ -24,7 +24,7 @@ const routes = [
     {
       path: "/login",
       name: "login",
-      component: () => import("@/views/auth/Login.vue"),
+      component: () => import("@modules/auth/views/Login.vue"),
       meta: {
         title: "DUST | Вход",
         public: true
@@ -35,7 +35,7 @@ const routes = [
     {
       path: "/wallet",
       name: "wallet",
-      component: () => import("@/views/user/Wallet.vue"),
+      component: () => import("@modules/user/views/Wallet.vue"),
       meta: {
         title: "DUST | Кошелек"
       }
@@ -43,7 +43,7 @@ const routes = [
     {
       path: "/profile",
       name: "profile",
-      component: () => import("@/views/user/Profile.vue"),
+      component: () => import("@modules/user/views/Profile.vue"),
       meta: {
         title: "DUST | Профиль"
       }
@@ -53,7 +53,7 @@ const routes = [
     {
       path: "/privacy-policy",
       name: "privacyPolicy",
-      component: () => import("@/views/info/PrivacyPolicy.vue"),
+      component: () => import("@modules/info/views/PrivacyPolicy.vue"),
       meta: {
         title: "DUST | Политика конфиденциальности",
         public: true
@@ -62,7 +62,7 @@ const routes = [
     {
       path: "/rules",
       name: "rules",
-      component: () => import("@/views/info/Rules.vue"),
+      component: () => import("@modules/info/views/Rules.vue"),
       meta: {
         title: "DUST | Правила",
         public: true
@@ -71,7 +71,7 @@ const routes = [
     {
       path: "/about",
       name: "about",
-      component: () => import("@/views/info/About.vue"),
+      component: () => import("@modules/info/views/About.vue"),
       meta: {
         title: "DUST | О нас",
         public: true

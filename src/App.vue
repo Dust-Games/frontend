@@ -19,9 +19,9 @@ export default Vue.extend({
   name: "App",
 
   components: {
-    Header: () => import("@/components/Header/Header.vue"),
-    InDevelopment: () => import("@/components/InDevelopment"),
-    Footer: () => import("@/components/Footer.vue")
+    Header: () => import("@components/Header/Header.vue"),
+    InDevelopment: () => import("@components/InDevelopment"),
+    Footer: () => import("@components/Footer.vue")
   },
 
   // directives: {

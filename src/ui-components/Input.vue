@@ -11,8 +11,8 @@ export default Vue.extend({
   name: "UiInput",
 
   props: {
-    value: [String, Number],
-  },
+    value: [String, Number]
+  }
 });
 </script>
 
