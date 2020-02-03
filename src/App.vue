@@ -2,7 +2,7 @@
   <div id="app">
     <Header class="app__header" />
     <main class="app__content">
-      <div v-click-outside="hide" />
+      <!-- <div v-click-outside="hide" /> -->
       <InDevelopment v-if="showIsInDevelopment && isInDevelopment" />
       <router-view v-else />
     </main>
@@ -39,16 +39,17 @@ export default Vue.extend({
   },
 
   methods: {
-    ...mapActions(["getBalance"]),
+    ...mapActions(["getBalance", "getUser"])
 
-    hide() {
-      this.showIsInDevelopment = false;
-    }
+    // hide() {
+    //   this.showIsInDevelopment = false;
+    // }
   },
 
   mounted() {
-    this.showIsInDevelopment = true;
+    // this.showIsInDevelopment = true;
     this.getBalance();
+    this.getUser();
   }
 });
 </script>

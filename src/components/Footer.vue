@@ -28,16 +28,25 @@
         class="footer__link footer__privacy-policy"
         to="/privacy-policy"
       >
-        ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ
+        {{ $t("privacyPolicy") }}
       </router-link>
       <span class="footer__delimiter">|</span>
       <router-link class="footer__link footer__rules" to="/rules">
-        ПРАВИЛА
+        {{ $t("rules") }}
       </router-link>
       <span class="footer__delimiter">|</span>
       <router-link class="footer__link footer__about" to="/about">
-        О НАС
+        {{ $t("about") }}
       </router-link>
+    </div>
+    <br class="footer__new-line" />
+    <div class="footer__language">
+      <div
+        class="footer__link footer__language-inner"
+        @click="onChangeLanguage()"
+      >
+        {{ $t("changeLanguage") }}
+      </div>
     </div>
   </div>
 </template>
@@ -45,7 +54,19 @@
 <script lang="ts">
 import Vue from "vue";
 export default Vue.extend({
-  name: "Footer"
+  name: "Footer",
+
+  methods: {
+    onChangeLanguage() {
+      if (process.env.VUE_APP_I18N_LOCALE == "en") {
+        console.log(process.env.VUE_APP_I18N_LOCALE);
+        //   process.env.VUE_APP_I18N_LOCALE = "ru";
+      } else {
+        console.log(process.env.VUE_APP_I18N_LOCALE);
+        process.env.VUE_APP_I18N_LOCALE = 1;
+      }
+    }
+  }
 });
 </script>
 
@@ -55,6 +76,7 @@ export default Vue.extend({
   color: $gray-light;
   font-size: 12px;
   padding: 20px;
+  transition: 0.3s;
 
   & > * > * + * {
     padding-left: 10px;
@@ -62,10 +84,12 @@ export default Vue.extend({
 
   &__link {
     color: $gray-light;
+    text-decoration: underline;
 
     &:hover {
+      cursor: pointer;
       transition: 0.3s;
-      color: $white;
+      color: $light-blue;
     }
   }
 }

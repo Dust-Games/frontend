@@ -11,8 +11,18 @@ module.exports = {
         "@components": path.resolve(__dirname, "src/components"),
         "@ui-components": path.resolve(__dirname, "src/ui-components"),
         "@modules": path.resolve(__dirname, "src/modules"),
-        "@services": path.resolve(__dirname, "src/services")
+        "@services": path.resolve(__dirname, "src/services"),
+        "@store": path.resolve(__dirname, "src/store"),
+        "@router": path.resolve(__dirname, "src/router")
       }
+    }
+  },
+  pluginOptions: {
+    i18n: {
+      locale: "ru",
+      fallbackLocale: "ru",
+      localeDir: "locales",
+      enableInSFC: true
     }
   },
   css: {

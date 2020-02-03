@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 // import { TokenService } from "../services/auth.service";
+import store from "@store/index";
 
 Vue.use(VueRouter);
 
@@ -39,15 +40,15 @@ const routes = [
       meta: {
         title: "DUST | Кошелек"
       }
-    },
-    {
-      path: "/profile",
-      name: "profile",
-      component: () => import("@modules/user/views/Profile.vue"),
-      meta: {
-        title: "DUST | Профиль"
-      }
     }
+    // {
+    //   path: "/profile",
+    //   name: "profile",
+    //   component: () => import("@modules/user/views/Profile.vue"),
+    //   meta: {
+    //     title: "DUST | Профиль"
+    //   }
+    // }
   ]),
   ...withPrefix("/info", [
     {
@@ -87,11 +88,17 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
+  if (localStorage.getItem("user-token")) {
+    store.dispatch("setToken", localStorage.getItem("user-token"));
+  }
+
   const isPublic = to.matched.some(record => record.meta.public);
   const onlyWhenLoggedOut = to.matched.some(
     record => record.meta.onlyWhenLoggedOut
   );
+
   // const loggedIn = !!TokenService.getToken();
+  // const loggedIn = !!localStorage.getItem("user-token");
   const loggedIn = true;
 
   if (to.path == "/auth/logout") {

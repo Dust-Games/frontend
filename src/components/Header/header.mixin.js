@@ -2,11 +2,11 @@ import { mapActions, mapGetters } from "vuex";
 
 export default {
   computed: {
-    ...mapGetters(["balance"])
+    ...mapGetters(["balance", "profile", "isAuthenticated"])
   },
 
   methods: {
-    ...mapActions(["setIsInDevelopment", "logout"]),
+    ...mapActions(["setIsInDevelopment", "login", "logout"]),
 
     showInDevelopment() {
       this.setIsInDevelopment(true);
@@ -14,6 +14,10 @@ export default {
 
     onToWallet() {
       this.$router.push("/user/wallet");
+    },
+
+    onLogin() {
+      this.login();
     },
 
     onLogout() {

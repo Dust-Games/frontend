@@ -24,16 +24,18 @@ Vue.use(vClickOutside);
  * Слайдер-карусель для показа новостей
  */
 import VueCarousel from "vue-carousel";
+
+import i18n from "./i18n";
 Vue.use(VueCarousel);
 
 /**
- * Интернализация
+ * Интернационализация
  */
-import VueI18n from "vue-i18n";
-Vue.use(VueI18n);
+// import i18n from "@/../i18n";
 
 new Vue({
   router,
   store,
+  i18n,
   render: h => h(App)
 }).$mount("#app");

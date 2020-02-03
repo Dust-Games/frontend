@@ -11,7 +11,11 @@
           <span class="header__shop-icon header__icon icon-cart" />
           <span class="header__shop-text">МАГАЗИН</span>
         </div> -->
-        <div class="header__wallet header__link" @click="onToWallet()">
+        <div
+          class="header__wallet header__link"
+          @click="onToWallet()"
+          v-if="isAuthenticated"
+        >
           <span
             class="header__wallet-icon header__icon icon-account_balance_wallet"
           />
@@ -25,13 +29,16 @@
             {{ profile.notifications }}
           </span>
         </div> -->
-        <router-link class="header__link header__profile" to="/profile">
+        <!-- <router-link class="header__link header__profile" to="/profile">
           <span class="header__profile-icon header__icon icon-user" />
           <span class="header__profile-text">{{ profile.nickname }}</span>
-        </router-link>
-        <div class="header__logout" @click="onLogout()">
-          <span class="header__logout-icon header__icon icon-bell" />
+        </router-link> -->
+        <div class="header__logout" @click="onLogout()" v-if="isAuthenticated">
+          <span class="header__logout-icon header__icon icon-exit" />
           <span class="header__logout-text">Выйти</span>
+        </div>
+        <div class="header__login" @click="onLogin()" v-if="!isAuthenticated">
+          Войти
         </div>
       </header>
     </div>
@@ -45,12 +52,7 @@ import headerMixin from "./header.mixin";
 export default Vue.extend({
   name: "HeaderMobile",
 
-  mixins: [headerMixin],
-
-  props: {
-    balance: [String, Number],
-    profile: Object
-  }
+  mixins: [headerMixin]
 });
 </script>
 
@@ -152,6 +154,26 @@ export default Vue.extend({
   }
 
   @include header();
+
+  &__logout {
+    &-text {
+      padding-left: 5px;
+    }
+
+    &:hover {
+      cursor: pointer;
+      color: $light-blue;
+      transition: 0.3s;
+    }
+  }
+
+  &__login {
+    &:hover {
+      cursor: pointer;
+      color: $light-blue;
+      transition: 0.3s;
+    }
+  }
 }
 
 @media (max-width: 768px) {

@@ -16,6 +16,10 @@ export default {
   },
 
   actions: {
+    setToken({ commit }, token) {
+      commit("setToken", token);
+    },
+
     async login({ commit }, user) {
       try {
         // let resp = await this.$axios.$post(
@@ -35,9 +39,10 @@ export default {
       }
     },
 
-    async logout() {
+    logout({ commit }) {
       try {
         localStorage.removeItem("user-token");
+        commit("setToken", "");
       } catch (err) {
         console.log(err);
       }

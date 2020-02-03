@@ -22,7 +22,11 @@
         </div>
       </div>
       <div class="header__personal-info">
-        <div class="header__wallet header__link" @click="onToWallet()">
+        <div
+          class="header__wallet header__link"
+          v-if="isAuthenticated"
+          @click="onToWallet()"
+        >
           <span
             class="header__wallet-icon header__icon icon-account_balance_wallet"
           />
@@ -69,11 +73,7 @@ export default Vue.extend({
 
   data() {
     return {
-      isInDevelopment: false,
-      profile: {
-        nickname: "Nagibator",
-        notifications: 1
-      }
+      isInDevelopment: false
     };
   }
 });
