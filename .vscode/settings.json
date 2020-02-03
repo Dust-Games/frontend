@@ -1,0 +1,34 @@
+{
+	"javascript.format.enable": false,
+
+	// Formatters
+	"javascript.preferences.quoteStyle": "double",
+	"[html]": {
+		"editor.defaultFormatter": "vscode.html-language-features"
+	},
+	// "[css]": {
+	//   "editor.defaultFormatter": "lonefy.vscode-JS-CSS-HTML-formatter"
+	// },
+	"[javascript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+
+	"[vue]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+
+	"[json]": {
+		"editor.defaultFormatter": "vscode.json-language-features"
+	},
+
+	// Editor
+	"editor.formatOnSave": true,
+	"editor.tabSize": 2,
+
+	// Eslint
+	"eslint.enable": true,
+	"eslint.workingDirectories": ["."],
+
+	// Vetur
+	"vetur.validation.template": false
+}
