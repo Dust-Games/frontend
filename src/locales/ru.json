@@ -1,8 +1,12 @@
 {
   "wallet": "Кошелек",
   "balance": "Баланс",
-  "privacyPolicy": "ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ",
-  "rules": "ПРАВИЛА",
-  "about": "О НАС",
-  "changeLanguage": "ENGLISH VERSION"
+  "toppingUp": "Пополнить",
+  "buy": "Купить",
+  "sell": "Продать",
+  "withdraw": "Вывести",
+  "privacyPolicy": "Политика конфиденциальности",
+  "rules": "Правила",
+  "about": "О нас",
+  "changeLanguage": "English version"
 }

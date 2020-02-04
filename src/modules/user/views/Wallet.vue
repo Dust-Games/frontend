@@ -1,12 +1,12 @@
 <template>
   <div class="wallet">
-    <p>{{ $t("wallet") }}</p>
-    <p>{{ $t("balance") }}: {{ balance }}</p>
+    <h1 class="wallet__title">{{ $t("wallet") }}</h1>
+    <p class="wallet__balance">{{ $t("balance") }}: {{ balance }}</p>
     <div class="wallet__action-wrapper">
-      <Button class="wallet__action">Пополнить</Button>
-      <Button class="wallet__action">Купить DC</Button>
-      <Button class="wallet__action">Продать DC</Button>
-      <Button class="wallet__action">Вывести</Button>
+      <Button class="wallet__action">{{ $t("toppingUp") }}</Button>
+      <Button class="wallet__action">{{ $t("buy") }} DC</Button>
+      <Button class="wallet__action">{{ $t("sell") }} DC</Button>
+      <Button class="wallet__action">{{ $t("withdraw") }}</Button>
     </div>
   </div>
 </template>
@@ -42,6 +42,14 @@ export default Vue.extend({
       flex-direction: column;
       align-items: center;
     }
+  }
+
+  &__title {
+    color: $white;
+  }
+
+  &__balance {
+    color: $white;
   }
 }
 </style>

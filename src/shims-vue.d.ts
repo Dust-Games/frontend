@@ -3,4 +3,6 @@ declare module "*.vue" {
   export default Vue;
 }
 
+declare module "raw-loader!*";
+
 declare module "*";

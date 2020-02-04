@@ -1,8 +1,12 @@
 {
   "wallet": "Wallet",
   "balance": "Balance",
-  "privacyPolicy": "PRIVACY POLICY",
-  "rules": "RULES",
-  "about": "ABOUT",
-  "changeLanguage": "RUSSIAN VERSION"
+  "toppingUp": "Topping up",
+  "buy": "Buy",
+  "sell": "Sell",
+  "withdraw": "Withdraw",
+  "privacyPolicy": "Privacy policy",
+  "rules": "Rules",
+  "about": "About",
+  "changeLanguage": "Russian version"
 }

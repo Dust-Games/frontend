@@ -26,16 +26,16 @@
     <div class="footer__other">
       <router-link
         class="footer__link footer__privacy-policy"
-        to="/privacy-policy"
+        to="/info/privacy-policy"
       >
         {{ $t("privacyPolicy") }}
       </router-link>
       <span class="footer__delimiter">|</span>
-      <router-link class="footer__link footer__rules" to="/rules">
+      <router-link class="footer__link footer__rules" to="/info/rules">
         {{ $t("rules") }}
       </router-link>
       <span class="footer__delimiter">|</span>
-      <router-link class="footer__link footer__about" to="/about">
+      <router-link class="footer__link footer__about" to="/info/about">
         {{ $t("about") }}
       </router-link>
     </div>
@@ -53,17 +53,17 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { mapActions, mapGetters } from "vuex";
+
 export default Vue.extend({
   name: "Footer",
 
   methods: {
     onChangeLanguage() {
-      if (process.env.VUE_APP_I18N_LOCALE == "en") {
-        console.log(process.env.VUE_APP_I18N_LOCALE);
-        //   process.env.VUE_APP_I18N_LOCALE = "ru";
+      if (this.$i18n.locale == "en") {
+        this.$i18n.locale = "ru";
       } else {
-        console.log(process.env.VUE_APP_I18N_LOCALE);
-        process.env.VUE_APP_I18N_LOCALE = 1;
+        this.$i18n.locale = "en";
       }
     }
   }
@@ -85,6 +85,7 @@ export default Vue.extend({
   &__link {
     color: $gray-light;
     text-decoration: underline;
+    text-transform: uppercase;
 
     &:hover {
       cursor: pointer;

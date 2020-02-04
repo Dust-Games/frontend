@@ -24,14 +24,12 @@ Vue.use(vClickOutside);
  * Слайдер-карусель для показа новостей
  */
 import VueCarousel from "vue-carousel";
-
-import i18n from "./i18n";
 Vue.use(VueCarousel);
 
 /**
- * Интернационализация
+ * Интернализация
  */
-// import i18n from "@/../i18n";
+import i18n from "./i18n";
 
 new Vue({
   router,
