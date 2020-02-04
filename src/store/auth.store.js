@@ -28,10 +28,11 @@ export default {
         // );
         // const token = resp;
 
-        const token = "123456";
+        // const token = "123456";
+        console.log(user);
 
-        localStorage.setItem("user-token", token);
-        commit("setToken", token);
+        localStorage.setItem("user-token", user.token);
+        commit("setToken", user.token);
 
         // dispatch(USER_REQUEST);
       } catch (err) {

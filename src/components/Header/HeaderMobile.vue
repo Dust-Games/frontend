@@ -37,9 +37,39 @@
           <span class="header__logout-icon header__icon icon-exit" />
           <span class="header__logout-text">Выйти</span>
         </div>
-        <div class="header__login" @click="onLogin()" v-if="!isAuthenticated">
-          Войти
-        </div>
+        <form
+          action="https://steamcommunity.com/openid/login"
+          method="post"
+          v-if="!isAuthenticated"
+        >
+          <input
+            type="hidden"
+            name="openid.identity"
+            value="http://specs.openid.net/auth/2.0/identifier_select"
+          />
+          <input
+            type="hidden"
+            name="openid.claimed_id"
+            value="http://specs.openid.net/auth/2.0/identifier_select"
+          />
+          <input
+            type="hidden"
+            name="openid.ns"
+            value="http://specs.openid.net/auth/2.0"
+          />
+          <input type="hidden" name="openid.mode" value="checkid_setup" />
+          <input
+            type="hidden"
+            name="openid.realm"
+            value="https:\\yourOpenIdRealm.com"
+          />
+          <input
+            type="hidden"
+            name="openid.return_to"
+            value="https:\\YourDomainUrlToReturnTo.com"
+          />
+          <Button type="submit" class="header__login">{{ $t("login") }}</Button>
+        </form>
       </header>
     </div>
   </div>
