@@ -25,7 +25,7 @@ export default {
 
         commit("setUser", user);
       } catch (e) {
-        console.log(e);
+        // console.log(e);
       }
     },
 
@@ -36,7 +36,7 @@ export default {
 
         dispatch("getUser");
       } catch (e) {
-        console.log(e);
+        // console.log(e);
       }
     }
   }

@@ -29,7 +29,7 @@ export default {
         // const token = resp;
 
         // const token = "123456";
-        console.log(user);
+        // console.log(user);
 
         localStorage.setItem("user-token", user.token);
         commit("setToken", user.token);
@@ -45,7 +45,7 @@ export default {
         localStorage.removeItem("user-token");
         commit("setToken", "");
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     }
   }

@@ -22,7 +22,7 @@ export default {
 
         commit("setBalance", balance);
       } catch (e) {
-        console.log(e);
+        // console.log(e);
       }
     }
   }

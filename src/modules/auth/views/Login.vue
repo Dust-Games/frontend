@@ -40,7 +40,7 @@ export default Vue.extend({
   // E19EF7B0753F2BDC5BD5DAB5896C4D13
 
   async mounted() {
-    console.log(this.$route.query);
+    // console.log(this.$route.query);
     // let a = https://api.steampowered.com/ISteamUserAuth/AuthenticateUser/v1/?key=E19EF7B0753F2BDC5BD5DAB5896C4D13&steamid=76561198230835940
     await this.login({ token: this.$route.query["openid.sig"] });
     this.$router.push("/");
