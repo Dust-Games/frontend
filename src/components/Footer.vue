@@ -8,14 +8,6 @@
         <a
           class="footer__link"
           target="_blank"
-          href="https://vk.com/flatron4eg"
-        >
-          FLATRON4EG
-        </a>
-        AND
-        <a
-          class="footer__link"
-          target="_blank"
           href="https://vk.com/animeshny_kot"
         >
           SPANRI

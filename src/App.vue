@@ -1,12 +1,14 @@
 <template>
   <div id="app">
     <Header class="app__header" />
-    <main class="app__content">
-      <!-- <div v-click-outside="hide" /> -->
-      <InDevelopment v-if="showIsInDevelopment && isInDevelopment" />
-      <router-view v-else />
-    </main>
-    <Footer class="app__footer" />
+    <div class="app__content">
+      <Sidebar class="app__sidebar" />
+      <main class="app__main">
+        <!-- <div v-click-outside="hide" /> -->
+        <InDevelopment v-if="showIsInDevelopment && isInDevelopment" />
+        <router-view v-else />
+      </main>
+    </div>
   </div>
 </template>
 
@@ -20,8 +22,8 @@ export default Vue.extend({
 
   components: {
     Header: () => import("@components/Header/Header.vue"),
-    InDevelopment: () => import("@components/InDevelopment"),
-    Footer: () => import("@components/Footer.vue")
+    Sidebar: () => import("@components/Sidebar.vue"),
+    InDevelopment: () => import("@components/InDevelopment")
   },
 
   // directives: {
@@ -68,6 +70,10 @@ export default Vue.extend({
 .app {
   &__content {
     flex: 2;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
   }
 }
 </style>
