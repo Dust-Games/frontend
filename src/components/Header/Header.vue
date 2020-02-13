@@ -89,8 +89,8 @@ export default Vue.extend({
 
   color: $white;
   font-size: 18px;
-  max-width: 1080px;
-  margin: 0 auto;
+  // max-width: 1080px;
+  // margin: 0 auto;
   padding: 10px 20px;
 
   &-wrapper {

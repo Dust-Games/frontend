@@ -26,6 +26,9 @@ Vue.use(vClickOutside);
 import VueCarousel from "vue-carousel";
 Vue.use(VueCarousel);
 
+import splitPane from "vue-splitpane";
+Vue.component("split-pane", splitPane);
+
 /**
  * Интернализация
  */

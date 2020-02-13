@@ -154,7 +154,7 @@ export default Vue.extend({
     opacity: 1;
     transform: rotate(45deg) translate(2px, -5px);
     background: $gray-light;
-    left: calc(100% - 33px - 20px);
+    // left: calc(100% - 33px - 20px);
   }
 
   &__checkbox:checked ~ &__span:nth-last-child(3) {
@@ -168,9 +168,16 @@ export default Vue.extend({
 
   &__mobile-content {
     display: none;
-    width: 100vw;
+    width: 100%;
     color: $white;
     font-size: 22px;
+
+    background-color: $gray-darkest;
+
+    padding-bottom: 25px;
+
+    position: absolute;
+    top: 60px;
 
     & > * + * {
       margin-top: 20px !important;
