@@ -75,5 +75,13 @@ export default Vue.extend({
     flex-direction: row;
     justify-content: space-between;
   }
+
+  &__sidebar {
+    // position: fixed;
+  }
+
+  &__main {
+    flex: 2;
+  }
 }
 </style>
