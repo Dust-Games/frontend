@@ -9,5 +9,6 @@
   "rules": "Rules",
   "about": "About",
   "changeLanguage": "Russian version",
-  "login": "Login"
+  "login": "Login",
+  "logout": "Logout"
 }

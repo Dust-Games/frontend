@@ -35,7 +35,7 @@
         </router-link> -->
         <div class="header__logout" @click="onLogout()" v-if="isAuthenticated">
           <span class="header__logout-icon header__icon icon-exit" />
-          <span class="header__logout-text">Выйти</span>
+          <span class="header__logout-text">{{ $t("Logout") }}</span>
         </div>
         <form
           action="https://steamcommunity.com/openid/login"

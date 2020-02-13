@@ -38,7 +38,7 @@
       <input
         type="hidden"
         name="openid.return_to"
-        value="http://192.168.0.159:8081/auth/login"
+        :value="frontendHost + '/auth/login'"
       />
       <Button type="submit" class="user-dropdown__login">{{
         $t("login")
@@ -74,7 +74,9 @@ export default Vue.extend({
 
   data() {
     return {
-      isOpen: false
+      isOpen: false,
+      // TODO не читает из env переменную чето
+      frontendHost: process.env.FRONTEND_HOST || "http://dust.games"
     };
   },
 

@@ -66,8 +66,8 @@ export default Vue.extend({
 .footer {
   background: $black;
   color: $gray-light;
-  font-size: 12px;
-  padding: 20px;
+  font-size: 14px;
+  // padding: 20px;
   transition: 0.3s;
 
   & > * > * + * {

@@ -24,9 +24,9 @@ export default Vue.extend({
 .rules {
   color: $white;
   text-align: left;
-  padding: 30px;
-  max-width: 1080px;
-  margin: 0 auto;
+  padding: 40px;
+  // max-width: 1080px;
+  // margin: 0 auto;
 
   &__title {
     text-transform: uppercase;
