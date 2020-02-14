@@ -27,6 +27,9 @@
 </template>
 
 <script lang="ts">
+// TODO в инфо сделать белыми значки
+// TODO фон в целом поправить
+
 import Vue from "vue";
 // import ClickOutside from "vue-click-outside";
 import { mapGetters, mapActions } from "vuex";
