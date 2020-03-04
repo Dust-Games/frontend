@@ -20,6 +20,9 @@ import "@/assets/icomoon/style.css";
 import vClickOutside from "v-click-outside";
 Vue.use(vClickOutside);
 
+import DummyButton from "vue-table-adaptive";
+Vue.use(DummyButton);
+
 /**
  * Слайдер-карусель для показа новостей
  */

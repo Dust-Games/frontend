@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <!-- <DummyButton /> -->
     <Header class="app__header" />
     <split-pane
       class="app__content"
