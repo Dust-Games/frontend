@@ -67,8 +67,14 @@ export default Vue.extend({
   background: $black;
   color: $gray-light;
   font-size: 14px;
+
   // padding: 20px;
   transition: 0.3s;
+
+  span,
+  a {
+    font-family: "Roboto";
+  }
 
   & > * > * + * {
     padding-left: 10px;

@@ -1,14 +1,13 @@
 <template>
   <div id="app">
-    <!-- <DummyButton /> -->
     <Header class="app__header" />
     <split-pane
       class="app__content"
-      :min-percent="getPercentagesOfPixels(50)"
+      :min-percent="getPercentagesOfPixels(230)"
       :default-percent="getPercentagesOfPixels(400)"
-      v-on:resize="onResizeContent"
+      v-on:resize="onResize"
       split="vertical"
-      ref="content"
+      ref="leftPane"
     >
       <template #paneL>
         <Sidebar
@@ -17,7 +16,7 @@
         />
       </template>
       <template #paneR>
-        <main class="app__main">
+        <main class="app__main" :style="styleObject">
           <!-- <div v-click-outside="hide" /> -->
           <InDevelopment v-if="showIsInDevelopment && isInDevelopment" />
           <router-view v-else />
@@ -50,24 +49,19 @@ export default Vue.extend({
 
   data() {
     return {
-      showIsInDevelopment: new Boolean(),
-      windowWidth: document.documentElement.clientWidth as number
+      showIsInDevelopment: false as boolean,
+      windowWidth: window.innerWidth as number,
+      leftPaneWidth: 0 as number
     };
   },
 
   computed: {
     ...mapGetters(["isInDevelopment"]),
 
-    maxPercent(): number {
-      return this.getPercentagesOfPixels(400);
-    },
-
-    minPercent(): number {
-      return this.getPercentagesOfPixels(50);
-    },
-
-    minForHidePercent(): number {
-      return this.getPercentagesOfPixels(100);
+    styleObject(): any {
+      return {
+        marginLeft: (this.leftPaneWidth + "%") as string
+      };
     },
 
     // НЕ РАБОТАЕТ, ИБО НЕ РЕАКТИВНОЕ
@@ -82,14 +76,15 @@ export default Vue.extend({
     }
   },
 
-  mounted() {
+  async mounted() {
     // this.showIsInDevelopment = true;
     this.getBalance();
     this.getUser();
+    await this.onResize();
 
-    this.$nextTick(() => {
-      this.windowWidth = document.documentElement.clientWidth;
-      window.addEventListener("resize", this.getWindowWidth as any);
+    window.addEventListener("resize", async event => {
+      this.windowWidth = window.innerWidth;
+      await this.onResize();
     });
   },
 
@@ -100,43 +95,46 @@ export default Vue.extend({
     //   this.showIsInDevelopment = false;
     // }
 
-    /**
-     * Передаем число пикселей, получаем процент, который составляет
-     * это число от ширины экрана
-     */
-    getPercentagesOfPixels(pixels: number) {
+    // Получить процент от ширины экрана из пикселей
+    getPercentagesOfPixels(pixels: number): number {
+      return (pixels / this.windowWidth) * 100;
+    },
+
+    // Получить пиксели из процентов от ширины экрана
+    getPixelsOfPercentages(pixels: number): number {
       return (pixels / this.windowWidth) * 100;
     },
 
     /**
-     * При изменении ширины бокового меню проверять, не достигло
-     * ли оно максимального или минимального размера ширины, если да,
-     * то ограничивать и не давать делаться больше/меньше допустимых
-     * пределов
+     * Получить ширину левой панели в процентах
      */
-    onResizeContent() {
-      const percent = (this.$refs.content as any).percent;
-      if (percent > this.maxPercent) {
-        (this.$refs.content as any).percent = this.maxPercent;
-      }
-      if (percent < this.minPercent) {
-        (this.$refs.content as any).percent = this.minPercent;
-      }
-    },
+    // getLeftPaneWidth(): number {
+    //   return this.leftPaneWidth;
+    // },
 
     /**
-     * Получить ширину окна и запустить функцию проверки ширины
-     * бокового меню
+     * При изменении ширины бокового меню проверять, не достигло ли оно максимального или минимального
+     * размера ширины, если да, то ограничивать и не давать делаться больше/меньше допустимых пределов
      */
-    async getWindowWidth() {
-      this.windowWidth = document.documentElement.clientWidth;
-      await this.onResizeContent();
+    onResize() {
+      const percent = (this.$refs.leftPane as any).percent;
+      const minPercent = this.getPercentagesOfPixels(50);
+      const maxPercent = this.getPercentagesOfPixels(400);
+
+      if (percent > maxPercent) {
+        (this.$refs.leftPane as any).percent = maxPercent;
+      }
+      if (percent < minPercent) {
+        (this.$refs.leftPane as any).percent = minPercent;
+      }
+
+      this.leftPaneWidth = (this.$refs.leftPane as any).percent;
     }
   }
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 #app {
   text-align: center;
   background: $gray-darkest;
@@ -147,8 +145,15 @@ export default Vue.extend({
   justify-content: space-between;
 }
 
-.splitter-paneL {
+/deep/.splitter-pane.vertical.splitter-paneL {
   background: $black;
+  z-index: 65;
+  // height: auto !important;
+}
+
+/deep/.splitter-pane.vertical.splitter-paneR {
+  position: relative !important;
+  width: 100% !important;
 }
 
 .app {

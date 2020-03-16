@@ -39,10 +39,15 @@ export default Vue.extend({
 
   &-wrapper {
     // position: relative;
-    height: calc(100vh - 65px - 50px);
+    // height: calc(100vh - 65px - 50px);
 
     position: sticky;
-    top: 65px;
+    // top: 65px;
+
+    height: calc(100vh - 65px - 20px);
+    top: 0;
+
+    z-index: 10;
 
     background: $black;
 
