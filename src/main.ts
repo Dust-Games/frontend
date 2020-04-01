@@ -32,6 +32,9 @@ Vue.use(VueCarousel);
 import splitPane from "vue-splitpane";
 Vue.component("split-pane", splitPane);
 
+import { VueResponsiveComponents } from "vue-responsive-components";
+Vue.use(VueResponsiveComponents);
+
 /**
  * Интернализация
  */

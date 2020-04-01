@@ -12,15 +12,21 @@ const withPrefix = (prefix: any, routes: any) =>
   });
 
 const routes = [
+  // То, что не относится к другим модулям
   {
     path: "/",
     name: "home",
-    component: () => import("@views/Home.vue"),
+    component: () => import("@modules/common/views/Home.vue"),
     meta: {
       title: "DUST | Главная",
       public: true
     }
   },
+  {
+    path: "/home",
+    redirect: "/"
+  },
+  // Аутентификация
   ...withPrefix("/auth", [
     {
       path: "/login",
@@ -32,6 +38,7 @@ const routes = [
       }
     }
   ]),
+  // Всё, что касается пользователя - профиль, кошелек
   ...withPrefix("/user", [
     {
       path: "/wallet",
@@ -50,6 +57,7 @@ const routes = [
     //   }
     // }
   ]),
+  // Справочная информация
   ...withPrefix("/info", [
     {
       path: "/privacy-policy",
@@ -78,7 +86,17 @@ const routes = [
         public: true
       }
     }
-  ])
+  ]),
+  // Страница "Не найдено"
+  {
+    path: "*",
+    name: "not-found",
+    component: () => import("@modules/other/views/NotFound.vue"),
+    meta: {
+      title: "DUST | Не найдено",
+      public: true
+    }
+  }
 ];
 
 const router = new VueRouter({

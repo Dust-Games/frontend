@@ -21,7 +21,7 @@ export default {
   actions: {
     getUser({ commit }) {
       try {
-        const user = { profile: { nickname: "Nagibator", notifications: 1 } };
+        const user = { profile: { name: "Nagibator", notifications: 1 } };
 
         commit("setUser", user);
       } catch (e) {

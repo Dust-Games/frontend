@@ -94,7 +94,7 @@ export default Vue.extend({
   padding: 10px 20px;
 
   &-wrapper {
-    background: $black;
+    background: $gray-darkest;
   }
 
   &__wallet {

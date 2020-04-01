@@ -2,7 +2,7 @@ export default {
   namespaced: false,
 
   state: {
-    balance: 0
+    balance: {}
   },
 
   getters: {
@@ -18,7 +18,10 @@ export default {
   actions: {
     getBalance({ commit }) {
       try {
-        const balance = 2;
+        const balance = {
+          dust_token: 100.321,
+          usd_token: 2
+        };
 
         commit("setBalance", balance);
       } catch (e) {

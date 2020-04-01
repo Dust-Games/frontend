@@ -40,6 +40,10 @@ export default {
       }
     },
 
+    async signup({ commit }, user) {
+      console.log("signup");
+    },
+
     logout({ commit }) {
       try {
         localStorage.removeItem("user-token");

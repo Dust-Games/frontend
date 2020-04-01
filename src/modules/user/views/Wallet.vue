@@ -1,7 +1,14 @@
 <template>
   <div class="wallet">
     <h1 class="wallet__title">{{ $t("wallet") }}</h1>
-    <p class="wallet__balance">{{ $t("balance") }}: {{ balance }}</p>
+    <div class="wallet__balance">
+      <div class="wallet__balance-dust">
+        DUST coins: {{ balance.dustCoins }}
+      </div>
+      <div class="wallet__balance-ruble">
+        {{ $t("rubles") }}: {{ balance.rubles }}
+      </div>
+    </div>
     <div class="wallet__action-wrapper">
       <Button class="wallet__action">{{ $t("toppingUp") }}</Button>
       <Button class="wallet__action">{{ $t("buy") }} DC</Button>
@@ -30,6 +37,8 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .wallet {
+  margin: 50px;
+
   &__action {
     max-width: 100px;
 
