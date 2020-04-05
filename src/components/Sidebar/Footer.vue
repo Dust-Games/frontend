@@ -2,35 +2,58 @@
   <div class="footer">
     <div class="footer__soc-networks">
       <span>{{ $t("soc-networks-text") }}</span>
-      <div class="footer__soc-networks-">
-        123
+      <div class="footer__soc-networks-icons">
+        <a
+          href="https://vk.com/dustlords"
+          target="_blank"
+          @click="$emit('change')"
+        >
+          <i class="footer__link footer__soc-networks-icon icon-vk" />
+        </a>
+        <a
+          href="https://www.twitch.tv/dust_ru"
+          target="_blank"
+          @click="$emit('change')"
+        >
+          <i class="footer__link footer__soc-networks-icon icon-twitch" />
+        </a>
+        <a
+          href="https://discordapp.com/invite/kYbYjYs"
+          target="_blank"
+          @click="$emit('change')"
+        >
+          <i class="footer__link footer__soc-networks-icon icon-discord" />
+        </a>
       </div>
     </div>
     <br class="footer__new-line" />
     <div class="footer__links">
       <!-- О нас -->
-      <router-link class="footer__link footer__about" to="/info/about">
+      <router-link
+        class="footer__link footer__about"
+        to="/info/about"
+        @click="$emit('change')"
+      >
         {{ $t("about") }}
       </router-link>
       <!-- Разделитель -->
       <span class="footer__delimiter">|</span>
       <!-- Правила -->
-      <router-link class="footer__link footer__rules" to="/info/rules">
+      <router-link
+        class="footer__link footer__rules"
+        to="/info/rules"
+        @click="$emit('change')"
+      >
         {{ $t("rules") }}
       </router-link>
       <!-- Разделитель -->
       <span class="footer__delimiter">|</span>
-      <!-- Политика конфиденциальности -->
-      <router-link
-        class="footer__link footer__privacy-policy"
-        to="/info/privacy-policy"
-      >
-        {{ $t("privacyPolicy") }}
-      </router-link>
-      <!-- Разделитель -->
-      <span class="footer__delimiter">|</span>
       <!-- Контакты -->
-      <router-link class="footer__link footer__contacts" to="/info/contacts">
+      <router-link
+        class="footer__link footer__contacts"
+        to="/info/contacts"
+        @click="$emit('change')"
+      >
         {{ $t("contacts") }}
       </router-link>
     </div>
@@ -49,7 +72,6 @@
 {
   "en": {
     "soc-networks-text": "We're on social networks",
-    "privacyPolicy": "Privacy policy",
     "rules": "Rules",
     "about": "About",
     "contacts": "Contacts",
@@ -57,7 +79,6 @@
   },
   "ru": {
     "soc-networks-text": "Мы в соцсетях",
-    "privacyPolicy": "Политика конфиденциальности",
     "rules": "Правила",
     "about": "О нас",
     "contacts": "Контакты",
@@ -86,6 +107,10 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
+a {
+  text-decoration: none;
+}
+
 .footer {
   color: $white;
   font-size: 14px;
@@ -96,6 +121,7 @@ export default Vue.extend({
     text-decoration: none;
 
     &:hover {
+      transition: 0.3s;
       cursor: pointer;
       transition: 0.3s;
       color: $light-blue;
@@ -103,6 +129,17 @@ export default Vue.extend({
 
     &-with-underline {
       // text-decoration: underline;
+    }
+  }
+
+  &__soc-networks {
+    &-icons {
+      margin-top: 7px;
+    }
+
+    &-icon {
+      font-size: 30px;
+      margin-right: 10px;
     }
   }
 

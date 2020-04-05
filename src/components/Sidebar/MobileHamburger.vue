@@ -1,9 +1,11 @@
 <template>
   <div class="hamburger">
+    {{ isChecked }}
     <input
       class="hamburger__checkbox"
       type="checkbox"
       ref="checkbox"
+      :value="isChecked"
       @change="onChange($event.explicitOriginalTarget.checked)"
     />
     <span class="hamburger__span" />
@@ -14,8 +16,13 @@
 
 <script lang="ts">
 import Vue from "vue";
+
 export default Vue.extend({
   name: "SidebarMobileHamburger",
+
+  props: {
+    isChecked: { type: Boolean, default: false }
+  },
 
   methods: {
     onChange(isChecked: boolean) {

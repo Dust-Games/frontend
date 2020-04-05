@@ -1,7 +1,7 @@
 <template>
   <div class="user">
     <div class="user__not-auth" v-if="isAuthenticated">
-      <i class="user__not-auth-icon" />
+      <i class="user__icon icon-person_outlineperm_identity" />
       <div class="user__not-auth-links">
         <div class="user__link user__not-auth-login" @click="onLogin()">
           {{ $t("login") }}
@@ -12,21 +12,24 @@
       </div>
     </div>
     <div class="user__auth" v-else>
-      <div class="user__auth-nickname" @click="onToProfile()">
-        <i class="user__auth-nickname-icon" />
-        <div class="user__link user__auth-nickname-text">profile.name</div>
+      <div
+        class="user__auth-nickname user__block user__link"
+        @click="onToProfile()"
+      >
+        <i class="user__icon  icon-person_outlineperm_identity" />
+        <span class=" user__auth-nickname-text">profile.name</span>
       </div>
-      <div @click="onToWallet()" class="user__link" v-if="!mobile">
-        <i class=" user__auth-nickname-icon" />
+      <div @click="onToWallet()" class="user__link user__block" v-if="!mobile">
+        <i class="user__icon icon-dust" />
         {{ balance ? balance.dust_token : $t("load") }}
       </div>
-      <div @click="onToWallet()" class="user__link" v-if="!mobile">
-        <i class="user__auth-nickname-icon" />
+      <div @click="onToWallet()" class="user__link user__block" v-if="!mobile">
+        <i class="user__icon icon-usd" />
         {{ balance ? balance.usd_token : $t("load") }}
       </div>
-      <div>
-        <i class="user__not-auth-icon" />
-        <div class="user__link">{{ $t("logout") }}</div>
+      <div class="user__link user__block">
+        <i class="user__icon icon-exit_to_app" />
+        {{ $t("logout") }}
       </div>
     </div>
   </div>
@@ -68,22 +71,27 @@ export default {
 
     onToWallet() {
       this.$router.push("/user/wallet");
+      this.$emit("change");
     },
 
     onToProfile() {
       this.$router.push("/user/profile");
+      this.$emit("change");
     },
 
     onLogin() {
       this.login();
+      this.$emit("change");
     },
 
     onSignup() {
       this.signup();
+      this.$emit("change");
     },
 
     onLogout() {
       this.logout();
+      this.$emit("change");
     }
   }
 };
@@ -94,8 +102,22 @@ export default {
   color: $white;
   font-size: 18px;
 
+  &__icon {
+    font-size: 30px;
+    width: 30px;
+    margin-right: 20px;
+  }
+
+  &__block {
+    display: flex;
+    align-items: center;
+
+    margin-bottom: 13px;
+  }
+
   &__link {
     &:hover {
+      transition: 0.3s;
       cursor: pointer;
       color: $light-blue;
     }

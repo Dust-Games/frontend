@@ -3,19 +3,28 @@
     <div class="sidebar-mobile__logo"><img src="@/assets/logo.svg" /></div>
     <MobileHamburger
       class="sidebar-mobile__hamburger"
+      :isChecked="isMenuShow"
       @on-change="onChangeHamburgerState"
     />
     <transition name="slide-fade">
       <div class="sidebar-mobile__menu" v-if="isMenuShow">
         <!-- Вход/регистрация или ник юзера -->
-        <User class="sidebar-mobile__user" mobile />
+        <User
+          class="sidebar-mobile__user"
+          mobile
+          @change="onChangeHamburgerState(false)"
+        />
         <!-- Меню -->
-        <Nav class="sidebar-mobile__nav" />
-        <!-- Кнопка Выйти -->
-        <!-- <div>
-          <i class="sidebar-mobile__not-auth-icon" />
-          <div class="sidebar-mobile__link">{{ $t("logout") }}</div>
-        </div> -->
+        <Nav
+          class="sidebar-mobile__nav"
+          @change="onChangeHamburgerState(false)"
+        />
+        <div class="sidebar-mobile__hr" />
+        <!-- Футер -->
+        <Footer
+          class="sidebar-mobile__footer"
+          @change="onChangeHamburgerState(false)"
+        />
       </div>
     </transition>
 
@@ -104,7 +113,8 @@ export default Vue.extend({
   components: {
     MobileHamburger: () => import("./MobileHamburger"),
     Nav: () => import("./Nav"),
-    User: () => import("./User")
+    User: () => import("./User"),
+    Footer: () => import("./Footer")
   },
 
   data() {
@@ -120,14 +130,6 @@ export default Vue.extend({
   methods: {
     ...mapActions(["login", "signup", "logout"]),
 
-    onToWallet() {
-      this.$router.push("/user/wallet");
-    },
-
-    onToProfile() {
-      this.$router.push("/user/profile");
-    },
-
     onLogin() {
       this.login();
     },
@@ -141,6 +143,7 @@ export default Vue.extend({
     },
 
     onChangeHamburgerState(isChecked: boolean) {
+      console.log(123);
       this.isMenuShow = isChecked;
     }
   }
@@ -186,10 +189,25 @@ export default Vue.extend({
     color: $white;
     width: 100%;
     background: $primary-color;
+    z-index: 10;
   }
 
   &__nav {
     margin: 30px;
+  }
+
+  &__user,
+  &__footer {
+    margin-left: 30px;
+    margin-bottom: 30px;
+  }
+
+  &__hr {
+    height: 0;
+    // width: 100%;
+    border-top: 1px solid $white;
+    max-width: 250px;
+    margin: 0 30px 30px;
   }
 }
 </style>

@@ -39,10 +39,12 @@ export default Vue.extend({
   methods: {
     onToHome() {
       this.$router.push("/home");
+      this.$emit("change");
     },
 
     onToWallet() {
       this.$router.push("/user/wallet");
+      this.$emit("change");
     }
   }
 });
@@ -59,6 +61,7 @@ export default Vue.extend({
     }
 
     &:hover {
+      transition: 0.3s;
       cursor: pointer;
       color: $light-blue;
     }
