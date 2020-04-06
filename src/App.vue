@@ -1,5 +1,8 @@
 <template>
   <div id="app">
+    <!-- Модалка с входом в аккаунт -->
+    <Login />
+
     <Sidebar class="app__sidebar" />
     <main class="app__main">
       <InDevelopment v-if="showIsInDevelopment && isInDevelopment" />
@@ -17,17 +20,18 @@ export default Vue.extend({
 
   components: {
     Sidebar: () => import("@components/Sidebar/Index.vue"),
-    InDevelopment: () => import("@components/InDevelopment")
+    InDevelopment: () => import("@components/InDevelopment"),
+    Login: () => import("@components/auth/Login"),
   },
 
   data() {
     return {
-      showIsInDevelopment: false as boolean
+      showIsInDevelopment: false as boolean,
     };
   },
 
   computed: {
-    ...mapGetters(["isInDevelopment"])
+    ...mapGetters(["isInDevelopment"]),
   },
 
   async mounted() {
@@ -37,14 +41,15 @@ export default Vue.extend({
   },
 
   methods: {
-    ...mapActions(["getBalance", "getUser"])
-  }
+    ...mapActions(["getBalance", "getUser"]),
+  },
 });
 </script>
 
 <style lang="scss" scoped>
 #app {
   background: $black;
+  color: $white;
   min-height: 100vh;
 
   display: flex;

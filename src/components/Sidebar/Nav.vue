@@ -45,26 +45,21 @@ export default Vue.extend({
     onToWallet() {
       this.$router.push("/user/wallet");
       this.$emit("change");
-    }
-  }
+    },
+  },
 });
 </script>
 
 <style lang="scss" scoped>
 .nav {
   &__item {
-    color: $white;
     font-size: 18px;
 
     & + & {
       padding-top: 20px;
     }
 
-    &:hover {
-      transition: 0.3s;
-      cursor: pointer;
-      color: $light-blue;
-    }
+    @include linkHover;
 
     &[disabled] {
       color: $gray-dark;

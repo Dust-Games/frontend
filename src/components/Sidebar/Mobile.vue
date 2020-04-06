@@ -114,17 +114,17 @@ export default Vue.extend({
     MobileHamburger: () => import("./MobileHamburger"),
     Nav: () => import("./Nav"),
     User: () => import("./User"),
-    Footer: () => import("./Footer")
+    Footer: () => import("./Footer"),
   },
 
   data() {
     return {
-      isMenuShow: false
+      isMenuShow: false,
     };
   },
 
   computed: {
-    ...mapGetters(["balance", "profile", "isAuthenticated"])
+    ...mapGetters(["balance", "profile", "isAuthenticated"]),
   },
 
   methods: {
@@ -145,8 +145,8 @@ export default Vue.extend({
     onChangeHamburgerState(isChecked: boolean) {
       console.log(123);
       this.isMenuShow = isChecked;
-    }
-  }
+    },
+  },
 });
 </script>
 
@@ -186,7 +186,6 @@ export default Vue.extend({
     position: absolute;
     margin-top: 70px;
     top: 0;
-    color: $white;
     width: 100%;
     background: $primary-color;
     z-index: 10;

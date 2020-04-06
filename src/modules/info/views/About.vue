@@ -15,19 +15,15 @@ export default Vue.extend({
 
   components: {
     ruAbout,
-    enAbout
-  }
+    enAbout,
+  },
 });
 </script>
 
 <style lang="scss" scoped>
 .about {
-  color: $white;
   text-align: left;
   padding: 40px;
-  // max-width: 1080px;
-  // margin: 0 auto;
-
   &__title {
     text-transform: uppercase;
   }

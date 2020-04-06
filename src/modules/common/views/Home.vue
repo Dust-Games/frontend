@@ -28,7 +28,7 @@ export default {
     // Carousel: () => import("@components/Home/Carousel.vue"),
     // Tournaments: () => import("@components/Home/Tournaments.vue"),
     // News: () => import("@components/Home/News.vue")
-  }
+  },
 };
 </script>
 
@@ -38,7 +38,6 @@ export default {
 }
 
 .home {
-  color: $white;
   text-align: left;
   // margin: 50px;
 

@@ -47,13 +47,12 @@ export default Vue.extend({
   },
 
   methods: {
-    ...mapActions(["login"])
-  }
+    ...mapActions(["login"]),
+  },
 });
 </script>
 
 <style lang="scss" scoped>
 .login {
-  color: $white;
 }
 </style>

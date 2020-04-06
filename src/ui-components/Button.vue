@@ -10,7 +10,7 @@
 import Vue from "vue";
 
 export default Vue.extend({
-  name: "ui-button"
+  name: "uiButton",
 });
 </script>
 
@@ -42,7 +42,6 @@ export default Vue.extend({
 
   & > * {
     font: normal normal bold 0.875rem/1rem Roboto Mono, Serif; // 14/16
-    color: $white;
     display: flex;
     justify-content: space-between;
     z-index: 2;
@@ -63,9 +62,7 @@ export default Vue.extend({
 
   &:hover {
     cursor: pointer;
-    &.button-header > * {
-      color: $white;
-    }
+
     &:before {
       background: transparent;
       border: 1px solid $blue;

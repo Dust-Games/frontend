@@ -1,0 +1,7 @@
+@mixin linkHover {
+    transition: 0.3s;
+    &:hover {
+        cursor: pointer;
+        color: $orange;
+    }
+}

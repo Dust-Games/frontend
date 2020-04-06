@@ -29,11 +29,17 @@ Vue.use(DummyButton);
 import VueCarousel from "vue-carousel";
 Vue.use(VueCarousel);
 
+// Двигалки (сейчас не используются)
 import splitPane from "vue-splitpane";
 Vue.component("split-pane", splitPane);
 
+// Для отслеживания размеров блока
 import { VueResponsiveComponents } from "vue-responsive-components";
 Vue.use(VueResponsiveComponents);
+
+// Модалки
+import VModal from "vue-js-modal";
+Vue.use(VModal);
 
 /**
  * Интернализация
@@ -44,5 +50,5 @@ new Vue({
   router,
   store,
   i18n,
-  render: h => h(App)
+  render: (h) => h(App),
 }).$mount("#app");

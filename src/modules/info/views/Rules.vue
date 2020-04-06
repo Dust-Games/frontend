@@ -15,14 +15,13 @@ export default Vue.extend({
 
   components: {
     ruRules,
-    enRules
-  }
+    enRules,
+  },
 });
 </script>
 
 <style lang="scss" scoped>
 .rules {
-  color: $white;
   text-align: left;
   padding: 40px;
   // max-width: 1080px;

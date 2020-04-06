@@ -101,8 +101,8 @@ export default Vue.extend({
       } else {
         this.$i18n.locale = "en";
       }
-    }
-  }
+    },
+  },
 });
 </script>
 
@@ -112,20 +112,13 @@ a {
 }
 
 .footer {
-  color: $white;
   font-size: 14px;
   transition: 0.3s;
 
   &__link {
     color: $white;
     text-decoration: none;
-
-    &:hover {
-      transition: 0.3s;
-      cursor: pointer;
-      transition: 0.3s;
-      color: $light-blue;
-    }
+    @include linkHover;
 
     &-with-underline {
       // text-decoration: underline;

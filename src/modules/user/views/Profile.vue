@@ -58,21 +58,20 @@ export default Vue.extend({
         avatar: "@/assets/avatar.png",
         nickname: "Nagibator",
         level: 2,
-        rating: 1234
+        rating: 1234,
       },
       connections: [
         { icon: "icon-cog", to: "" },
         { icon: "icon-cog", to: "" },
-        { icon: "icon-cog", to: "" }
-      ]
+        { icon: "icon-cog", to: "" },
+      ],
     };
-  }
+  },
 });
 </script>
 
 <style lang="scss" scoped>
 .profile {
-  color: $white;
   text-align: left;
   padding: 30px;
   max-width: 1080px;

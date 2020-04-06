@@ -26,12 +26,12 @@ export default Vue.extend({
   name: "Wallet",
 
   components: {
-    Button: () => import("@ui-components/Button")
+    Button: () => import("@ui-components/Button"),
   },
 
   computed: {
-    ...mapGetters(["balance"])
-  }
+    ...mapGetters(["balance"]),
+  },
 });
 </script>
 
@@ -51,14 +51,6 @@ export default Vue.extend({
       flex-direction: column;
       align-items: center;
     }
-  }
-
-  &__title {
-    color: $white;
-  }
-
-  &__balance {
-    color: $white;
   }
 }
 </style>
