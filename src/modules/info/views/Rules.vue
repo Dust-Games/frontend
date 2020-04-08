@@ -1,21 +1,35 @@
 <template>
-  <div class="rules">
-    <h1 class="rules__title">{{ $t("rules") }}</h1>
-    <component :is="$i18n.locale == 'en' ? 'enRules' : 'ruRules'" />
-  </div>
+  <Layout>
+    <template #title>{{ $t("rules") }}</template>
+    <template #content>
+      <component :is="$i18n.locale == 'en' ? 'enRules' : 'ruRules'" />
+    </template>
+  </Layout>
 </template>
+
+<i18n>
+{
+  "en": {
+    "rules": "Rules",
+  },
+  "ru": {
+    "rules": "Правила",
+  }
+}
+</i18n>
 
 <script lang="ts">
 import Vue from "vue";
-import ruRules from "@locales/largeTexts/ruRules.md";
-import enRules from "@locales/largeTexts/enRules.md";
+import ruRules from "@locales/ru/Rules.md";
+import enRules from "@locales/en/Rules.md";
 
 export default Vue.extend({
-  name: "Rules",
+  name: "InfoRules",
 
   components: {
     ruRules,
     enRules,
+    Layout: () => import("../layouts/Info"),
   },
 });
 </script>

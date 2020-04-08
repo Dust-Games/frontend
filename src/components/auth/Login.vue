@@ -1,7 +1,7 @@
 <template>
   <AuthModal modalName="login" width="400px">
     <div class="login__header">
-      <h1 class="login__title">Вход</h1>
+      <h1 class="login__title">{{ $t("login") }}</h1>
       <div class="login__soc-networks">
         <i @click="$emit('change')" class="login__header-icon icon-google" />
         <i @click="$emit('change')" class="login__header-icon icon-vk" />
@@ -26,18 +26,33 @@
       <!-- Блок для ввода пароля -->
       <div class="login__block">
         <div class="login__label">
-          <i class="login__block-icon icon-password" />Пароль
+          <i class="login__block-icon icon-password" />{{ $t("password") }}
         </div>
         <Input
           class="login__input"
           width="calc(100% - 70px)"
-          placeholder="СложныйПароль123#"
+          :placeholder="$t('passwordExample')"
           type="password"
         />
       </div>
     </div>
   </AuthModal>
 </template>
+
+<i18n>
+{
+  "en": {
+    "login": "Login",
+    "password": "Password",
+    "passwordExample": "СложныйПароль123#",
+  },
+  "ru": {
+    "login": "Вход",
+    "password": "Пароль",
+    "passwordExample": "СложныйПароль123#",
+  }
+}
+</i18n>
 
 <script lang="ts">
 import Vue from "vue";

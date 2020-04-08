@@ -3,10 +3,10 @@
     <h1 class="wallet__title">{{ $t("wallet") }}</h1>
     <div class="wallet__balance">
       <div class="wallet__balance-dust">
-        DUST coins: {{ balance.dustCoins }}
+        {{ $t("DUSTtokens") }}: {{ balance.dustCoins }}
       </div>
       <div class="wallet__balance-ruble">
-        {{ $t("rubles") }}: {{ balance.rubles }}
+        {{ $t("USDtokens") }}: {{ balance.rubles }}
       </div>
     </div>
     <div class="wallet__action-wrapper">
@@ -17,6 +17,19 @@
     </div>
   </div>
 </template>
+
+<i18n>
+{
+  "en": {
+    "DUSTtokens": "DUST coins",
+    "USDtokens": "USD tokens",
+  },
+  "ru": {
+    "DUSTtokens": "DUST коины",
+    "USDtokens": "USD токены",
+  }
+}
+</i18n>
 
 <script lang="ts">
 import Vue from "vue";

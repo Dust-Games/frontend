@@ -1,22 +1,25 @@
 <template>
-  <!-- <div class="ui-input-wrapper"> -->
-  <input
-    class="ui-input"
-    v-model="innerValue"
-    :style="{ width: width, height: height, padding: padding }"
-    :placeholder="placeholder"
-  />
-  <!-- </div> -->
+  <div class="ui-input-wrapper">
+    <input
+      class="ui-input"
+      v-model="innerValue"
+      :style="{ width: width, height: height, padding: padding }"
+      :placeholder="placeholder"
+      :type="type"
+    />
+  </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
+import { required, minLength, between } from "vuelidate/lib/validators";
 
 export default Vue.extend({
   name: "UiInput",
 
   props: {
     value: [String, Number],
+    type: { type: String, default: "text" },
     placeholder: { type: String, default: "" },
     width: { type: String, default: "max-content" },
     height: { type: String, default: "35px" },

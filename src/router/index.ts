@@ -26,18 +26,6 @@ const routes = [
     path: "/home",
     redirect: "/",
   },
-  // Аутентификация
-  ...withPrefix("/auth", [
-    {
-      path: "/login",
-      name: "login",
-      component: () => import("@modules/auth/views/Login.vue"),
-      meta: {
-        title: "DUST | Вход",
-        public: true,
-      },
-    },
-  ]),
   // Всё, что касается пользователя - профиль, кошелек
   ...withPrefix("/user", [
     {
@@ -74,6 +62,15 @@ const routes = [
       component: () => import("@modules/info/views/About.vue"),
       meta: {
         title: "DUST | О нас",
+        public: true,
+      },
+    },
+    {
+      path: "/contacts",
+      name: "contacts",
+      component: () => import("@modules/info/views/Contacts.vue"),
+      meta: {
+        title: "DUST | Контакты",
         public: true,
       },
     },

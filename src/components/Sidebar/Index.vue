@@ -13,17 +13,6 @@
   </div>
 </template>
 
-<i18n>
-{
-  "en": {
-    "menu": "Menu"
-  },
-  "ru": {
-    "menu": "Меню"
-  }
-}
-</i18n>
-
 <script lang="ts">
 import Vue from "vue";
 
@@ -34,12 +23,12 @@ export default Vue.extend({
     User: () => import("./User"),
     Nav: () => import("./Nav"),
     Footer: () => import("./Footer.vue"),
-    Mobile: () => import("./Mobile")
+    Mobile: () => import("./Mobile"),
   },
 
   data() {
     return {
-      windowWidth: window.innerWidth
+      windowWidth: window.innerWidth,
     };
   },
 
@@ -47,7 +36,7 @@ export default Vue.extend({
     window.addEventListener("resize", () => {
       this.windowWidth = window.innerWidth;
     });
-  }
+  },
 });
 </script>
 

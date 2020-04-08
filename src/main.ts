@@ -17,21 +17,21 @@ Vue.config.productionTip = false;
  */
 import "@/assets/icomoon/style.css";
 
+// Скрывать блок, когда кликаем вне его
 import vClickOutside from "v-click-outside";
 Vue.use(vClickOutside);
 
-import DummyButton from "vue-table-adaptive";
-Vue.use(DummyButton);
+// Валидация переменных (преимущественно в полях ввода)
+import Vuelidate from "vuelidate";
+Vue.use(Vuelidate);
 
-/**
- * Слайдер-карусель для показа новостей
- */
+// Всплывашка при наведении на что-то
+import VTooltip from "v-tooltip";
+Vue.use(VTooltip);
+
+// Слайдер-карусель для показа новостей
 import VueCarousel from "vue-carousel";
 Vue.use(VueCarousel);
-
-// Двигалки (сейчас не используются)
-import splitPane from "vue-splitpane";
-Vue.component("split-pane", splitPane);
 
 // Для отслеживания размеров блока
 import { VueResponsiveComponents } from "vue-responsive-components";
@@ -41,9 +41,7 @@ Vue.use(VueResponsiveComponents);
 import VModal from "vue-js-modal";
 Vue.use(VModal);
 
-/**
- * Интернализация
- */
+// Интернализация
 import i18n from "./i18n";
 
 new Vue({

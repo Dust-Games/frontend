@@ -1,8 +1,8 @@
 <template>
   <Layout>
-    <template #title>{{ $t("about") }}</template>
+    <template #title>{{ $t("contacts") }}</template>
     <template #content>
-      <component :is="$i18n.locale == 'en' ? 'enAbout' : 'ruAbout'" />
+      <component :is="$i18n.locale == 'en' ? 'enContacts' : 'ruContacts'" />
     </template>
   </Layout>
 </template>
@@ -10,34 +10,37 @@
 <i18n>
 {
   "en": {
-    "about": "About",
+    "contacts": "Contacts",
   },
   "ru": {
-    "about": "О нас",
+    "contacts": "Контакты",
   }
 }
 </i18n>
 
 <script lang="ts">
 import Vue from "vue";
-import ruAbout from "@locales/ru/About.md";
-import enAbout from "@locales/en/About.md";
+import ruContacts from "@locales/ru/Contacts.md";
+import enContacts from "@locales/en/Contacts.md";
 
 export default Vue.extend({
-  name: "InfoAbout",
+  name: "InfoContacts",
 
   components: {
-    ruAbout,
-    enAbout,
+    ruContacts,
+    enContacts,
     Layout: () => import("../layouts/Info"),
   },
 });
 </script>
 
 <style lang="scss" scoped>
-.about {
+.contacts {
   text-align: left;
   padding: 40px;
+  // max-width: 1080px;
+  // margin: 0 auto;
+
   &__title {
     text-transform: uppercase;
   }
