@@ -1,13 +1,11 @@
 <template>
   <div class="home">
-    <h1 class="home__title">Главная страница</h1>
+    <h1 class="home__title">{{ $t("home") }}</h1>
     <div class="home__welcome">
-      Добро пожаловать! Сейчас доступно:<br />
-      <p>
-        Регистрация <br />
-        Вход <br />
-        Кошелек
-      </p>
+      {{ $t("description") }}
+      <br />
+      <!-- eslint-disable-next-line vue-i18n/no-v-html -->
+      <p v-html="$t('available')" />
     </div>
     <!-- <Carousel class="home__carousel" />
     <Tournaments class="home__tournaments" />
@@ -20,6 +18,21 @@
   </div>
 </template>
 
+<i18n>
+{
+  "en": {
+    "home": "Main page",
+    "description": "Welcome! There is available pages now:",
+    "available": "Signup<br />Login<br />Wallet"
+  },
+  "ru": {
+    "home": "Главная страница",
+    "description": "Добро пожаловать! Сейчас доступно:",
+    "available": "Регистрация<br />Вход<br />Кошелек"
+  }
+}
+</i18n>
+
 <script>
 export default {
   name: "Home",
@@ -28,7 +41,7 @@ export default {
     // Carousel: () => import("@components/Home/Carousel.vue"),
     // Tournaments: () => import("@components/Home/Tournaments.vue"),
     // News: () => import("@components/Home/News.vue")
-  },
+  }
 };
 </script>
 

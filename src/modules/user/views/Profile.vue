@@ -1,6 +1,6 @@
 <template>
   <div class="profile">
-    <h1 class="profile__title">ПРОФИЛЬ</h1>
+    <h1 class="profile__title">{{ $t("profile") }}</h1>
     <div class="profile__block1">
       <div class="profile__avatar-wrapper">
         <img class="profile__avatar" :src="profile.avatar" />
@@ -8,35 +8,23 @@
       <div class="profile__block1-info">
         <p class="profile__nickname">{{ profile.nickname }}</p>
         <div class="profile__connections">
-          <span class="profile__connections-text">Соцсети: </span>
-          <div
-            class="profile__connection"
-            v-for="(connection, index) in connections"
-            :key="index"
-          >
-            <router-link
-              class="profile__icon"
-              :class="connection.icon"
-              :to="connection.to"
-            />
+          <span class="profile__connections-text">{{ $t("socNetworks") }}</span>
+          <div class="profile__connection" v-for="(connection, index) in connections" :key="index">
+            <router-link class="profile__icon" :class="connection.icon" :to="connection.to" />
           </div>
         </div>
       </div>
     </div>
     <div class="profile__block">
-      <div class="profile__achievements">
-        <p>Ачивки</p>
-        <p>Какие-то ачивки.</p>
-      </div>
       <div class="profile__personal-info">
         <p class="profile__rating">
-          <span class="profile__rating-title">Уровень аккаунта: </span>
+          <span class="profile__rating-title">{{ $t("accountLevel") }}</span>
           <span class="profile__rating-text">
             {{ profile.level }}
           </span>
         </p>
         <p class="profile__rating">
-          <span class="profile__rating-title">Рейтинг: </span>
+          <span class="profile__rating-title">{{ $t("rating") }}</span>
           <span class="profile__rating-text">
             {{ profile.rating.toLocaleString("ru") }}
           </span>
@@ -45,6 +33,23 @@
     </div>
   </div>
 </template>
+
+<i18n>
+{
+  "en": {
+    "profile": "profile",
+    "socNetworks": "Soc networks: ", 
+    "accountLevel": "Account level: ",
+    "rating": "Rating: "
+  },
+  "ru": {
+    "profile": "профиль",
+    "socNetworks": "Социальные сети: ",
+    "accountLevel": "Уровень аккаунта: ",
+    "rating": "Рейтинг: "
+  }
+}
+</i18n>
 
 <script lang="ts">
 import Vue from "vue";
@@ -58,15 +63,15 @@ export default Vue.extend({
         avatar: "@/assets/avatar.png",
         nickname: "Nagibator",
         level: 2,
-        rating: 1234,
+        rating: 1234
       },
       connections: [
         { icon: "icon-cog", to: "" },
         { icon: "icon-cog", to: "" },
-        { icon: "icon-cog", to: "" },
-      ],
+        { icon: "icon-cog", to: "" }
+      ]
     };
-  },
+  }
 });
 </script>
 

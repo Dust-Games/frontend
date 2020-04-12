@@ -13,20 +13,22 @@
 <i18n>
 {
   "en": {
+    "soon": "(soon!)",
     "menu": "Main",
     "wallet": "Wallet",
-    "tournaments": "Tournaments (soon!)",
-    "bets": "Bets (soon!)",
-    "leagues": "Leagues (soon!)",
-    "premium": "Premium (soon!)"
+    "tournaments": "Tournaments @:soon",
+    "bets": "Bets @:soon",
+    "leagues": "Leagues @:soon",
+    "premium": "Premium @:soon"
   },
   "ru": {
+    "soon": "(скоро!)",
     "menu": "Главная",
     "wallet": "Кошелек",
-    "tournaments": "Турниры (скоро!)",
-    "bets": "Ставки (скоро!)",
-    "leagues": "Лиги (скоро!)",
-    "premium": "Премиум (скоро!)"
+    "tournaments": "Турниры @:soon",
+    "bets": "Ставки @:soon",
+    "leagues": "Лиги @:soon",
+    "premium": "Премиум @:soon"
   }
 }
 </i18n>
@@ -45,8 +47,8 @@ export default Vue.extend({
     onToWallet() {
       this.$router.push("/user/wallet");
       this.$emit("change");
-    },
-  },
+    }
+  }
 });
 </script>
 

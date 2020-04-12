@@ -7,19 +7,19 @@
 <i18n>
 {
   "en": {
-    "inDevelopment": "In development",
+    "inDevelopment": "In development"
   },
   "ru": {
-    "inDevelopment": "В разработке",
+    "inDevelopment": "В разработке"
   }
 }
 </i18n>
 
-<script lang="ts">
+<script>
 import Vue from "vue";
 
 export default Vue.extend({
-  name: "InDevelopment",
+  name: "InDevelopment"
 });
 </script>
 

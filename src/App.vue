@@ -2,8 +2,9 @@
   <div id="app">
     <!-- Модалка с входом в аккаунт -->
     <Login />
+    <Signup />
 
-    <Sidebar class="app__sidebar" />
+    <Sidebar class="app__sidebar" @onChangeLanguage="onChangeLanguage" />
     <main class="app__main">
       <InDevelopment v-if="showIsInDevelopment && isInDevelopment" />
       <router-view v-else />
@@ -22,19 +23,21 @@ export default Vue.extend({
     Sidebar: () => import("@components/Sidebar/Index.vue"),
     InDevelopment: () => import("@components/InDevelopment"),
     Login: () => import("@components/auth/Login"),
+    Signup: () => import("@components/auth/Signup")
   },
 
   data() {
     return {
-      showIsInDevelopment: false as boolean,
+      showIsInDevelopment: false as boolean
     };
   },
 
   computed: {
-    ...mapGetters(["isInDevelopment"]),
+    ...mapGetters(["isInDevelopment", "rerender"])
   },
 
   async mounted() {
+    window.localStorage.setItem("language", "ru");
     // this.showIsInDevelopment = true;
     this.getBalance();
     this.getUser();
@@ -42,7 +45,15 @@ export default Vue.extend({
 
   methods: {
     ...mapActions(["getBalance", "getUser"]),
-  },
+
+    onChangeLanguage() {
+      if (this.$i18n.locale == "en") {
+        this.$i18n.locale = "ru";
+      } else {
+        this.$i18n.locale = "en";
+      }
+    }
+  }
 });
 </script>
 

@@ -2,18 +2,8 @@
   <div class="wallet">
     <h1 class="wallet__title">{{ $t("wallet") }}</h1>
     <div class="wallet__balance">
-      <div class="wallet__balance-dust">
-        {{ $t("DUSTtokens") }}: {{ balance.dustCoins }}
-      </div>
-      <div class="wallet__balance-ruble">
-        {{ $t("USDtokens") }}: {{ balance.rubles }}
-      </div>
-    </div>
-    <div class="wallet__action-wrapper">
-      <Button class="wallet__action">{{ $t("toppingUp") }}</Button>
-      <Button class="wallet__action">{{ $t("buy") }} DC</Button>
-      <Button class="wallet__action">{{ $t("sell") }} DC</Button>
-      <Button class="wallet__action">{{ $t("withdraw") }}</Button>
+      <div class="wallet__balance-dust">{{ $t("DUSTtokens") }} {{ balance.dustCoins }}</div>
+      <div class="wallet__balance-ruble">{{ $t("USDtokens") }} {{ balance.rubles }}</div>
     </div>
   </div>
 </template>
@@ -22,11 +12,11 @@
 {
   "en": {
     "DUSTtokens": "DUST coins",
-    "USDtokens": "USD tokens",
+    "USDtokens": "USD tokens"
   },
   "ru": {
     "DUSTtokens": "DUST коины",
-    "USDtokens": "USD токены",
+    "USDtokens": "USD токены"
   }
 }
 </i18n>
@@ -39,12 +29,12 @@ export default Vue.extend({
   name: "Wallet",
 
   components: {
-    Button: () => import("@ui-components/Button"),
+    // Button: () => import("@ui-components/Button")
   },
 
   computed: {
-    ...mapGetters(["balance"]),
-  },
+    ...mapGetters(["balance"])
+  }
 });
 </script>
 

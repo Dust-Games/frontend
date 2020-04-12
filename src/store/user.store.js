@@ -14,16 +14,16 @@ export default {
 
   mutations: {
     setUser(state, val) {
-      state.user = val;
+      state.user = val
     }
   },
 
   actions: {
     getUser({ commit }) {
       try {
-        const user = { profile: { name: "Nagibator", notifications: 1 } };
+        const user = { profile: { name: "Nagibator", notifications: 1 } }
 
-        commit("setUser", user);
+        commit("setUser", user)
       } catch (e) {
         // console.log(e);
       }
@@ -32,12 +32,12 @@ export default {
     setUser({ dispatch, commit }, user) {
       try {
         // axios.post("/user/1", user)
-        commit("setUser", user);
+        commit("setUser", user)
 
-        dispatch("getUser");
+        dispatch("getUser")
       } catch (e) {
         // console.log(e);
       }
     }
   }
-};
+}

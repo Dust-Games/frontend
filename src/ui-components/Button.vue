@@ -10,7 +10,7 @@
 import Vue from "vue";
 
 export default Vue.extend({
-  name: "uiButton",
+  name: "uiButton"
 });
 </script>
 

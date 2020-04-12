@@ -5,7 +5,7 @@
       <div class="sidebar__logo"><img src="@/assets/logo.svg" /></div>
       <User class="sidebar__user" />
       <Nav class="sidebar__nav" />
-      <Footer class="sidebar__footer" />
+      <Footer class="sidebar__footer" @onChangeLanguage="onChangeLanguage" />
     </div>
 
     <!-- Маленький экран -->
@@ -23,12 +23,12 @@ export default Vue.extend({
     User: () => import("./User"),
     Nav: () => import("./Nav"),
     Footer: () => import("./Footer.vue"),
-    Mobile: () => import("./Mobile"),
+    Mobile: () => import("./Mobile")
   },
 
   data() {
     return {
-      windowWidth: window.innerWidth,
+      windowWidth: window.innerWidth
     };
   },
 
@@ -37,6 +37,12 @@ export default Vue.extend({
       this.windowWidth = window.innerWidth;
     });
   },
+
+  methods: {
+    onChangeLanguage() {
+      this.$emit("onChangeLanguage");
+    }
+  }
 });
 </script>
 

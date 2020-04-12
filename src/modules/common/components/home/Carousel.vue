@@ -1,19 +1,30 @@
 <template>
   <carousel :perPage="1" :navigationEnabled="true" class="carousel">
     <slide class="carousel__slide">
-      Slide 1 Content
+      {{ $t("content", 0) }}
     </slide>
     <slide class="carousel__slide">
-      Slide 2 Content
+      {{ $t("content", 1) }}
     </slide>
     <slide class="carousel__slide">
-      Slide 3 Content
+      {{ $t("content", 2) }}
     </slide>
     <slide class="carousel__slide">
-      Slide 4 Content
+      {{ $t("content", 1) }}
     </slide>
   </carousel>
 </template>
+
+<i18n>
+{
+  "en": {
+    "content": ["About", "About 2", "About 3"]
+  },
+  "ru": {
+    "content": ["О нас", "About 33", "About 44"]
+  }
+}
+</i18n>
 
 <script lang="ts">
 import Vue from "vue";

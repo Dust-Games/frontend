@@ -18,12 +18,9 @@
     <!-- Если юзер вошел в свой аккаунт -->
     <div class="user__auth" v-else>
       <!-- Кнопка для перехода в профиль -->
-      <div
-        class="user__auth-nickname user__block user__link"
-        @click="onToProfile()"
-      >
+      <div class="user__auth-nickname user__block user__link" @click="onToProfile()">
         <i class="user__icon  icon-person_outlineperm_identity" />
-        <span class=" user__auth-nickname-text">profile.name</span>
+        <span class=" user__auth-nickname-text">{{ profile.name }}</span>
       </div>
       <!-- Баланс дасткоинов -->
       <div @click="onToWallet()" class="user__link user__block" v-if="!mobile">
@@ -50,7 +47,7 @@
     "login": "login",
     "signup": "signup",
     "logout": "logout",
-    "load": "load..."
+    "load": "loading..."
   },
   "ru": {
     "login": "вход",
@@ -68,11 +65,11 @@ export default {
   name: "SidebarUser",
 
   props: {
-    mobile: { type: Boolean, default: false },
+    mobile: { type: Boolean, default: false }
   },
 
   computed: {
-    ...mapGetters(["balance", "profile", "isAuthenticated"]),
+    ...mapGetters(["balance", "profile", "isAuthenticated"])
   },
 
   methods: {
@@ -102,14 +99,23 @@ export default {
     onLogout() {
       this.logout();
       this.$emit("change");
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
 .user {
   font-size: 18px;
+
+  &__not-auth {
+    display: flex;
+    align-items: center;
+
+    &-signup {
+      margin-top: -3px;
+    }
+  }
 
   &__icon {
     font-size: 30px;

@@ -6,3 +6,14 @@ declare module "*.vue" {
 declare module "raw-loader!*";
 
 declare module "*";
+
+// declare module "vue/types/vue" {
+//   interface VueConstructor {
+//     $t: any;
+//   }
+// }
+// declare module "vue/types/options" {
+//   interface ComponentOptions<V extends Vue> {
+//     t?: any;
+//   }
+// }

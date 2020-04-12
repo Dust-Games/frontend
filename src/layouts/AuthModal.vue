@@ -28,13 +28,13 @@ export default Vue.extend({
   name: "AuthModal",
 
   components: {
-    Close: () => import("@ui-components/Close"),
+    Close: () => import("@ui-components/Close")
   },
 
   props: {
     modalName: { type: String, default: "auth" },
     width: { type: [String, Number], default: "500px" },
-    height: { type: [String, Number], default: "auto" },
+    height: { type: [String, Number], default: "auto" }
   },
 
   methods: {
@@ -43,8 +43,8 @@ export default Vue.extend({
     },
     onHide() {
       this.$modal.hide(this.modalName);
-    },
-  },
+    }
+  }
 });
 </script>
 

@@ -2,7 +2,7 @@
   <Layout>
     <template #title>{{ $t("rules") }}</template>
     <template #content>
-      <component :is="$i18n.locale == 'en' ? 'enRules' : 'ruRules'" />
+      <component :is="componentName" />
     </template>
   </Layout>
 </template>
@@ -10,10 +10,10 @@
 <i18n>
 {
   "en": {
-    "rules": "Rules",
+    "rules": "Rules"
   },
   "ru": {
-    "rules": "Правила",
+    "rules": "Правила"
   }
 }
 </i18n>
@@ -29,8 +29,18 @@ export default Vue.extend({
   components: {
     ruRules,
     enRules,
-    Layout: () => import("../layouts/Info"),
+    Layout: () => import("../layouts/Info")
   },
+
+  computed: {
+    componentName(): string {
+      if (this.$i18n.locale == "en") {
+        return "enAbout";
+      } else {
+        return "ruAbout";
+      }
+    }
+  }
 });
 </script>
 

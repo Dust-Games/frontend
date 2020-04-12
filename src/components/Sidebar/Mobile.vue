@@ -9,22 +9,12 @@
     <transition name="slide-fade">
       <div class="sidebar-mobile__menu" v-if="isMenuShow">
         <!-- Вход/регистрация или ник юзера -->
-        <User
-          class="sidebar-mobile__user"
-          mobile
-          @change="onChangeHamburgerState(false)"
-        />
+        <User class="sidebar-mobile__user" mobile @change="onChangeHamburgerState(false)" />
         <!-- Меню -->
-        <Nav
-          class="sidebar-mobile__nav"
-          @change="onChangeHamburgerState(false)"
-        />
+        <Nav class="sidebar-mobile__nav" @change="onChangeHamburgerState(false)" />
         <div class="sidebar-mobile__hr" />
         <!-- Футер -->
-        <Footer
-          class="sidebar-mobile__footer"
-          @change="onChangeHamburgerState(false)"
-        />
+        <Footer class="sidebar-mobile__footer" @change="onChangeHamburgerState(false)" />
       </div>
     </transition>
 
@@ -65,40 +55,24 @@
             class="sidebar-mobile__logout-icon sidebar-mobile__icon icon-exit"
           />
           <span class="sidebar-mobile__logout-text">{{ $t("Logout") }}</span>
-        </div>
-        <form
-          action="https://steamcommunity.com/openid/login"
-          method="post"
-          v-if="!isAuthenticated"
-        >
-          <input
-            type="hidden"
-            name="openid.identity"
-            value="http://specs.openid.net/auth/2.0/identifier_select"
-          />
-          <input
-            type="hidden"
-            name="openid.claimed_id"
-            value="http://specs.openid.net/auth/2.0/identifier_select"
-          />
-          <input
-            type="hidden"
-            name="openid.ns"
-            value="http://specs.openid.net/auth/2.0"
-          />
-          <input type="hidden" name="openid.mode" value="checkid_setup" />
-          <input
-            type="hidden"
-            name="openid.realm"
-            value="https:\\yourOpenIdRealm.com"
-          />
-          <input
-            type="hidden"
-            name="openid.return_to"
-            value="https:\\YourDomainUrlToReturnTo.com"
-          />
-          <Button type="submit" class="header__login">{{ $t("login") }}</Button>
-        </form> -->
+        </div> -->
+    <!-- <form action="https://steamcommunity.com/openid/login" method="post" v-if="!isAuthenticated">
+      <input
+        type="hidden"
+        name="openid.identity"
+        value="http://specs.openid.net/auth/2.0/identifier_select"
+      />
+      <input
+        type="hidden"
+        name="openid.claimed_id"
+        value="http://specs.openid.net/auth/2.0/identifier_select"
+      />
+      <input type="hidden" name="openid.ns" value="http://specs.openid.net/auth/2.0" />
+      <input type="hidden" name="openid.mode" value="checkid_setup" />
+      <input type="hidden" name="openid.realm" value="https:\\dust.games" />
+      <input type="hidden" name="openid.return_to" value="http://dust.games" />
+      <Button type="submit" class="header__login">{{ $t("login") }}</Button>
+    </form> -->
     <!-- </div> -->
   </div>
 </template>
@@ -114,17 +88,17 @@ export default Vue.extend({
     MobileHamburger: () => import("./MobileHamburger"),
     Nav: () => import("./Nav"),
     User: () => import("./User"),
-    Footer: () => import("./Footer"),
+    Footer: () => import("./Footer")
   },
 
   data() {
     return {
-      isMenuShow: false,
+      isMenuShow: false
     };
   },
 
   computed: {
-    ...mapGetters(["balance", "profile", "isAuthenticated"]),
+    ...mapGetters(["balance", "profile", "isAuthenticated"])
   },
 
   methods: {
@@ -145,8 +119,8 @@ export default Vue.extend({
     onChangeHamburgerState(isChecked: boolean) {
       console.log(123);
       this.isMenuShow = isChecked;
-    },
-  },
+    }
+  }
 });
 </script>
 

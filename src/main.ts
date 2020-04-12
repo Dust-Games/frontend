@@ -26,7 +26,10 @@ import Vuelidate from "vuelidate";
 Vue.use(Vuelidate);
 
 // Всплывашка при наведении на что-то
-import VTooltip from "v-tooltip";
+// import VTooltip from "v-tooltip";
+// Vue.use(VTooltip);
+
+const VTooltip = require("v-tooltip");
 Vue.use(VTooltip);
 
 // Слайдер-карусель для показа новостей
@@ -41,12 +44,37 @@ Vue.use(VueResponsiveComponents);
 import VModal from "vue-js-modal";
 Vue.use(VModal);
 
+// import VueI18n from "vue-i18n";
+// Vue.use(VueI18n);
+
+// const i18n = new VueI18n({
+//   locale: "en",
+//   messages: {
+//     en: {}
+//   }
+// });
+
 // Интернализация
 import i18n from "./i18n";
+
+// const i18n = new VueI18n({
+//   locale: window.localStorage.getItem("language")
+//     ? window.localStorage.getItem("language")
+//     : undefined
+// });
+
+// Vue.prototype.$locale = {
+//   change(lang: string) {
+//     i18n.locale = lang;
+//   },
+//   current() {
+//     return i18n.locale;
+//   }
+// };
 
 new Vue({
   router,
   store,
   i18n,
-  render: (h) => h(App),
+  render: h => h(App)
 }).$mount("#app");
