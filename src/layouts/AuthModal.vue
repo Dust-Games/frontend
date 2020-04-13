@@ -2,16 +2,18 @@
   <transition name="modal">
     <modal
       :name="modalName"
-      :clickToClose="false"
       adaptive
+      :clickToClose="clickToClose"
       :width="width"
       :height="height"
       :minHeight="150"
       class="auth-modal"
     >
       <!-- Кнопка закрытия модалки -->
-      <div class="auth-modal__close-wrapper" @click="onHide()">
-        <Close class="auth-modal__close" />
+      <div class="auth-modal__close-wrapper">
+        <div @click="onHide()">
+          <Close class="auth-modal__close" />
+        </div>
       </div>
       <!-- Основной контент -->
       <div class="auth-modal__body">
@@ -33,6 +35,7 @@ export default Vue.extend({
 
   props: {
     modalName: { type: String, default: "auth" },
+    clickToClose: { type: Boolean, default: true },
     width: { type: [String, Number], default: "500px" },
     height: { type: [String, Number], default: "auto" }
   },
@@ -76,9 +79,10 @@ export default Vue.extend({
 
 /deep/.v--modal {
   background: $primary-color;
+  box-shadow: none;
 
   &-background {
-    background: rgba($black, 0.7);
+    background: rgba($black, 0.9);
   }
 }
 
@@ -89,6 +93,12 @@ export default Vue.extend({
   &__close {
     // position: absolute;
     margin: 10px 10px 0 auto;
+
+    &-wrapper {
+      display: flex;
+      justify-content: flex-end;
+      // width: min-content;
+    }
   }
 
   &__body {

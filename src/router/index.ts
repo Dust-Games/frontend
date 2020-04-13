@@ -19,13 +19,14 @@ const routes = [
     component: () => import("@modules/common/views/Home.vue"),
     meta: {
       title: "DUST | Главная",
-      public: true,
-    },
+      public: true
+    }
   },
   {
     path: "/home",
-    redirect: "/",
+    redirect: "/"
   },
+
   // Всё, что касается пользователя - профиль, кошелек
   ...withPrefix("/user", [
     {
@@ -33,9 +34,9 @@ const routes = [
       name: "wallet",
       component: () => import("@modules/user/views/Wallet.vue"),
       meta: {
-        title: "DUST | Кошелек",
-      },
-    },
+        title: "DUST | Кошелек"
+      }
+    }
     // {
     //   path: "/profile",
     //   name: "profile",
@@ -45,6 +46,7 @@ const routes = [
     //   }
     // }
   ]),
+
   // Справочная информация
   ...withPrefix("/info", [
     {
@@ -53,8 +55,8 @@ const routes = [
       component: () => import("@modules/info/views/Rules.vue"),
       meta: {
         title: "DUST | Правила",
-        public: true,
-      },
+        public: true
+      }
     },
     {
       path: "/about",
@@ -62,8 +64,8 @@ const routes = [
       component: () => import("@modules/info/views/About.vue"),
       meta: {
         title: "DUST | О нас",
-        public: true,
-      },
+        public: true
+      }
     },
     {
       path: "/contacts",
@@ -71,10 +73,11 @@ const routes = [
       component: () => import("@modules/info/views/Contacts.vue"),
       meta: {
         title: "DUST | Контакты",
-        public: true,
-      },
-    },
+        public: true
+      }
+    }
   ]),
+
   // Страница "Не найдено"
   {
     path: "*",
@@ -82,15 +85,15 @@ const routes = [
     component: () => import("@modules/other/views/NotFound.vue"),
     meta: {
       title: "DUST | Не найдено",
-      public: true,
-    },
-  },
+      public: true
+    }
+  }
 ];
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  routes,
+  routes
 });
 
 router.beforeEach((to, from, next) => {
@@ -98,10 +101,8 @@ router.beforeEach((to, from, next) => {
     store.dispatch("setToken", localStorage.getItem("user-token"));
   }
 
-  const isPublic = to.matched.some((record) => record.meta.public);
-  const onlyWhenLoggedOut = to.matched.some(
-    (record) => record.meta.onlyWhenLoggedOut
-  );
+  const isPublic = to.matched.some(record => record.meta.public);
+  const onlyWhenLoggedOut = to.matched.some(record => record.meta.onlyWhenLoggedOut);
 
   // const loggedIn = !!TokenService.getToken();
   // const loggedIn = !!localStorage.getItem("user-token");
@@ -114,7 +115,7 @@ router.beforeEach((to, from, next) => {
   if (!isPublic && !loggedIn) {
     return next({
       path: "/auth/login",
-      query: { redirect: to.fullPath }, // Store the full path to redirect the user to after login
+      query: { redirect: to.fullPath } // Store the full path to redirect the user to after login
     });
   }
 
@@ -126,7 +127,7 @@ router.beforeEach((to, from, next) => {
   next();
 });
 
-router.afterEach((to) => {
+router.afterEach(to => {
   Vue.nextTick(() => {
     document.title = to.meta.title ? to.meta.title : "DUST";
   });

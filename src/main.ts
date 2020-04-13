@@ -22,8 +22,25 @@ import vClickOutside from "v-click-outside";
 Vue.use(vClickOutside);
 
 // Валидация переменных (преимущественно в полях ввода)
-import Vuelidate from "vuelidate";
-Vue.use(Vuelidate);
+// import Vuelidate from "vuelidate";
+// Vue.use(Vuelidate as any);
+
+import {
+  ValidationProvider,
+  ValidationObserver,
+  extend,
+  localize,
+  setInteractionMode
+} from "vee-validate";
+import ru from "vee-validate/dist/locale/ru.json";
+import * as rules from "vee-validate/dist/rules";
+for (let [rule, validation] of Object.entries(rules)) {
+  extend(rule, { ...validation });
+}
+localize("ru", ru);
+setInteractionMode("aggressive");
+Vue.component("ValidationObserver", ValidationObserver);
+Vue.component("ValidationProvider", ValidationProvider);
 
 // Всплывашка при наведении на что-то
 // import VTooltip from "v-tooltip";

@@ -1,33 +1,33 @@
 <template>
-  <AuthModal modalName="login" width="400px">
-    <div class="login__header">
-      <h1 class="login__title">{{ $t("login") }}</h1>
-      <div class="login__soc-networks">
-        <i @click="$emit('change')" class="login__header-icon icon-google" />
-        <i @click="$emit('change')" class="login__header-icon icon-vk" />
-        <i @click="$emit('change')" class="login__header-icon icon-steam" />
-        <i @click="$emit('change')" class="login__header-icon icon-twitch" />
+  <AuthModal modalName="signup" width="400px" :clickToClose="false">
+    <div class="signup__header">
+      <h1 class="signup__title">{{ $t("signup") }}</h1>
+      <div class="signup__soc-networks">
+        <i @click="$emit('change')" class="signup__header-icon icon-google" />
+        <i @click="$emit('change')" class="signup__header-icon icon-vk" />
+        <i @click="$emit('change')" class="signup__header-icon icon-steam" />
+        <i @click="$emit('change')" class="signup__header-icon icon-twitch" />
       </div>
     </div>
 
     <!-- Поля ввода -->
-    <div class="login__inputs">
+    <div class="signup__inputs">
       <!-- Блок для ввода емайла -->
-      <div class="login__block">
-        <div class="login__label">
-          <i class="login__block-icon icon-email" />
+      <div class="signup__block">
+        <div class="signup__label">
+          <i class="signup__block-icon icon-email" />
           {{ $t("email") }}
         </div>
-        <Input class="login__input" width="calc(100% - 70px)" placeholder="example@email.com" />
+        <Input class="signup__input" width="calc(100% - 70px)" placeholder="example@email.com" />
       </div>
       <!-- Блок для ввода пароля -->
-      <div class="login__block">
-        <div class="login__label">
-          <i class="login__block-icon icon-password" />
+      <div class="signup__block">
+        <div class="signup__label">
+          <i class="signup__block-icon icon-password" />
           {{ $t("password") }}
         </div>
         <Input
-          class="login__input"
+          class="signup__input"
           width="calc(100% - 70px)"
           :placeholder="$t('passwordExample')"
           type="password"
@@ -40,13 +40,13 @@
 <i18n>
 {
   "en": {
-    "login": "Login",
+    "signup": "Signup",
     "email": "Email",
     "password": "Password",
-    "passwordExample": "СложныйПароль123#"
+    "passwordExample": "StrongPassword123#"
   },
   "ru": {
-    "login": "Вход",
+    "signup": "Регистрация",
     "email": "Email",
     "password": "Пароль",
     "passwordExample": "СложныйПароль123#"
@@ -76,7 +76,7 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-.login {
+.signup {
   &__header {
     display: flex;
     justify-content: space-between;

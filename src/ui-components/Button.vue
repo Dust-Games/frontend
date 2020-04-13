@@ -1,72 +1,87 @@
 <template>
-  <div class="ui-button">
-    <div class="ui-button__slot">
-      <slot />
-    </div>
-  </div>
+  <button
+    class="ui-button"
+    :type="type"
+    :disabled="disabled"
+    :class="[size, theme]"
+    :style="{ width: width, height: height }"
+  >
+    <slot />
+  </button>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 
 export default Vue.extend({
-  name: "uiButton"
+  name: "uiButton",
+
+  props: {
+    type: { type: String, default: "button" },
+    width: { type: String, default: "max-content" },
+    height: { type: String, default: "auto" },
+    // small, normal, large
+    size: { type: String, default: "normal" },
+    // primary, orange, blue, gray
+    theme: { type: String, default: "orange" },
+    disabled: { type: Boolean, default: false }
+  }
 });
 </script>
 
 <style lang="scss" scoped>
-// .ui-button {
-//   color: $black;
-//   background: $white;
-// }
+@mixin buttonHover {
+  &:hover {
+    box-shadow: inset 0 250px #0913224d;
+  }
+}
 
 .ui-button {
-  padding: 10px 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: min-content;
-  width: min-content;
-  min-width: 90px;
-  position: relative;
-
-  &.ui-button:before {
-    transform: skew(170deg);
-  }
-
-  // &__right {
-  //   &.button-header:before {
-  //     transform: skew(170deg);
-  //   }
-  // }
-
-  & > * {
-    font: normal normal bold 0.875rem/1rem Roboto Mono, Serif; // 14/16
-    display: flex;
-    justify-content: space-between;
-    z-index: 2;
-  }
-
-  &:before {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 1;
-    background: $blue;
-    border: 1px solid transparent;
-    // border-radius: 5px;
-  }
+  border: 0;
+  border-radius: 30px;
+  color: $white;
+  text-transform: uppercase;
+  font-weight: bold;
 
   &:hover {
     cursor: pointer;
+    transition: 0.3s;
+  }
 
-    &:before {
-      background: transparent;
-      border: 1px solid $blue;
-    }
+  // Размеры
+
+  &.small {
+    padding: 10px;
+  }
+
+  &.normal {
+    padding: 12px;
+  }
+
+  &.large {
+    padding: 20px;
+  }
+
+  // Темы
+
+  &.primary {
+    background: $red;
+    @include buttonHover;
+  }
+
+  &.orange {
+    background: $orange-juice;
+    @include buttonHover;
+  }
+
+  &.blue {
+    background: $deep-blue;
+    @include buttonHover;
+  }
+
+  &.gray {
+    background: $gray-light;
+    @include buttonHover;
   }
 }
 </style>

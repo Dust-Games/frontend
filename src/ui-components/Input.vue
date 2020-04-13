@@ -1,24 +1,22 @@
 <template>
   <div class="ui-input-wrapper">
-    <input
-      class="ui-input"
-      v-model="innerValue"
-      :style="{
-        width: width,
-        height: height,
-        fontSize: fontSize,
-        padding: padding
-      }"
-      :placeholder="placeholder"
-      :type="type"
-      @focus="setFocus(true)"
-      @blur="setFocus(false)"
-      @mouseenter="setHover(true)"
-      @mouseleave="setHover(false)"
-      v-tooltip="{
-        content: errorDescription
-      }"
-    />
+    <ValidationProvider :name="name" :rules="rules">
+      <input
+        class="ui-input"
+        v-model="innerValue"
+        :disabled="disabled"
+        :type="type"
+        :placeholder="placeholder"
+        v-tooltip="errorDescription"
+        :class="{ error: isError }"
+        :style="{
+          width: width,
+          height: height,
+          fontSize: fontSize,
+          padding: padding
+        }"
+      />
+    </ValidationProvider>
     <!-- show: v && !disabled && isShowError && v.$invalid && v.$dirty, -->
   </div>
 </template>
@@ -26,37 +24,36 @@
 <i18n>
 {
   "en": {
-    "error": "Error"
+    "error": "Error",
+    "name": "45"
   },
   "ru": {
-    "error": "Ошибка"
+    "error": "Ошибка",
+    "name": "ввода"
   }
 }
 </i18n>
 
 <script lang="ts">
 import Vue from "vue";
-import { required, minLength, between } from "vuelidate/lib/validators";
 
 export default Vue.extend({
   name: "UiInput",
 
   props: {
     value: [String, Number],
+    // Для валидации
+    rules: [String, Object],
+    name: { type: String, default: "" },
+    // Остальное
     type: { type: String, default: "text" },
     placeholder: { type: String, default: "" },
     errorDescription: { type: String, default: "" }, // this.$t("error")
     width: { type: String, default: "max-content" },
     height: { type: String, default: "35px" },
     fontSize: { type: String, default: "14px" },
-    padding: { type: String, default: "0 32px" }
-  },
-
-  data() {
-    return {
-      isFocus: false as Boolean,
-      isShowError: false as Boolean
-    };
+    padding: { type: String, default: "0 32px" },
+    disabled: { type: Boolean, default: false }
   },
 
   computed: {
@@ -66,25 +63,13 @@ export default Vue.extend({
       },
 
       set(value: String | Number) {
-        this.$emit("change", value);
+        this.$emit("input", value);
       }
-    }
-  },
-
-  methods: {
-    setFocus(isTrue: Boolean) {
-      this.isFocus = isTrue;
-      this.isShowError = isTrue;
     },
 
-    setHover(isTrue: Boolean) {
-      if (isTrue) {
-        this.isShowError = true;
-      } else {
-        if (!this.isFocus) {
-          this.isShowError = false;
-        }
-      }
+    isError(): boolean {
+      return false;
+      // return this.v && !this.disabled && this.v.$invalid && this.v.$dirty;
     }
   }
 });
@@ -93,12 +78,16 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .ui-input {
   border: 1px solid $black;
-  background: $black;
   color: $white;
+  background: $blue-dark;
 
   &::placeholder {
     color: $gray;
     opacity: 1;
+  }
+
+  &.error {
+    border-color: $red;
   }
 }
 </style>

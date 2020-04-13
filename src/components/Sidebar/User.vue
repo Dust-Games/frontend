@@ -88,12 +88,11 @@ export default {
     onLogin() {
       this.$emit("change");
       this.$modal.show("login");
-      // this.login();
     },
 
     onSignup() {
-      this.signup();
       this.$emit("change");
+      this.$modal.show("signup");
     },
 
     onLogout() {
