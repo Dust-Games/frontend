@@ -88,6 +88,7 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { mapActions } from "vuex";
 
 export default Vue.extend({
   name: "AuthLoginModal",
@@ -101,12 +102,13 @@ export default Vue.extend({
   data() {
     return {
       email: "" as String,
-      password: "" as String,
-      value: "" as String
+      password: "" as String
     };
   },
 
   methods: {
+    ...mapActions(["login"]),
+
     show() {
       this.$modal.show("login");
     },
@@ -129,8 +131,14 @@ export default Vue.extend({
       this.$modal.show("signup");
     },
 
-    onSubmit() {
-      console.log("123345");
+    async onSubmit() {
+      try {
+        const { email, password } = this;
+        await this.login({ email, password });
+        this.hide();
+      } catch (errors) {
+        console.log(errors);
+      }
     }
   }
 });

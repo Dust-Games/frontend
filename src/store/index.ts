@@ -1,13 +1,13 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-import auth from "./auth.store";
-import user from "./user.store";
-import wallet from "./wallet.store";
-import other from "./other.store";
+import Auth from "./auth.store.ts";
+import User from "./user.store.ts";
+import Wallet from "./wallet.store.ts";
+import Other from "./other.store.ts";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  modules: { auth, user, wallet, other }
+  modules: { Auth, User, Wallet, Other }
 });

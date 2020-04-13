@@ -1,33 +1,33 @@
 <template>
-  <AuthModal modalName="signup" width="400px" :clickToClose="false">
-    <div class="signup__header">
-      <h1 class="signup__title">{{ $t("signup") }}</h1>
-      <div class="signup__soc-networks">
-        <i @click="$emit('change')" class="signup__header-icon icon-google" />
-        <i @click="$emit('change')" class="signup__header-icon icon-vk" />
-        <i @click="$emit('change')" class="signup__header-icon icon-steam" />
-        <i @click="$emit('change')" class="signup__header-icon icon-twitch" />
+  <AuthModal modalName="register" width="400px" :clickToClose="false">
+    <div class="register__header">
+      <h1 class="register__title">{{ $t("signup") }}</h1>
+      <div class="register__soc-networks">
+        <i @click="$emit('change')" class="register__header-icon icon-google" />
+        <i @click="$emit('change')" class="register__header-icon icon-vk" />
+        <i @click="$emit('change')" class="register__header-icon icon-steam" />
+        <i @click="$emit('change')" class="register__header-icon icon-twitch" />
       </div>
     </div>
 
     <!-- Поля ввода -->
-    <div class="signup__inputs">
+    <div class="register__inputs">
       <!-- Блок для ввода емайла -->
-      <div class="signup__block">
-        <div class="signup__label">
-          <i class="signup__block-icon icon-email" />
+      <div class="register__block">
+        <div class="register__label">
+          <i class="register__block-icon icon-email" />
           {{ $t("email") }}
         </div>
-        <Input class="signup__input" width="calc(100% - 70px)" placeholder="example@email.com" />
+        <Input class="register__input" width="calc(100% - 70px)" placeholder="example@email.com" />
       </div>
       <!-- Блок для ввода пароля -->
-      <div class="signup__block">
-        <div class="signup__label">
-          <i class="signup__block-icon icon-password" />
+      <div class="register__block">
+        <div class="register__label">
+          <i class="register__block-icon icon-password" />
           {{ $t("password") }}
         </div>
         <Input
-          class="signup__input"
+          class="register__input"
           width="calc(100% - 70px)"
           :placeholder="$t('passwordExample')"
           type="password"
@@ -56,8 +56,10 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { mapActions } from "vuex";
+
 export default Vue.extend({
-  name: "AuthLoginModal",
+  name: "AuthRegisterModal",
 
   components: {
     AuthModal: () => import("@layouts/AuthModal"),
@@ -65,18 +67,20 @@ export default Vue.extend({
   },
 
   methods: {
+    ...mapActions(["register"]),
+
     show() {
-      this.$modal.show("login");
+      this.$modal.show("register");
     },
     hide() {
-      this.$modal.hide("login");
+      this.$modal.hide("register");
     }
   }
 });
 </script>
 
 <style lang="scss" scoped>
-.signup {
+.register {
   &__header {
     display: flex;
     justify-content: space-between;

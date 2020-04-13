@@ -35,18 +35,26 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { mapActions } from "vuex";
+
 export default Vue.extend({
   name: "SidebarNav",
 
   methods: {
+    ...mapActions(["setIsMobileMenuOpen"]),
+
     onToHome() {
       this.$router.push("/home");
-      this.$emit("change");
+      this.onChange();
     },
 
     onToWallet() {
       this.$router.push("/user/wallet");
-      this.$emit("change");
+      this.onChange();
+    },
+
+    onChange() {
+      this.setIsMobileMenuOpen(false);
     }
   }
 });

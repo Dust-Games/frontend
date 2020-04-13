@@ -1,20 +1,19 @@
 <template>
-  <div class="sidebar-mobile">
+  <div class="sidebar-mobile" v-click-outside="onHide">
     <div class="sidebar-mobile__logo"><img src="@/assets/logo.svg" /></div>
-    <MobileHamburger
-      class="sidebar-mobile__hamburger"
-      :isChecked="isMenuShow"
-      @on-change="onChangeHamburgerState"
-    />
+    <MobileHamburger class="sidebar-mobile__hamburger" v-model="isMenuShow" />
+    <!-- :isChecked="isMenuShow"
+      @on-change="onChangeHamburgerState" -->
     <transition name="slide-fade">
-      <div class="sidebar-mobile__menu" v-if="isMenuShow">
+      <div class="sidebar-mobile__menu" v-show="isMenuShow">
+        <div class="sidebar-mobile__hr-large" />
         <!-- Вход/регистрация или ник юзера -->
-        <User class="sidebar-mobile__user" mobile @change="onChangeHamburgerState(false)" />
+        <User class="sidebar-mobile__user" mobile />
         <!-- Меню -->
-        <Nav class="sidebar-mobile__nav" @change="onChangeHamburgerState(false)" />
+        <Nav class="sidebar-mobile__nav" />
         <div class="sidebar-mobile__hr" />
         <!-- Футер -->
-        <Footer class="sidebar-mobile__footer" @change="onChangeHamburgerState(false)" />
+        <Footer class="sidebar-mobile__footer" />
       </div>
     </transition>
 
@@ -79,7 +78,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { mapActions, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 
 export default Vue.extend({
   name: "SidebarMobile",
@@ -98,22 +97,16 @@ export default Vue.extend({
   },
 
   computed: {
-    ...mapGetters(["balance", "profile", "isAuthenticated"])
+    ...mapGetters(["isAuthenticated"])
   },
 
   methods: {
-    ...mapActions(["login", "signup", "logout"]),
-
-    onLogin() {
-      this.login();
+    onChangeLanguage() {
+      this.$emit("onChangeLanguage");
     },
 
-    onSignup() {
-      this.signup();
-    },
-
-    onLogout() {
-      this.logout();
+    onHide() {
+      this.isMenuShow = false;
     },
 
     onChangeHamburgerState(isChecked: boolean) {
@@ -177,10 +170,18 @@ export default Vue.extend({
 
   &__hr {
     height: 0;
-    // width: 100%;
     border-top: 1px solid $white;
     max-width: 250px;
     margin: 0 30px 30px;
+
+    &-large {
+      height: 0;
+      border-top: 2px solid $white;
+      border-bottom: 1px solid $white;
+      border-radius: 5px;
+      width: calc(100% - 40px);
+      margin: 0 20px 20px;
+    }
   }
 }
 </style>

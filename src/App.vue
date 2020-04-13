@@ -2,12 +2,12 @@
   <div id="app">
     <!-- Модалка с входом в аккаунт -->
     <Login />
-    <Signup />
+    <Register />
 
     <Sidebar class="app__sidebar" @onChangeLanguage="onChangeLanguage" />
     <main class="app__main">
-      <InDevelopment v-if="showIsInDevelopment && isInDevelopment" />
-      <router-view v-else />
+      <!-- <InDevelopment v-if="showIsInDevelopment && isInDevelopment" /> -->
+      <router-view />
     </main>
   </div>
 </template>
@@ -21,31 +21,12 @@ export default Vue.extend({
 
   components: {
     Sidebar: () => import("@components/Sidebar/Index.vue"),
-    InDevelopment: () => import("@components/InDevelopment"),
+    // InDevelopment: () => import("@components/InDevelopment"),
     Login: () => import("@components/auth/Login"),
-    Signup: () => import("@components/auth/Signup")
-  },
-
-  data() {
-    return {
-      showIsInDevelopment: false as boolean
-    };
-  },
-
-  computed: {
-    ...mapGetters(["isInDevelopment", "rerender"])
-  },
-
-  async mounted() {
-    window.localStorage.setItem("language", "ru");
-    // this.showIsInDevelopment = true;
-    this.getBalance();
-    this.getUser();
+    Register: () => import("@components/auth/Register")
   },
 
   methods: {
-    ...mapActions(["getBalance", "getUser"]),
-
     onChangeLanguage() {
       if (this.$i18n.locale == "en") {
         this.$i18n.locale = "ru";

@@ -20,7 +20,7 @@
       <!-- Кнопка для перехода в профиль -->
       <div class="user__auth-nickname user__block user__link" @click="onToProfile()">
         <i class="user__icon  icon-person_outlineperm_identity" />
-        <span class=" user__auth-nickname-text">{{ profile.name }}</span>
+        <span class=" user__auth-nickname-text">{{ user.username }}</span>
       </div>
       <!-- Баланс дасткоинов -->
       <div @click="onToWallet()" class="user__link user__block" v-if="!mobile">
@@ -33,7 +33,7 @@
         {{ balance ? balance.usd_token : $t("load") }}
       </div>
       <!-- Кнопка выхода из аккаунта -->
-      <div class="user__link user__block">
+      <div class="user__link user__block" @click="onLogout()">
         <i class="user__icon icon-exit_to_app" />
         {{ $t("logout") }}
       </div>
@@ -69,35 +69,47 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["balance", "profile", "isAuthenticated"])
+    ...mapGetters(["balance", "user", "isAuthenticated"])
+  },
+
+  mounted() {
+    if (this.isAuthenticated) {
+      this.getUser();
+      this.getBalance();
+    }
   },
 
   methods: {
-    ...mapActions(["login", "signup", "logout"]),
+    ...mapActions(["getUser", "getBalance", "logout", "setIsMobileMenuOpen"]),
 
     onToWallet() {
       this.$router.push("/user/wallet");
-      this.$emit("change");
+      // this.$emit("change");
+      this.onChange();
     },
 
     onToProfile() {
       this.$router.push("/user/profile");
-      this.$emit("change");
+      this.onChange();
     },
 
     onLogin() {
-      this.$emit("change");
       this.$modal.show("login");
+      this.onChange();
     },
 
     onSignup() {
-      this.$emit("change");
-      this.$modal.show("signup");
+      this.$modal.show("register");
+      this.onChange();
     },
 
     onLogout() {
       this.logout();
-      this.$emit("change");
+      this.onChange();
+    },
+
+    onChange() {
+      this.setIsMobileMenuOpen(false);
     }
   }
 };

@@ -1,12 +1,13 @@
 <template>
   <div class="hamburger">
-    {{ isChecked }}
+    {{ isMobileMenuOpen }} {{ aa }}
     <input
       class="hamburger__checkbox"
       type="checkbox"
       ref="checkbox"
-      :value="isChecked"
-      @change="onChange($event.explicitOriginalTarget.checked)"
+      :value="innerValue"
+      :checked="aa"
+      @change="innerValue = $event.explicitOriginalTarget.checked"
     />
     <span class="hamburger__span" />
     <span class="hamburger__span" />
@@ -16,18 +17,38 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { mapGetters, mapActions } from "vuex";
 
 export default Vue.extend({
   name: "SidebarMobileHamburger",
 
   props: {
-    isChecked: { type: Boolean, default: false }
+    value: { type: Boolean, default: false }
+  },
+
+  data() {
+    return {
+      aa: false as boolean
+    };
+  },
+
+  computed: {
+    ...mapGetters(["isMobileMenuOpen"]),
+
+    innerValue: {
+      get(): boolean {
+        return this.value;
+      },
+
+      set(isOpen: boolean) {
+        this.$emit("input", isOpen);
+        this.setIsMobileMenuOpen(isOpen);
+      }
+    }
   },
 
   methods: {
-    onChange(isChecked: boolean) {
-      this.$emit("on-change", isChecked);
-    }
+    ...mapActions(["setIsMobileMenuOpen"])
   }
 });
 </script>

@@ -17,7 +17,7 @@
     <br class="footer__new-line" />
     <div class="footer__links">
       <!-- О нас -->
-      <router-link class="footer__link footer__about" to="/info/about" @click="$emit('change')">
+      <router-link class="footer__link footer__about" to="/info/about" @click="onChange()">
         {{ $t("about") }}
       </router-link>
       <!-- Разделитель -->
@@ -70,13 +70,21 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { mapActions } from "vuex";
 
 export default Vue.extend({
   name: "Footer",
 
   methods: {
+    ...mapActions(["setIsMobileMenuOpen"]),
+
     onChangeLanguage() {
       this.$emit("onChangeLanguage");
+    },
+
+    onChange() {
+      this.setIsMobileMenuOpen(false);
+      // this.$emit("change");
     }
   }
 });
