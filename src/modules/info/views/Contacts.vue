@@ -35,9 +35,9 @@ export default Vue.extend({
   computed: {
     componentName(): string {
       if (this.$i18n.locale == "en") {
-        return "enAbout";
+        return "enContacts";
       } else {
-        return "ruAbout";
+        return "ruContacts";
       }
     }
   }

@@ -1,6 +1,6 @@
 <template>
   <div class="info-layout">
-    <div class="info-layout__title"><slot name="title" /></div>
+    <h1 class="info-layout__title"><slot name="title" /></h1>
     <div class="info-layout__content"><slot name="content" /></div>
   </div>
 </template>
@@ -17,7 +17,13 @@ export default Vue.extend({
 .info-layout {
   color: $white;
 
-  &__title {
+  /deep/a {
+    color: $white;
+  }
+
+  &__content {
+    padding-top: 10px;
+    padding-bottom: 50px;
   }
 }
 </style>

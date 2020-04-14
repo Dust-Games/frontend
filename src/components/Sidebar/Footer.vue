@@ -54,6 +54,7 @@
     "rules": "Rules",
     "about": "About",
     "contacts": "Contacts",
+    "team": "Our team",
     "changeLanguage": "Russian version",
     "delimiter": "|"
   },
@@ -62,6 +63,7 @@
     "rules": "Правила",
     "about": "О нас",
     "contacts": "Контакты",
+    "team": "Наша команда",
     "changeLanguage": "English version",
     "delimiter": "|"
   }

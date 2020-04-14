@@ -42,7 +42,7 @@ export default Vue.extend({
 #app {
   background: $black;
   color: $white;
-  min-height: 100vh;
+  height: 100vh;
 
   display: flex;
   flex-direction: row;
@@ -52,7 +52,8 @@ export default Vue.extend({
 .app {
   &__main {
     width: 100%;
-    margin: 60px;
+    padding: 60px;
+    overflow-y: auto;
   }
 }
 
@@ -60,12 +61,15 @@ export default Vue.extend({
   #app {
     flex-direction: column;
     justify-content: flex-start;
+    min-height: 100vh;
+    height: 100%;
   }
 
   .app {
     &__main {
-      margin: 40px;
-      width: calc(100% - 40px);
+      padding: 40px;
+      width: calc(100% - 80px);
+      overflow-y: visible;
     }
   }
 }
