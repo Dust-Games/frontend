@@ -22,6 +22,12 @@
       </router-link>
       <!-- Разделитель -->
       <span class="footer__delimiter">{{ $t("delimiter") }}</span>
+      <!-- Контакты -->
+      <router-link class="footer__link footer__team" to="/info/team" @click="$emit('change')">
+        {{ $t("team") }}
+      </router-link>
+      <!-- Разделитель -->
+      <span class="footer__delimiter">{{ $t("delimiter") }}</span>
       <!-- Правила -->
       <router-link class="footer__link footer__rules" to="/info/rules" @click="$emit('change')">
         {{ $t("rules") }}

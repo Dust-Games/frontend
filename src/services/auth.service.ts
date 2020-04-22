@@ -39,10 +39,13 @@ export default {
   async login({ email, password }: UserLogin) {
     try {
       const data = { email, password };
-      const resp: AuthResponse = await httpClient.post("api/auth/login", data);
+      console.log(await httpClient.post("auth/login", data));
+
+      const resp: AuthResponse = await httpClient.post("auth/login", data);
 
       return resp.data;
     } catch (errors) {
+      console.log(errors);
       throw errors;
     }
   },
@@ -50,7 +53,7 @@ export default {
   async register({ login, email, password }: UserRegister) {
     try {
       const data = { login, email, password };
-      const resp: AuthResponse = await httpClient.post("api/auth/register", data);
+      const resp: AuthResponse = await httpClient.post("auth/register", data);
 
       return resp.data;
     } catch (errors) {
@@ -71,8 +74,8 @@ export default {
 
   async logout() {
     try {
-      console.log(localStorage.getItem("access_token"));
-      await httpClient.post("api/auth/logout");
+      // console.log(localStorage.getItem("access_token"));
+      await httpClient.post("auth/logout");
     } catch (errors) {
       throw errors;
     }

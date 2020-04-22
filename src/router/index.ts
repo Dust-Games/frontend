@@ -18,7 +18,7 @@ const routes = [
     name: "home",
     component: () => import("@modules/common/views/Home.vue"),
     meta: {
-      title: "DUST | Главная",
+      title: "Главная",
       public: true
     }
   },
@@ -34,7 +34,7 @@ const routes = [
       name: "wallet",
       component: () => import("@modules/user/views/Wallet.vue"),
       meta: {
-        title: "DUST | Кошелек"
+        title: "Кошелек"
       }
     }
     // {
@@ -54,7 +54,7 @@ const routes = [
       name: "rules",
       component: () => import("@modules/info/views/Rules.vue"),
       meta: {
-        title: "DUST | Правила",
+        title: "Правила",
         public: true
       }
     },
@@ -63,7 +63,7 @@ const routes = [
       name: "about",
       component: () => import("@modules/info/views/About.vue"),
       meta: {
-        title: "DUST | О нас",
+        title: "О нас",
         public: true
       }
     },
@@ -72,7 +72,16 @@ const routes = [
       name: "contacts",
       component: () => import("@modules/info/views/Contacts.vue"),
       meta: {
-        title: "DUST | Контакты",
+        title: "Контакты",
+        public: true
+      }
+    },
+    {
+      path: "/team",
+      name: "team",
+      component: () => import("@modules/info/views/Team.vue"),
+      meta: {
+        title: "Наша команда",
         public: true
       }
     }
@@ -84,7 +93,7 @@ const routes = [
     name: "not-found",
     component: () => import("@modules/other/views/NotFound.vue"),
     meta: {
-      title: "DUST | Не найдено",
+      title: "Не найдено",
       public: true
     }
   }
@@ -129,7 +138,7 @@ router.beforeEach((to, from, next) => {
 
 router.afterEach(to => {
   Vue.nextTick(() => {
-    document.title = to.meta.title ? to.meta.title : "DUST";
+    document.title = to.meta.title ? to.meta.title + " | DUST" : "DUST";
   });
 });
 

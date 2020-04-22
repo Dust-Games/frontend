@@ -50,3 +50,11 @@ h1 {
     margin-top: 0;
     margin-bottom: 40px;
 }
+
+a {
+    color: $white !important;
+    &:hover {
+        transition: 0.3s;
+        color: $orange !important;
+    }
+}

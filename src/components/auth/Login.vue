@@ -128,7 +128,7 @@ export default Vue.extend({
 
     onToSignup() {
       this.hide();
-      this.$modal.show("signup");
+      this.$modal.show("register");
     },
 
     async onSubmit() {
