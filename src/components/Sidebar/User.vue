@@ -20,17 +20,17 @@
       <!-- Кнопка для перехода в профиль -->
       <div class="user__auth-nickname user__block user__link" @click="onToProfile()">
         <i class="user__icon  icon-person_outlineperm_identity" />
-        <span class=" user__auth-nickname-text">{{ user.username }}</span>
+        <span class=" user__auth-nickname-text">{{ user.username || $t("load") }}</span>
       </div>
       <!-- Баланс дасткоинов -->
       <div @click="onToWallet()" class="user__link user__block" v-if="!mobile">
         <i class="user__icon icon-dust" />
-        {{ balance.dust_tokens_num }}
+        {{ balance.dust_tokens_num || $t("load") }}
       </div>
       <!-- Баланс usd -->
       <div @click="onToWallet()" class="user__link user__block" v-if="!mobile">
         <i class="user__icon icon-usd" />
-        {{ balance.usd_tokens_num }}
+        {{ balance.usd_tokens_num || $t("load") }}
       </div>
       <!-- Кнопка выхода из аккаунта -->
       <div class="user__link user__block" @click="onLogout()">

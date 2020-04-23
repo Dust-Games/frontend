@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?fvl8y6');
-  src:  url('fonts/icomoon.eot?fvl8y6#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?fvl8y6') format('truetype'),
-    url('fonts/icomoon.woff?fvl8y6') format('woff'),
-    url('fonts/icomoon.svg?fvl8y6#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?b0am0b');
+  src:  url('fonts/icomoon.eot?b0am0b#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?b0am0b') format('truetype'),
+    url('fonts/icomoon.woff?b0am0b') format('woff'),
+    url('fonts/icomoon.svg?b0am0b#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -25,6 +25,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-battlenet:before {
+  content: "\e913";
+}
 .icon-question1:before {
   content: "\e903";
 }

@@ -21,6 +21,17 @@ interface AuthResponse {
   };
 }
 
+interface getAccountLinkResponse {
+  data: {
+    redirect_url: string;
+  };
+}
+
+interface accountLinkData {
+  accountName: string;
+  type: string;
+}
+
 export default {
   async getUser() {
     try {
@@ -31,6 +42,34 @@ export default {
     }
   },
 
+  // Начать привязку соцсети
+  async getAccountLink(data: accountLinkData) {
+    try {
+      console.log("oauth/" + data.accountName + "/" + data.type);
+      const resp: getAccountLinkResponse = await httpClient.get(
+        "oauth/" + data.accountName + "/" + data.type
+      );
+
+      return resp.data;
+    } catch (errors) {
+      throw errors;
+    }
+  },
+
+  // Закончить привязку соцсети
+  async setAccount(url: string) {
+    try {
+      console.log(url);
+      const resp: any = await httpClient.get(url);
+      console.log(resp);
+
+      return resp.data;
+    } catch (errors) {
+      throw errors;
+    }
+  },
+
+  // Получить все привязанные соцсети пользователя
   async getAccounts() {
     try {
       const resp: AuthResponse = await httpClient.get("users/me/accounts");

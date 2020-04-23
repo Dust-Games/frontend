@@ -1,8 +1,9 @@
 <template>
   <nav class="nav">
-    <div class="nav__item" @click="onToHome()">{{ $t("menu") }}</div>
-    <div class="nav__item" @click="onToWallet()">{{ $t("wallet") }}</div>
+    <div class="nav__item" @click="onToHome()" v-tooltip="'546456465'">{{ $t("menu") }}</div>
 
+    <div class="nav__item" disabled>{{ $t("wallet") }}</div>
+    <!-- @click="onToWallet()" -->
     <div class="nav__item" disabled>{{ $t("tournaments") }}</div>
     <div class="nav__item" disabled>{{ $t("bets") }}</div>
     <div class="nav__item" disabled>{{ $t("leagues") }}</div>
@@ -24,7 +25,7 @@
   "ru": {
     "soon": "(скоро!)",
     "menu": "Главная",
-    "wallet": "Кошелек",
+    "wallet": "Кошелек @:soon",
     "tournaments": "Турниры @:soon",
     "bets": "Ставки @:soon",
     "leagues": "Лиги @:soon",

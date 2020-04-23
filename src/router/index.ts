@@ -22,9 +22,19 @@ const routes = [
       public: true
     }
   },
+
   {
     path: "/home",
     redirect: "/"
+  },
+
+  {
+    path: "/oauth/:accountName/:type/callback",
+    name: "accountLink",
+    component: () => import("@modules/user/views/AccountLink.vue"),
+    meta: {
+      title: (route: any) => `Регистрация через ${route.params.accountName}`
+    }
   },
 
   // Всё, что касается пользователя - профиль, кошелек
@@ -51,7 +61,7 @@ const routes = [
   ...withPrefix("/info", [
     {
       path: "/rules",
-      name: "rules",
+      name: "infoRules",
       component: () => import("@modules/info/views/Rules.vue"),
       meta: {
         title: "Правила",
@@ -60,7 +70,7 @@ const routes = [
     },
     {
       path: "/about",
-      name: "about",
+      name: "infoAbout",
       component: () => import("@modules/info/views/About.vue"),
       meta: {
         title: "О нас",
@@ -69,7 +79,7 @@ const routes = [
     },
     {
       path: "/contacts",
-      name: "contacts",
+      name: "infoContacts",
       component: () => import("@modules/info/views/Contacts.vue"),
       meta: {
         title: "Контакты",
@@ -78,7 +88,7 @@ const routes = [
     },
     {
       path: "/team",
-      name: "team",
+      name: "infoTeam",
       component: () => import("@modules/info/views/Team.vue"),
       meta: {
         title: "Наша команда",
@@ -106,6 +116,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
+  console.log(to);
   if (localStorage.getItem("user-token")) {
     store.dispatch("setToken", localStorage.getItem("user-token"));
   }

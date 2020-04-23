@@ -5,15 +5,49 @@
         <div class="register__header">
           <h1 class="register__title">{{ $t("signup") }}</h1>
           <div class="register__soc-networks">
-            <i @click="$emit('change')" class="register__header-icon icon-google" />
-            <i @click="$emit('change')" class="register__header-icon icon-vk" />
-            <i @click="$emit('change')" class="register__header-icon icon-steam" />
-            <i @click="$emit('change')" class="register__header-icon icon-twitch" />
+            <!-- <i @click="$emit('change')" class="register__header-icon icon-google" />
+            <i @click="$emit('change')" class="register__header-icon icon-vk" /> -->
+            <i
+              @click="onLinkAccount('steam')"
+              class="register__header-icon icon-steam"
+              v-tooltip="'Регистрация с помощью steam'"
+            />
+            <i
+              @click="onLinkAccount('twitch')"
+              class="register__header-icon icon-twitch"
+              v-tooltip="'Регистрация с помощью twitch'"
+            />
+            <i
+              @click="onLinkAccount('discord')"
+              class="register__header-icon icon-discord"
+              v-tooltip="'Регистрация с помощью discord'"
+            />
+            <i
+              @click="onLinkAccount('battlenet')"
+              class="register__header-icon icon-battlenet"
+              v-tooltip="'Регистрация с помощью battlenet'"
+            />
           </div>
+          <span v-show="isSocNetworkLoading">{{ $t("load") }}</span>
         </div>
 
         <!-- Поля ввода -->
         <div class="register__inputs">
+          <!-- Блок для ввода логина -->
+          <div class="register__block">
+            <div class="register__label">
+              <i class="register__block-icon icon-email" />
+              {{ $t("login") }}
+            </div>
+            <Input
+              class="register__input"
+              width="calc(100% - 70px)"
+              placeholder="example@email.com"
+              v-model="login"
+              rules="required|email"
+              name="Логин"
+            />
+          </div>
           <!-- Блок для ввода емайла -->
           <div class="register__block">
             <div class="register__label">
@@ -24,6 +58,9 @@
               class="register__input"
               width="calc(100% - 70px)"
               placeholder="example@email.com"
+              v-model="email"
+              rules="required|email"
+              name="Email"
             />
           </div>
           <!-- Блок для ввода пароля -->
@@ -39,6 +76,26 @@
               type="password"
             />
           </div>
+          <!-- Блок для повторного ввода пароля -->
+          <div class="register__block">
+            <div class="register__label">
+              <i class="register__block-icon icon-password" />
+              {{ $t("password") }}
+            </div>
+            <Input
+              class="register__input"
+              width="calc(100% - 70px)"
+              :placeholder="$t('passwordExample')"
+              type="repeatPassword"
+            />
+          </div>
+
+          <button type="checkbox">
+            {{ $t("iAgree") }}
+            <router-link :to="{ name: 'infoRules' }" target="_blank">
+              {{ $t("rules") }}
+            </router-link>
+          </button>
         </div>
 
         <Button type="submit" width="100%">{{ $t("registerButton") }}</Button>
@@ -54,14 +111,20 @@
     "registerButton": "Submit",
     "email": "Email",
     "password": "Password",
-    "passwordExample": "StrongPassword123#"
+    "passwordExample": "StrongPassword123#",
+    "load": "loading...",
+    "iAgree": "I accept ",
+    "rules": "the terms of the user agreement"
   },
   "ru": {
     "signup": "Регистрация",
     "registerButton": "Зарегистрироваться",
     "email": "Email",
     "password": "Пароль",
-    "passwordExample": "СложныйПароль123#"
+    "passwordExample": "СложныйПароль123#",
+    "load": "загрузка...",
+    "iAgree": "Я принимаю ",
+    "rules": "условия пользовательского соглашения"
   }
 }
 </i18n>
@@ -85,12 +148,13 @@ export default Vue.extend({
       email: "" as String,
       password: "" as String,
       repeatPassword: "" as String,
-      isAgree: false
+      isAgree: false,
+      isSocNetworkLoading: false as Boolean
     };
   },
 
   methods: {
-    ...mapActions(["register"]),
+    ...mapActions(["register", "getAccountLink"]),
 
     show() {
       this.$modal.show("register");
@@ -98,6 +162,15 @@ export default Vue.extend({
 
     hide() {
       this.$modal.hide("register");
+    },
+
+    async onLinkAccount(accountName: string) {
+      this.isSocNetworkLoading = true;
+      const url: any = await this.getAccountLink({ accountName, type: "register" });
+      this.isSocNetworkLoading = false;
+      window.open(url);
+
+      this.$emit("change");
     },
 
     async onSubmit() {
@@ -115,6 +188,10 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .register {
+  &__soc-networks {
+    margin-top: 7px;
+  }
+
   &__header {
     display: flex;
     justify-content: space-between;
@@ -133,6 +210,10 @@ export default Vue.extend({
 
       &.icon-vk {
         font-size: 28px;
+      }
+
+      &.icon-battlenet {
+        font-size: 25px;
       }
     }
   }

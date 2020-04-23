@@ -1,6 +1,25 @@
 import AuthService from "@services/auth.service.ts";
-import { User } from "@constructors/User.ts";
-import { Balance } from "@constructors/Balance.ts";
+export class User {
+  id: string;
+  email: string;
+  username: string;
+
+  constructor() {
+    this.id = "";
+    this.email = "";
+    this.username = "";
+  }
+}
+
+export class Balance {
+  dust_tokens_num: number;
+  usd_tokens_num: number;
+
+  constructor() {
+    this.dust_tokens_num = -1;
+    this.usd_tokens_num = -1;
+  }
+}
 
 interface UserLogin {
   email: string;
@@ -46,7 +65,7 @@ export default {
         commit("setUser", resp.user, { root: true });
         commit("setBalance", resp.billing, { root: true });
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     },
 
@@ -68,7 +87,7 @@ export default {
 
         commit("setToken", resp.access_token);
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     },
 
@@ -77,7 +96,7 @@ export default {
         const oldRefreshToken: string = localStorage.getItem("refresh_token") || "";
         await AuthService.logout(oldRefreshToken);
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       } finally {
         localStorage.setItem("access_token", "");
         localStorage.setItem("refresh_token", "");

@@ -5,10 +5,28 @@
         <div class="login__header">
           <h1 class="login__title">{{ $t("login") }}</h1>
           <div class="login__soc-networks">
-            <i @click="$emit('change')" class="login__header-icon icon-google" />
-            <i @click="$emit('change')" class="login__header-icon icon-vk" />
-            <i @click="$emit('change')" class="login__header-icon icon-steam" />
-            <i @click="$emit('change')" class="login__header-icon icon-twitch" />
+            <!-- <i @click="$emit('change')" class="login__header-icon icon-google" />
+            <i @click="$emit('change')" class="login__header-icon icon-vk" /> -->
+            <i
+              @click="onLinkAccount('steam')"
+              class="login__header-icon icon-steam"
+              v-tooltip="'Регистрация с помощью steam'"
+            />
+            <i
+              @click="onLinkAccount('twitch')"
+              class="login__header-icon icon-twitch"
+              v-tooltip="'Регистрация с помощью twitch'"
+            />
+            <i
+              @click="onLinkAccount('discord')"
+              class="login__header-icon icon-discord"
+              v-tooltip="'Регистрация с помощью discord'"
+            />
+            <i
+              @click="onLinkAccount('battlenet')"
+              class="login__header-icon icon-battlenet"
+              v-tooltip="'Регистрация с помощью battlenet'"
+            />
           </div>
         </div>
 
@@ -51,9 +69,9 @@
           </div>
         </div>
 
-        <p class="link login__password-reset" @click="onToPasswordReset()">
+        <!-- <p class="link login__password-reset" @click="onToPasswordReset()">
           {{ $t("passwordReset") }}
-        </p>
+        </p> -->
 
         <Button type="submit" width="100%">{{ $t("loginButton") }}</Button>
 
@@ -102,12 +120,13 @@ export default Vue.extend({
   data() {
     return {
       email: "" as String,
-      password: "" as String
+      password: "" as String,
+      isSocNetworkLoading: false as Boolean
     };
   },
 
   methods: {
-    ...mapActions(["login", "getBalance"]),
+    ...mapActions(["login", "getBalance", "getAccountLink"]),
 
     show() {
       this.$modal.show("login");
@@ -135,11 +154,20 @@ export default Vue.extend({
       try {
         const { email, password } = this;
         await this.login({ email, password });
-        await this.getBalance();
+        // await this.getBalance();
         this.hide();
       } catch (errors) {
         console.log(errors);
       }
+    },
+
+    async onLinkAccount(accountName: string) {
+      this.isSocNetworkLoading = true;
+      const url: any = await this.getAccountLink({ accountName, type: "login" });
+      this.isSocNetworkLoading = false;
+      window.open(url);
+
+      this.$emit("change");
     }
   }
 });
@@ -170,6 +198,10 @@ export default Vue.extend({
 
       &.icon-vk {
         font-size: 28px;
+      }
+
+      &.icon-battlenet {
+        font-size: 25px;
       }
     }
   }
