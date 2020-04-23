@@ -7,18 +7,25 @@ interface User {
   avatar: string;
 }
 
+interface Balance {
+  dust_tokens_num: number;
+  usd_tokens_num: number;
+}
+
 interface AuthResponse {
   data: {
-    data: User;
+    access_token: string;
+    refresh_token: string;
+    user: User;
+    billing: Balance;
   };
 }
 
 export default {
   async getUser() {
     try {
-      const resp: AuthResponse = await httpClient.get("api/users/me");
-
-      return resp.data.data;
+      const resp: AuthResponse = await httpClient.get("users/me");
+      return resp.data;
     } catch (errors) {
       throw errors;
     }
@@ -26,9 +33,9 @@ export default {
 
   async getAccounts() {
     try {
-      const resp: AuthResponse = await httpClient.get("api/users/me/accounts");
+      const resp: AuthResponse = await httpClient.get("users/me/accounts");
 
-      return resp.data.data;
+      return resp.data;
     } catch (errors) {
       throw errors;
     }
@@ -36,9 +43,9 @@ export default {
 
   async getWallet() {
     try {
-      const resp: AuthResponse = await httpClient.get("api/users/me/billing");
+      const resp: AuthResponse = await httpClient.get("users/me/billing");
 
-      return resp.data.data;
+      return resp.data;
     } catch (errors) {
       throw errors;
     }
@@ -46,9 +53,9 @@ export default {
 
   async getSessions() {
     try {
-      const resp: AuthResponse = await httpClient.get("api/users/me/sessions");
+      const resp: AuthResponse = await httpClient.get("users/me/sessions");
 
-      return resp.data.data;
+      return resp.data;
     } catch (errors) {
       throw errors;
     }

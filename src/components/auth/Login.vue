@@ -107,7 +107,7 @@ export default Vue.extend({
   },
 
   methods: {
-    ...mapActions(["login"]),
+    ...mapActions(["login", "getBalance"]),
 
     show() {
       this.$modal.show("login");
@@ -135,6 +135,7 @@ export default Vue.extend({
       try {
         const { email, password } = this;
         await this.login({ email, password });
+        await this.getBalance();
         this.hide();
       } catch (errors) {
         console.log(errors);

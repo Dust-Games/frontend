@@ -40,6 +40,8 @@
             />
           </div>
         </div>
+
+        <Button type="submit" width="100%">{{ $t("registerButton") }}</Button>
       </form>
     </ValidationObserver>
   </AuthModal>
@@ -49,12 +51,14 @@
 {
   "en": {
     "signup": "Signup",
+    "registerButton": "Submit",
     "email": "Email",
     "password": "Password",
     "passwordExample": "StrongPassword123#"
   },
   "ru": {
     "signup": "Регистрация",
+    "registerButton": "Зарегистрироваться",
     "email": "Email",
     "password": "Пароль",
     "passwordExample": "СложныйПароль123#"
@@ -71,7 +75,18 @@ export default Vue.extend({
 
   components: {
     AuthModal: () => import("@layouts/AuthModal"),
-    Input: () => import("@ui-components/Input")
+    Input: () => import("@ui-components/Input"),
+    Button: () => import("@ui-components/Button")
+  },
+
+  data() {
+    return {
+      login: "" as String,
+      email: "" as String,
+      password: "" as String,
+      repeatPassword: "" as String,
+      isAgree: false
+    };
   },
 
   methods: {
@@ -80,8 +95,19 @@ export default Vue.extend({
     show() {
       this.$modal.show("register");
     },
+
     hide() {
       this.$modal.hide("register");
+    },
+
+    async onSubmit() {
+      try {
+        const { login, email, password } = this;
+        await this.register({ login, email, password });
+        this.hide();
+      } catch (errors) {
+        console.log(errors);
+      }
     }
   }
 });

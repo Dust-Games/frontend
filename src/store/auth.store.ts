@@ -1,10 +1,6 @@
 import AuthService from "@services/auth.service.ts";
-
-interface User {
-  id: string;
-  email: string;
-  username: string;
-}
+import { User } from "@constructors/User.ts";
+import { Balance } from "@constructors/Balance.ts";
 
 interface UserLogin {
   email: string;
@@ -21,6 +17,7 @@ interface AuthResponse {
   access_token: string;
   refresh_token: string;
   user: User;
+  billing: Balance;
 }
 
 export default {
@@ -47,6 +44,7 @@ export default {
 
         commit("setToken", resp.access_token);
         commit("setUser", resp.user, { root: true });
+        commit("setBalance", resp.billing, { root: true });
       } catch (err) {
         console.log(err);
       }
@@ -63,7 +61,8 @@ export default {
 
     async refreshToken({ commit }: any) {
       try {
-        const resp: AuthResponse = await AuthService.refreshToken();
+        const oldRefreshToken: string = localStorage.getItem("refresh_token") || "";
+        const resp: AuthResponse = await AuthService.refreshToken(oldRefreshToken);
         localStorage.setItem("access_token", resp.access_token);
         localStorage.setItem("refresh_token", resp.refresh_token);
 
@@ -75,13 +74,14 @@ export default {
 
     async logout({ commit }: any) {
       try {
-        await AuthService.logout();
-        localStorage.setItem("access_token", "");
-        localStorage.setItem("refresh_token", "");
-
-        commit("setToken", "");
+        const oldRefreshToken: string = localStorage.getItem("refresh_token") || "";
+        await AuthService.logout(oldRefreshToken);
       } catch (err) {
         console.log(err);
+      } finally {
+        localStorage.setItem("access_token", "");
+        localStorage.setItem("refresh_token", "");
+        commit("setToken", "");
       }
     }
   }

@@ -6,6 +6,11 @@ interface User {
   username: string;
 }
 
+interface Balance {
+  dust_tokens_num: number;
+  usd_tokens_num: number;
+}
+
 class UserClass {
   id: string;
   email: string;
@@ -18,6 +23,13 @@ class UserClass {
   }
 }
 
+interface getUserResponse {
+  access_token: string;
+  refresh_token: string;
+  user: User;
+  billing: Balance;
+}
+
 export default {
   state: {
     user: new UserClass()
@@ -28,7 +40,7 @@ export default {
   },
 
   mutations: {
-    setUser(state: any, user: User) {
+    setUser(state: any, user: UserClass) {
       state.user = user;
     }
   },
@@ -36,14 +48,17 @@ export default {
   actions: {
     async getUser({ commit }: any) {
       try {
-        const user: User = await UserService.getUser();
-        await commit("setUser", user);
+        console.log(await UserService.getUser());
+        const resp: getUserResponse = await UserService.getUser();
+
+        await commit("setUser", resp.user);
+        commit("setBalance", resp.billing, { root: true });
       } catch (err) {
         console.log(err);
       }
     },
 
-    async setUser({ commit }: any, user: User) {
+    async setUser({ commit }: any, user: UserClass) {
       try {
         await commit("setUser", user);
       } catch (err) {

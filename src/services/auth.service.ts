@@ -9,6 +9,11 @@ interface User {
   username: string;
 }
 
+interface Balance {
+  dust_tokens_num: number;
+  usd_tokens_num: number;
+}
+
 interface UserLogin {
   email: string;
   password: string;
@@ -32,6 +37,7 @@ interface AuthResponse {
     access_token: string;
     refresh_token: string;
     user: User;
+    billing: Balance;
   };
 }
 
@@ -39,8 +45,6 @@ export default {
   async login({ email, password }: UserLogin) {
     try {
       const data = { email, password };
-      console.log(await httpClient.post("auth/login", data));
-
       const resp: AuthResponse = await httpClient.post("auth/login", data);
 
       return resp.data;
@@ -64,7 +68,7 @@ export default {
   async refreshToken(refresh_token: string) {
     try {
       const data = { refresh_token };
-      const tokens: TokensResponse = await httpClient.post("api/auth/refresh-token", data);
+      const tokens: TokensResponse = await httpClient.post("auth/refresh-token", data);
 
       return tokens.data;
     } catch (errors) {
@@ -72,10 +76,11 @@ export default {
     }
   },
 
-  async logout() {
+  async logout(refresh_token: string) {
     try {
+      const data = { refresh_token };
       // console.log(localStorage.getItem("access_token"));
-      await httpClient.post("auth/logout");
+      await httpClient.post("auth/logout", data);
     } catch (errors) {
       throw errors;
     }

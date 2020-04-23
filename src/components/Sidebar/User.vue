@@ -25,12 +25,12 @@
       <!-- Баланс дасткоинов -->
       <div @click="onToWallet()" class="user__link user__block" v-if="!mobile">
         <i class="user__icon icon-dust" />
-        {{ balance ? balance.dust_token : $t("load") }}
+        {{ balance.dust_tokens_num }}
       </div>
       <!-- Баланс usd -->
       <div @click="onToWallet()" class="user__link user__block" v-if="!mobile">
         <i class="user__icon icon-usd" />
-        {{ balance ? balance.usd_token : $t("load") }}
+        {{ balance.usd_tokens_num }}
       </div>
       <!-- Кнопка выхода из аккаунта -->
       <div class="user__link user__block" @click="onLogout()">
@@ -75,7 +75,7 @@ export default {
   mounted() {
     if (this.isAuthenticated) {
       this.getUser();
-      this.getBalance();
+      // this.getBalance();
     }
   },
 

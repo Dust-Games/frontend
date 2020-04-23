@@ -19,6 +19,7 @@ module.exports = {
         "@layouts": path.resolve(__dirname, "src/layouts"),
         "@components": path.resolve(__dirname, "src/components"),
         "@ui-components": path.resolve(__dirname, "src/ui-components"),
+        "@constructors": path.resolve(__dirname, "src/constructors"),
         "@modules": path.resolve(__dirname, "src/modules"),
         "@services": path.resolve(__dirname, "src/services"),
         "@locales": path.resolve(__dirname, "src/locales"),

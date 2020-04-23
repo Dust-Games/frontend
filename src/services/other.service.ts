@@ -11,7 +11,7 @@ export default {
     try {
       const resp: CurrencyRateResponse = await httpClient.get("api/users/me");
 
-      return resp.data.data;
+      return resp.data;
     } catch (errors) {
       throw errors;
     }

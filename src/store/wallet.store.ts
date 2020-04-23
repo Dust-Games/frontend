@@ -1,17 +1,17 @@
 import UserService from "@services/user.service.ts";
 
 interface Balance {
-  dust_token: number;
-  usd_token: number;
+  dust_tokens_num: number;
+  usd_tokens_num: number;
 }
 
 class BalanceClass {
-  dust_token: number;
-  usd_token: number;
+  dust_tokens_num: number;
+  usd_tokens_num: number;
 
   constructor() {
-    this.dust_token = -1;
-    this.usd_token = -1;
+    this.dust_tokens_num = -1;
+    this.usd_tokens_num = -1;
   }
 }
 
@@ -40,6 +40,14 @@ export default {
 
         const balance: Balance = await UserService.getWallet();
 
+        commit("setBalance", balance);
+      } catch (e) {
+        // console.log(e);
+      }
+    },
+
+    async setBalance({ commit }: any, balance: Balance) {
+      try {
         commit("setBalance", balance);
       } catch (e) {
         // console.log(e);
