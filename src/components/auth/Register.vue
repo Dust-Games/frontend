@@ -75,6 +75,7 @@
                 width="186px"
                 v-model="password"
                 rules="required|min:10|is_not:email|is_not:username"
+                vid="password"
                 :placeholder="$t('passwordExample')"
                 type="password"
                 name="Пароль"
@@ -93,6 +94,7 @@
                 v-model="repeatPassword"
                 rules="required|confirmed:password"
                 :placeholder="$t('passwordExample')"
+                data-vv-as="password"
                 type="password"
                 name="Повторение пароля"
               />
@@ -192,6 +194,7 @@ export default Vue.extend({
       password: "" as String,
       repeatPassword: "" as String,
       // другое
+      oauthId: null,
       isAgree: false,
       isSocNetworkLoading: false as Boolean,
       backendError: "" as String,
@@ -223,10 +226,12 @@ export default Vue.extend({
       if (event.params) {
         this.username = event.params.username || "";
         this.email = event.params.email || "";
+        this.oauthId = event.params.oauthId;
       }
     },
 
     beforeClose() {
+      this.oauthId = null;
       this.username = "";
       this.email = "";
       this.password = "";
@@ -270,8 +275,8 @@ export default Vue.extend({
     async onSubmit() {
       try {
         this.isLoading = true;
-        const { username, email, password } = this;
-        await this.register({ username, email, password });
+        const { username, email, password, oauthId } = this;
+        await this.register({ username, email, password, oauth_account: oauthId });
 
         this.hide();
         this.$router.push("/home");

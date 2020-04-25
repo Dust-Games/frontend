@@ -48,7 +48,7 @@ export default {
       const resp: AuthResponse = await httpClient.post("auth/login", data);
       return resp.data;
     } catch (errors) {
-      throw errors;
+      throw errors.error;
     }
   },
 
@@ -59,7 +59,7 @@ export default {
 
       return resp.data;
     } catch (errors) {
-      throw errors;
+      throw errors.error;
     }
   },
 
@@ -70,7 +70,7 @@ export default {
 
       return tokens.data;
     } catch (errors) {
-      throw errors;
+      throw errors.error;
     }
   },
 
@@ -79,7 +79,7 @@ export default {
       const data = { refresh_token };
       await httpClient.post("auth/logout", data);
     } catch (errors) {
-      throw errors;
+      throw errors.error;
     }
   }
 };

@@ -38,7 +38,7 @@ export default {
       const resp: AuthResponse = await httpClient.get("users/me");
       return resp.data;
     } catch (errors) {
-      throw errors;
+      throw errors.error;
     }
   },
 
@@ -49,9 +49,12 @@ export default {
         "oauth/" + data.accountName + "/" + data.type
       );
 
+      console.log(resp);
       return resp.data;
     } catch (errors) {
-      throw errors;
+      console.log(errors, data);
+
+      throw errors.error;
     }
   },
 
@@ -61,7 +64,7 @@ export default {
       const resp: any = await httpClient.get(url);
       return resp.data;
     } catch (errors) {
-      throw errors;
+      throw errors.error;
     }
   },
 
@@ -71,7 +74,7 @@ export default {
       const resp: AuthResponse = await httpClient.get("users/me/accounts");
       return resp.data;
     } catch (errors) {
-      throw errors;
+      throw errors.error;
     }
   },
 
@@ -80,7 +83,7 @@ export default {
       const resp: AuthResponse = await httpClient.get("users/me/billing");
       return resp.data;
     } catch (errors) {
-      throw errors;
+      throw errors.error;
     }
   },
 
@@ -89,7 +92,7 @@ export default {
       const resp: AuthResponse = await httpClient.get("users/me/sessions");
       return resp.data;
     } catch (errors) {
-      throw errors;
+      throw errors.error;
     }
   }
 };

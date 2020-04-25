@@ -28,13 +28,18 @@ export default Vue.extend({
 
   async mounted() {
     try {
+      console.log(this.$route.params);
       const url = this.$route.fullPath || null;
       const type = this.$route.params.type || null;
       const resp = await this.setAccount(url);
 
       if (type == "register") {
         if (resp) {
-          this.$modal.show("register", { username: resp.username, email: resp.email });
+          this.$modal.show("register", {
+            username: resp.username,
+            email: resp.email,
+            oauthId: resp.id
+          });
         } else {
           this.$modal.show("register");
         }

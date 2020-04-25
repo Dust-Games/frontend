@@ -1,6 +1,6 @@
 <template>
   <div class="ui-input-wrapper">
-    <ValidationProvider :name="name" :rules="rules" v-slot="v">
+    <ValidationProvider :name="name" :rules="rules" v-slot="v" :vid="vid">
       <input
         class="ui-input"
         v-model="innerValue"
@@ -22,6 +22,19 @@
 
 <script lang="ts">
 import Vue from "vue";
+// import { extend } from "vee-validate";
+
+// extend("confirmed", {
+//   params: ["otherValue"],
+//   validate: (value: any, { otherValue }: any) => {
+//     console.log(value, otherValue);
+//     if (value == otherValue) {
+//       return true;
+//     }
+//     return false;
+//   },
+//   message: "Поле {_field_} должно быть такое же, как поле {_field_}"
+// });
 
 export default Vue.extend({
   name: "UiInput",
@@ -31,6 +44,7 @@ export default Vue.extend({
     // Для валидации
     rules: [String, Object],
     name: { type: String, default: "" },
+    vid: { type: String, default: "" },
     // Остальное
     type: { type: String, default: "text" },
     placeholder: { type: String, default: "" },

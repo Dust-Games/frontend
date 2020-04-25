@@ -13,7 +13,7 @@ export default {
 
       return resp.data;
     } catch (errors) {
-      throw errors;
+      throw errors.error;
     }
   }
 };

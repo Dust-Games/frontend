@@ -17,33 +17,40 @@ const httpClient = axios.create({
 // Отлавливаем ошибки
 const errorInterceptor = (error: any) => {
   // all the error responses
-  // switch (error.response.status) {
-  //   case 400:
-  //     console.error(error.response.status, error.message);
-  //     notify.warn("Nothing to display", "Data Not Found");
-  //     break;
+  switch (error.response.status) {
+    // case 400:
+    //   console.error(error.response.status, error.message);
+    //   notify.warn("Nothing to display", "Data Not Found");
+    //   break;
 
-  //   case 401: // authentication error, logout the user
-  //     notify.warn("Please login again", "Session Expired");
-  //     localStorage.removeItem("token");
-  //     router.push("/auth");
-  //     break;
+    // case 401: // authentication error, logout the user
+    //   notify.warn("Please login again", "Session Expired");
+    //   localStorage.removeItem("token");
+    //   router.push("/auth");
+    //   break;
 
-  //   default:
-  //     console.error(error.response.status, error.message);
-  //     notify.error("Server Error");
-  // }
+    case 409: // authentication error, logout the user
+      // notify.warn("Please login again", "Session Expired");
+      // localStorage.removeItem("token");
+      // router.push("/auth");
+      console.log("Акк уже прибинден");
+      break;
+
+    default:
+    // console.error(error.response.status, error.message);
+    // notify.error("Server Error");
+  }
   const errors = error.response.data;
 
   if (errors.errors) {
     const array = Object.values(errors.errors);
     const errorsText = array.join(". ");
 
-    return Promise.reject(errorsText);
+    return Promise.reject({ status: error.response.status, error: errorsText });
   } else if (errors.message) {
-    return Promise.reject(error.response.data.message);
+    return Promise.reject({ status: error.response.status, error: error.response.data.message });
   } else {
-    return Promise.reject(errors);
+    return Promise.reject({ status: error.response.status, error: errors });
   }
 };
 
