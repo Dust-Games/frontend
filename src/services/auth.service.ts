@@ -10,7 +10,7 @@ interface User {
 }
 
 interface Balance {
-  dust_tokens_num: number;
+  dust_coins_num: number;
   usd_tokens_num: number;
 }
 
@@ -46,10 +46,8 @@ export default {
     try {
       const data = { email, password };
       const resp: AuthResponse = await httpClient.post("auth/login", data);
-
       return resp.data;
     } catch (errors) {
-      console.log(errors);
       throw errors;
     }
   },
@@ -79,7 +77,6 @@ export default {
   async logout(refresh_token: string) {
     try {
       const data = { refresh_token };
-      // console.log(localStorage.getItem("access_token"));
       await httpClient.post("auth/logout", data);
     } catch (errors) {
       throw errors;

@@ -3,6 +3,8 @@
     <!-- Модалка с входом в аккаунт -->
     <Login />
     <Register />
+    <RegisterConfirmWarn />
+    <RegisterConfirmSuccess />
 
     <Sidebar class="app__sidebar" @onChangeLanguage="onChangeLanguage" />
     <main class="app__main">
@@ -23,7 +25,9 @@ export default Vue.extend({
     Sidebar: () => import("@components/Sidebar/Index.vue"),
     // InDevelopment: () => import("@components/InDevelopment"),
     Login: () => import("@components/auth/Login"),
-    Register: () => import("@components/auth/Register")
+    Register: () => import("@components/auth/Register"),
+    RegisterConfirmWarn: () => import("@components/auth/RegisterConfirmWarn"),
+    RegisterConfirmSuccess: () => import("@components/auth/RegisterConfirmSuccess")
   },
 
   methods: {

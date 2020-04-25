@@ -1,14 +1,14 @@
 <template>
   <div class="hamburger">
-    {{ isMobileMenuOpen }} {{ aa }}
-    <input
+    <input class="hamburger__checkbox" v-model="innerValue" type="checkbox" :value="true" />
+    <!-- <input
       class="hamburger__checkbox"
       type="checkbox"
       ref="checkbox"
       :value="innerValue"
       :checked="aa"
       @change="innerValue = $event.explicitOriginalTarget.checked"
-    />
+    /> -->
     <span class="hamburger__span" />
     <span class="hamburger__span" />
     <span class="hamburger__span" />

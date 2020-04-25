@@ -1,14 +1,13 @@
 <template>
   <div class="ui-input-wrapper">
-    <ValidationProvider :name="name" :rules="rules">
+    <ValidationProvider :name="name" :rules="rules" v-slot="v">
       <input
         class="ui-input"
         v-model="innerValue"
         :disabled="disabled"
         :type="type"
         :placeholder="placeholder"
-        v-tooltip="errorDescription"
-        :class="{ error: isError }"
+        :class="{ error: (v.dirty && v.invalid) || (v.validated && v.invalid) }"
         :style="{
           width: width,
           height: height,
@@ -16,23 +15,10 @@
           padding: padding
         }"
       />
+      <!-- v-tooltip="errorDescription" -->
     </ValidationProvider>
-    <!-- show: v && !disabled && isShowError && v.$invalid && v.$dirty, -->
   </div>
 </template>
-
-<i18n>
-{
-  "en": {
-    "error": "Error",
-    "name": "45"
-  },
-  "ru": {
-    "error": "Ошибка",
-    "name": "ввода"
-  }
-}
-</i18n>
 
 <script lang="ts">
 import Vue from "vue";
@@ -48,7 +34,7 @@ export default Vue.extend({
     // Остальное
     type: { type: String, default: "text" },
     placeholder: { type: String, default: "" },
-    errorDescription: { type: String, default: "" }, // this.$t("error")
+    // errorDescription: { type: String, default: "" }, // this.$t("error")
     width: { type: String, default: "max-content" },
     height: { type: String, default: "35px" },
     fontSize: { type: String, default: "14px" },

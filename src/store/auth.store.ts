@@ -12,11 +12,11 @@ export class User {
 }
 
 export class Balance {
-  dust_tokens_num: number;
+  dust_coins_num: number;
   usd_tokens_num: number;
 
   constructor() {
-    this.dust_tokens_num = -1;
+    this.dust_coins_num = -1;
     this.usd_tokens_num = -1;
   }
 }
@@ -64,18 +64,35 @@ export default {
         commit("setToken", resp.access_token);
         commit("setUser", resp.user, { root: true });
         commit("setBalance", resp.billing, { root: true });
-      } catch (err) {
-        // console.log(err);
+      } catch (errors) {
+        throw errors;
+      }
+    },
+
+    async setUser({ commit }: any, resp: AuthResponse) {
+      try {
+        localStorage.setItem("access_token", resp.access_token);
+        localStorage.setItem("refresh_token", resp.refresh_token);
+
+        commit("setToken", resp.access_token);
+        commit("setUser", resp.user, { root: true });
+        commit("setBalance", resp.billing, { root: true });
+      } catch (errors) {
+        throw errors;
       }
     },
 
     async register({ commit }: any, data: UserRegister) {
-      const resp: AuthResponse = await AuthService.register(data);
-      localStorage.setItem("access_token", resp.access_token);
-      localStorage.setItem("refresh_token", resp.refresh_token);
+      try {
+        const resp: AuthResponse = await AuthService.register(data);
+        localStorage.setItem("access_token", resp.access_token);
+        localStorage.setItem("refresh_token", resp.refresh_token);
 
-      commit("setToken", resp.access_token);
-      commit("setUser", resp.user, { root: true });
+        commit("setToken", resp.access_token);
+        commit("setUser", resp.user, { root: true });
+      } catch (errors) {
+        throw errors;
+      }
     },
 
     async refreshToken({ commit }: any) {
@@ -86,17 +103,17 @@ export default {
         localStorage.setItem("refresh_token", resp.refresh_token);
 
         commit("setToken", resp.access_token);
-      } catch (err) {
-        // console.log(err);
+      } catch (errors) {
+        throw errors;
       }
     },
 
     async logout({ commit }: any) {
       try {
-        const oldRefreshToken: string = localStorage.getItem("refresh_token") || "";
-        await AuthService.logout(oldRefreshToken);
-      } catch (err) {
-        // console.log(err);
+        const refreshToken: string = localStorage.getItem("refresh_token") || "";
+        await AuthService.logout(refreshToken);
+      } catch (errors) {
+        throw errors;
       } finally {
         localStorage.setItem("access_token", "");
         localStorage.setItem("refresh_token", "");

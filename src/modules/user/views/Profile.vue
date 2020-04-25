@@ -1,35 +1,14 @@
 <template>
   <div class="profile">
     <h1 class="profile__title">{{ $t("profile") }}</h1>
-    <div class="profile__block1">
-      <div class="profile__avatar-wrapper">
-        <img class="profile__avatar" :src="profile.avatar" />
-      </div>
-      <div class="profile__block1-info">
-        <p class="profile__nickname">{{ profile.nickname }}</p>
-        <div class="profile__connections">
-          <span class="profile__connections-text">{{ $t("socNetworks") }}</span>
-          <div class="profile__connection" v-for="(connection, index) in connections" :key="index">
-            <router-link class="profile__icon" :class="connection.icon" :to="connection.to" />
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="profile__block">
-      <div class="profile__personal-info">
-        <p class="profile__rating">
-          <span class="profile__rating-title">{{ $t("accountLevel") }}</span>
-          <span class="profile__rating-text">
-            {{ profile.level }}
-          </span>
-        </p>
-        <p class="profile__rating">
-          <span class="profile__rating-title">{{ $t("rating") }}</span>
-          <span class="profile__rating-text">
-            {{ profile.rating.toLocaleString("ru") }}
-          </span>
-        </p>
-      </div>
+    <div class="profile__common">
+      <p>{{ $t("username") }} {{ user.username }}</p>
+      <p>{{ $t("email") }} {{ user.email }}</p>
+      <p>
+        {{ $t("accounts") }}
+        <br />
+        {{ !!accounts.length ? accounts : $t("emptyAccounts") }}
+      </p>
     </div>
   </div>
 </template>
@@ -37,40 +16,44 @@
 <i18n>
 {
   "en": {
-    "profile": "profile",
-    "socNetworks": "Soc networks: ", 
-    "accountLevel": "Account level: ",
-    "rating": "Rating: "
+    "profile": "Profile",
+    "username": "Login: ",
+    "email": "Email: ",
+    "accounts": "Soc networks: ",
+    "emptyAccounts": "Oops... Empty!"
   },
   "ru": {
-    "profile": "профиль",
-    "socNetworks": "Социальные сети: ",
-    "accountLevel": "Уровень аккаунта: ",
-    "rating": "Рейтинг: "
+    "profile": "Профиль",
+    "username": "Логин: ",
+     "email": "Email: ",
+    "accounts": "Социальные сети: ",
+    "emptyAccounts": "Упс... Пусто!"
   }
 }
 </i18n>
 
 <script lang="ts">
 import Vue from "vue";
+import { mapGetters, mapActions } from "vuex";
 
 export default Vue.extend({
   name: "Profile",
 
   data() {
-    return {
-      profile: {
-        avatar: "@/assets/avatar.png",
-        nickname: "Nagibator",
-        level: 2,
-        rating: 1234
-      },
-      connections: [
-        { icon: "icon-cog", to: "" },
-        { icon: "icon-cog", to: "" },
-        { icon: "icon-cog", to: "" }
-      ]
-    };
+    return {};
+  },
+
+  computed: {
+    ...mapGetters(["user", "accounts"])
+  },
+
+  mounted() {
+    this.getUser();
+    this.getAccounts();
+  },
+
+  methods: {
+    ...mapActions(["getAccounts", "getUser"])
   }
 });
 </script>
@@ -78,7 +61,6 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .profile {
   text-align: left;
-  padding: 30px;
   max-width: 1080px;
   margin: 0 auto;
 

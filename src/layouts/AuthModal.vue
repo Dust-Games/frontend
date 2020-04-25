@@ -1,13 +1,18 @@
 <template>
   <transition name="modal">
     <modal
+      class="auth-modal"
       :name="modalName"
       adaptive
       :clickToClose="clickToClose"
-      :width="width"
-      :height="height"
-      :minHeight="150"
-      class="auth-modal"
+      :width="sizes && sizes.width ? sizes.width : '100%'"
+      :height="scrollable ? 'auto' : sizes && sizes.height ? sizes.height : 'auto'"
+      :minHeight="sizes && sizes.minHeight ? sizes.minHeight : 0"
+      :minWidth="sizes && sizes.minWidth ? sizes.minWidth : 0"
+      :maxHeight="sizes && sizes.maxHeight ? sizes.maxHeight : Infinity"
+      :maxWidth="sizes && sizes.maxWidth ? sizes.maxWidth : Infinity"
+      @before-open="$emit('before-open', $event)"
+      @before-close="$emit('before-close', $event)"
     >
       <!-- Кнопка закрытия модалки -->
       <div class="auth-modal__close-wrapper">
@@ -34,16 +39,18 @@ export default Vue.extend({
   },
 
   props: {
-    modalName: { type: String, default: "auth" },
+    // Имя модального окна, чтобы по этому имени его закрыть
+    modalName: { type: String, required: true },
     clickToClose: { type: Boolean, default: true },
-    width: { type: [String, Number], default: "500px" },
-    height: { type: [String, Number], default: "auto" }
+    scrollable: Boolean,
+    sizes: Object
   },
 
   methods: {
     onShow() {
       this.$modal.show(this.modalName);
     },
+
     onHide() {
       this.$modal.hide(this.modalName);
     }

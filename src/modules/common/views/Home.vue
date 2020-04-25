@@ -23,12 +23,12 @@
   "en": {
     "home": "Main page",
     "description": "Welcome! There is available pages now:",
-    "available": "Signup<br />Login<br />Wallet"
+    "available": "Signup (including via social networks)<br />Login (including via social networks)<br />Sidebar bottom info<br />Linked accounts"
   },
   "ru": {
     "home": "Главная страница",
     "description": "Добро пожаловать! Сейчас доступно:",
-    "available": "Регистрация<br />Вход<br />Кошелек"
+    "available": "Регистрация (в т.ч. через соцсети)<br />Вход (в т.ч. через соцсети)<br />Информация внизу сайдбара<br />Привязанные аккаунты"
   }
 }
 </i18n>

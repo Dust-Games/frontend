@@ -89,6 +89,15 @@ import i18n from "./i18n";
 //   }
 // };
 
+// Яндекс метрика для подсчета посетителей
+import VueYandexMetrika from "vue-yandex-metrika";
+Vue.use(VueYandexMetrika, {
+  id: "62301178",
+  router: router,
+  env: process.env.NODE_ENV
+  // other options
+});
+
 new Vue({
   router,
   store,

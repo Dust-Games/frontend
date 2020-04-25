@@ -1,6 +1,6 @@
 <template>
   <div class="sidebar-mobile" v-click-outside="onHide">
-    <div class="sidebar-mobile__logo"><img src="@/assets/logo.svg" /></div>
+    <div class="sidebar-mobile__logo"><img src="@/assets/images/logo.svg" /></div>
     <MobileHamburger class="sidebar-mobile__hamburger" v-model="isMenuShow" />
     <!-- :isChecked="isMenuShow"
       @on-change="onChangeHamburgerState" -->

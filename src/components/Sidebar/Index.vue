@@ -2,7 +2,7 @@
   <div class="sidebar-wrapper">
     <!-- Большой экран -->
     <div class="sidebar" v-if="windowWidth > 700">
-      <div class="sidebar__logo"><img src="@/assets/logo.svg" /></div>
+      <div class="sidebar__logo"><img src="@/assets/images/logo.svg" /></div>
       <User class="sidebar__user" />
       <Nav class="sidebar__nav" />
       <Footer class="sidebar__footer" @onChangeLanguage="onChangeLanguage" />

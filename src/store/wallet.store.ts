@@ -1,11 +1,11 @@
 import UserService from "@services/user.service.ts";
 
 class Balance {
-  dust_tokens_num: number | null;
+  dust_coins_num: number | null;
   usd_tokens_num: number | null;
 
   constructor() {
-    this.dust_tokens_num = null;
+    this.dust_coins_num = null;
     this.usd_tokens_num = null;
   }
 }
@@ -31,16 +31,16 @@ export default {
         const balance: Balance = await UserService.getWallet();
 
         commit("setBalance", balance);
-      } catch (e) {
-        // console.log(e);
+      } catch (errors) {
+        throw errors.response.data.message;
       }
     },
 
     async setBalance({ commit }: any, balance: Balance) {
       try {
         commit("setBalance", balance);
-      } catch (e) {
-        // console.log(e);
+      } catch (errors) {
+        throw errors.response.data.message;
       }
     }
   }

@@ -23,19 +23,20 @@
         <span class=" user__auth-nickname-text">{{ user.username || $t("load") }}</span>
       </div>
       <!-- Баланс дасткоинов -->
-      <div @click="onToWallet()" class="user__link user__block" v-if="!mobile">
+      <!-- @click="onToWallet()" -->
+      <div class=" user__block" v-if="!mobile">
         <i class="user__icon icon-dust" />
-        {{ balance.dust_tokens_num || $t("load") }}
+        {{ balance.dust_coins_num || $t("load") }}
       </div>
       <!-- Баланс usd -->
-      <div @click="onToWallet()" class="user__link user__block" v-if="!mobile">
+      <div class="user__block" v-if="!mobile">
         <i class="user__icon icon-usd" />
         {{ balance.usd_tokens_num || $t("load") }}
       </div>
       <!-- Кнопка выхода из аккаунта -->
       <div class="user__link user__block" @click="onLogout()">
         <i class="user__icon icon-exit_to_app" />
-        {{ $t("logout") }}
+        {{ !isLogoutLoading ? $t("logout") : $t("load") }}
       </div>
     </div>
   </div>
@@ -68,6 +69,12 @@ export default {
     mobile: { type: Boolean, default: false }
   },
 
+  data() {
+    return {
+      isLogoutLoading: false
+    };
+  },
+
   computed: {
     ...mapGetters(["balance", "user", "isAuthenticated"])
   },
@@ -89,7 +96,7 @@ export default {
     },
 
     onToProfile() {
-      this.$router.push("/user/profile");
+      this.$router.push({ name: "userProfile" });
       this.onChange();
     },
 
@@ -104,8 +111,11 @@ export default {
     },
 
     onLogout() {
+      this.isLogoutLoading = true;
       this.logout();
       this.onChange();
+      this.isLogoutLoading = false;
+      this.$router.push("/home");
     },
 
     onChange() {

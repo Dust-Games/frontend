@@ -6,9 +6,24 @@
     :class="[size, theme]"
     :style="{ width: width, height: height }"
   >
-    <slot />
+    <div v-show="!isLoading">
+      <slot />
+    </div>
+
+    <span v-show="isLoading">{{ $t("load") }}</span>
   </button>
 </template>
+
+<i18n>
+{
+  "en": {
+    "load": "loading..."
+  },
+  "ru": {
+    "load": "загрузка..."
+  }
+}
+</i18n>
 
 <script lang="ts">
 import Vue from "vue";
@@ -24,7 +39,9 @@ export default Vue.extend({
     size: { type: String, default: "normal" },
     // primary, orange, blue, gray
     theme: { type: String, default: "orange" },
-    disabled: { type: Boolean, default: false }
+    disabled: { type: Boolean, default: false },
+    // Для индикатора загрузки
+    isLoading: { type: Boolean, default: false }
   }
 });
 </script>

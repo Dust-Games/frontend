@@ -1,33 +1,19 @@
 <template>
-  <AuthModal modalName="login" width="400px">
+  <AuthModal modalName="login" :sizes="{ width: '400px' }" @before-close="beforeClose">
     <ValidationObserver v-slot="{ handleSubmit, errors }">
-      <form class="login" @submit.prevent="onSubmit">
+      <form class="login" @submit.prevent="handleSubmit(onSubmit)">
         <div class="login__header">
           <h1 class="login__title">{{ $t("login") }}</h1>
           <div class="login__soc-networks">
             <!-- <i @click="$emit('change')" class="login__header-icon icon-google" />
             <i @click="$emit('change')" class="login__header-icon icon-vk" /> -->
-            <i
-              @click="onLinkAccount('steam')"
-              class="login__header-icon icon-steam"
-              v-tooltip="'Регистрация с помощью steam'"
-            />
-            <i
-              @click="onLinkAccount('twitch')"
-              class="login__header-icon icon-twitch"
-              v-tooltip="'Регистрация с помощью twitch'"
-            />
-            <i
-              @click="onLinkAccount('discord')"
-              class="login__header-icon icon-discord"
-              v-tooltip="'Регистрация с помощью discord'"
-            />
-            <i
-              @click="onLinkAccount('battlenet')"
-              class="login__header-icon icon-battlenet"
-              v-tooltip="'Регистрация с помощью battlenet'"
-            />
+            <i @click="onLinkAccount('steam')" class="login__header-icon icon-steam" />
+            <!-- v-tooltip="$t('loginWith') + 'steam'" -->
+            <i @click="onLinkAccount('twitch')" class="login__header-icon icon-twitch" />
+            <i @click="onLinkAccount('discord')" class="login__header-icon icon-discord" />
+            <i @click="onLinkAccount('battlenet')" class="login__header-icon icon-battlenet" />
           </div>
+          <span v-show="isSocNetworkLoading">{{ $t("load") }}</span>
         </div>
 
         <!-- Ошибки -->
@@ -73,7 +59,9 @@
           {{ $t("passwordReset") }}
         </p> -->
 
-        <Button type="submit" width="100%">{{ $t("loginButton") }}</Button>
+        <Button class="login__submit" type="submit" width="100%" :isLoading="isLoading">
+          {{ $t("loginButton") }}
+        </Button>
 
         <p class="link login__signup" @click="onToSignup()">{{ $t("signup") }}</p>
       </form>
@@ -90,7 +78,9 @@
     "passwordExample": "StrongPassword123#",
     "loginButton": "login",
     "passwordReset": "Forgot your password?",
-     "signup": "Signup"
+    "signup": "Signup",
+    "loginWith": "Login with ",
+    "load": "loading..."
   },
   "ru": {
     "login": "Вход",
@@ -98,8 +88,10 @@
     "password": "Пароль",
     "passwordExample": "СложныйПароль123#",
     "loginButton": "войти",
-     "passwordReset": "Забыли пароль?",
-      "signup": "Зарегистрироваться"
+    "passwordReset": "Забыли пароль?",
+    "signup": "Зарегистрироваться",
+    "loginWith": "Вход с помощью ",
+    "load": "загрузка..."
   }
 }
 </i18n>
@@ -121,7 +113,9 @@ export default Vue.extend({
     return {
       email: "" as String,
       password: "" as String,
-      isSocNetworkLoading: false as Boolean
+      isSocNetworkLoading: false as Boolean,
+      backendError: "" as String,
+      isLoading: false as Boolean
     };
   },
 
@@ -136,8 +130,14 @@ export default Vue.extend({
       this.$modal.hide("login");
     },
 
-    getErrorsText(errors: string[]) {
-      return Object.values(errors).join(". ");
+    getErrorsText(errors: any) {
+      let errorsArray = Object.values(errors);
+      errorsArray = errorsArray.filter((error: any) => error.length);
+      if (this.backendError) {
+        errorsArray.push(this.backendError);
+      }
+
+      return errorsArray.join(". ");
     },
 
     onToPasswordReset() {
@@ -150,24 +150,39 @@ export default Vue.extend({
       this.$modal.show("register");
     },
 
-    async onSubmit() {
+    beforeClose() {
+      this.email = "";
+      this.password = "";
+      this.backendError = "";
+      this.isSocNetworkLoading = false;
+      this.isLoading = false;
+    },
+
+    async onSubmit(handleSubmit: any) {
       try {
+        this.isLoading = true;
         const { email, password } = this;
         await this.login({ email, password });
-        // await this.getBalance();
         this.hide();
+        this.$router.push("/home");
       } catch (errors) {
-        console.log(errors);
+        this.backendError = errors;
+      } finally {
+        this.isLoading = false;
       }
     },
 
     async onLinkAccount(accountName: string) {
-      this.isSocNetworkLoading = true;
-      const url: any = await this.getAccountLink({ accountName, type: "login" });
-      this.isSocNetworkLoading = false;
-      window.open(url);
+      try {
+        this.isSocNetworkLoading = true;
+        const url: any = await this.getAccountLink({ accountName, type: "login" });
+        this.isSocNetworkLoading = false;
+        window.open(url);
 
-      this.$emit("change");
+        this.$emit("change");
+      } catch (errors) {
+        this.backendError = errors;
+      }
     }
   }
 });
@@ -215,6 +230,8 @@ export default Vue.extend({
   &__errors {
     position: absolute;
     margin-top: -40px;
+    margin-left: -15px;
+    margin-right: 15px;
     color: $red;
     font-size: 12px;
   }
@@ -241,6 +258,10 @@ export default Vue.extend({
   &__signup {
     margin-top: 15px;
     text-align: center;
+  }
+
+  &__submit {
+    margin-top: 50px;
   }
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <nav class="nav">
-    <div class="nav__item" @click="onToHome()" v-tooltip="'546456465'">{{ $t("menu") }}</div>
+    <div class="nav__item" @click="onToHome()">{{ $t("menu") }}</div>
 
     <div class="nav__item" disabled>{{ $t("wallet") }}</div>
     <!-- @click="onToWallet()" -->
@@ -16,7 +16,7 @@
   "en": {
     "soon": "(soon!)",
     "menu": "Main",
-    "wallet": "Wallet",
+    "wallet": "Wallet @:soon",
     "tournaments": "Tournaments @:soon",
     "bets": "Bets @:soon",
     "leagues": "Leagues @:soon",

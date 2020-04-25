@@ -8,7 +8,7 @@ interface User {
 }
 
 interface Balance {
-  dust_tokens_num: number;
+  dust_coins_num: number;
   usd_tokens_num: number;
 }
 
@@ -45,7 +45,6 @@ export default {
   // Начать привязку соцсети
   async getAccountLink(data: accountLinkData) {
     try {
-      console.log("oauth/" + data.accountName + "/" + data.type);
       const resp: getAccountLinkResponse = await httpClient.get(
         "oauth/" + data.accountName + "/" + data.type
       );
@@ -59,10 +58,7 @@ export default {
   // Закончить привязку соцсети
   async setAccount(url: string) {
     try {
-      console.log(url);
       const resp: any = await httpClient.get(url);
-      console.log(resp);
-
       return resp.data;
     } catch (errors) {
       throw errors;
@@ -73,7 +69,6 @@ export default {
   async getAccounts() {
     try {
       const resp: AuthResponse = await httpClient.get("users/me/accounts");
-
       return resp.data;
     } catch (errors) {
       throw errors;
@@ -83,7 +78,6 @@ export default {
   async getWallet() {
     try {
       const resp: AuthResponse = await httpClient.get("users/me/billing");
-
       return resp.data;
     } catch (errors) {
       throw errors;
@@ -93,7 +87,6 @@ export default {
   async getSessions() {
     try {
       const resp: AuthResponse = await httpClient.get("users/me/sessions");
-
       return resp.data;
     } catch (errors) {
       throw errors;

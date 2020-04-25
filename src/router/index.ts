@@ -33,7 +33,8 @@ const routes = [
     name: "accountLink",
     component: () => import("@modules/user/views/AccountLink.vue"),
     meta: {
-      title: (route: any) => `Регистрация через ${route.params.accountName}`
+      title: (route: any) => `Авторизация соцсети через ${route.params.accountName}`,
+      public: true
     }
   },
 
@@ -41,20 +42,20 @@ const routes = [
   ...withPrefix("/user", [
     {
       path: "/wallet",
-      name: "wallet",
+      name: "userWallet",
       component: () => import("@modules/user/views/Wallet.vue"),
       meta: {
         title: "Кошелек"
       }
+    },
+    {
+      path: "/profile",
+      name: "userProfile",
+      component: () => import("@modules/user/views/Profile.vue"),
+      meta: {
+        title: "DUST | Профиль"
+      }
     }
-    // {
-    //   path: "/profile",
-    //   name: "profile",
-    //   component: () => import("@modules/user/views/Profile.vue"),
-    //   meta: {
-    //     title: "DUST | Профиль"
-    //   }
-    // }
   ]),
 
   // Справочная информация
@@ -116,32 +117,18 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  console.log(to);
-  if (localStorage.getItem("user-token")) {
-    store.dispatch("setToken", localStorage.getItem("user-token"));
-  }
-
+  const isLogged = localStorage.getItem("access_token");
   const isPublic = to.matched.some(record => record.meta.public);
-  const onlyWhenLoggedOut = to.matched.some(record => record.meta.onlyWhenLoggedOut);
-
-  // const loggedIn = !!TokenService.getToken();
-  // const loggedIn = !!localStorage.getItem("user-token");
-  const loggedIn = true;
 
   if (to.path == "/auth/logout") {
     return next("/");
   }
 
-  if (!isPublic && !loggedIn) {
+  if (!isPublic && !isLogged) {
     return next({
       path: "/auth/login",
       query: { redirect: to.fullPath } // Store the full path to redirect the user to after login
     });
-  }
-
-  // Do not allow user to visit login page or register page if they are logged in
-  if (loggedIn && onlyWhenLoggedOut) {
-    return next("/");
   }
 
   next();
