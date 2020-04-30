@@ -1,9 +1,10 @@
 <template>
   <div class="sidebar-mobile" v-click-outside="onHide">
+    <!-- Лого -->
     <div class="sidebar-mobile__logo"><img src="@/assets/images/logo.svg" /></div>
+    <!-- Гамбургер -->
     <MobileHamburger class="sidebar-mobile__hamburger" v-model="isMenuShow" />
-    <!-- :isChecked="isMenuShow"
-      @on-change="onChangeHamburgerState" -->
+    <!-- Само меню -->
     <transition name="slide-fade">
       <div class="sidebar-mobile__menu" v-show="isMenuShow">
         <div class="sidebar-mobile__hr-large" />
@@ -16,63 +17,6 @@
         <Footer class="sidebar-mobile__footer" />
       </div>
     </transition>
-
-    <!-- <div class="sidebar-mobile__hamburger-inner"> -->
-    <!-- <header class="sidebar-mobile__mobile-content"> -->
-    <!-- <div class="header__link header__shop" @click="showInDevelopment()">
-          <span class="header__shop-icon header__icon icon-cart" />
-          <span class="header__shop-text">МАГАЗИН</span>
-        </div> -->
-    <!-- <div
-          class="sidebar-mobile__wallet sidebar-mobile__link"
-          @click="onToWallet()"
-          v-if="isAuthenticated"
-        >
-          <span
-            class="sidebar-mobile__wallet-icon sidebar-mobile__icon icon-account_balance_wallet"
-          />
-          <span class="sidebar-mobile__wallet-text">{{
-            balance.toLocaleString("ru")
-          }}</span>
-        </div> -->
-    <!-- <div class="sidebar__notifications">
-          <span class="sidebar__notifications-icon sidebar__icon icon-bell" />
-          <span class="sidebar__notifications-text">
-            {{ profile.notifications }}
-          </span>
-        </div> -->
-    <!-- <router-link class="sidebar__link sidebar__profile" to="/profile">
-          <span class="sidebar__profile-icon sidebar__icon icon-user" />
-          <span class="sidebar__profile-text">{{ profile.nickname }}</span>
-        </router-link> -->
-    <!-- <div
-          class="sidebar-mobile__logout"
-          @click="onLogout()"
-          v-if="isAuthenticated"
-        >
-          <span
-            class="sidebar-mobile__logout-icon sidebar-mobile__icon icon-exit"
-          />
-          <span class="sidebar-mobile__logout-text">{{ $t("Logout") }}</span>
-        </div> -->
-    <!-- <form action="https://steamcommunity.com/openid/login" method="post" v-if="!isAuthenticated">
-      <input
-        type="hidden"
-        name="openid.identity"
-        value="http://specs.openid.net/auth/2.0/identifier_select"
-      />
-      <input
-        type="hidden"
-        name="openid.claimed_id"
-        value="http://specs.openid.net/auth/2.0/identifier_select"
-      />
-      <input type="hidden" name="openid.ns" value="http://specs.openid.net/auth/2.0" />
-      <input type="hidden" name="openid.mode" value="checkid_setup" />
-      <input type="hidden" name="openid.realm" value="https:\\dust.games" />
-      <input type="hidden" name="openid.return_to" value="http://dust.games" />
-      <Button type="submit" class="header__login">{{ $t("login") }}</Button>
-    </form> -->
-    <!-- </div> -->
   </div>
 </template>
 
@@ -143,6 +87,10 @@ export default Vue.extend({
   width: 100%;
   height: 70px;
 
+  /deep/.footer__links {
+    margin-right: 30px;
+  }
+
   &__logo {
     height: 25px;
     width: 100px;
@@ -176,11 +124,11 @@ export default Vue.extend({
 
     &-large {
       height: 0;
-      border-top: 2px solid $white;
-      border-bottom: 1px solid $white;
+      border-top: 4px solid $gray-light;
+      border-bottom: 1px solid $gray-light;
       border-radius: 5px;
-      width: calc(100% - 40px);
-      margin: 0 20px 20px;
+      width: calc(80%);
+      margin: 5px auto 20px;
     }
   }
 }

@@ -8,7 +8,10 @@
       <input type="checkbox" v-model="innerValue" />
       <span
         class="state"
-        :class="[innerValue ? 'state__true icon-checkmark' : 'state__false', bold && 'bold']"
+        :class="[
+          innerValue ? 'state__true icon-checkmark' : 'state__false',
+          { bold: bold, error: (v.dirty && v.invalid) || (v.validated && v.invalid) }
+        ]"
         :disabled="disabled"
       />
     </ValidationProvider>
@@ -99,27 +102,24 @@ export default Vue.extend({
     font-size: 14px;
     color: $white;
 
+    &.error {
+      border-color: $red;
+    }
+
     // при наведении
     &:hover {
       cursor: pointer;
 
-      .state {
+      &.state__true {
         cursor: pointer;
-        // background: $primary-color;
         transition: all 0.3s ease-out;
-        color: $white;
+        color: $orange;
+      }
 
-        &__true {
-          // border-color: $orange;
-          // background-color: rgba($primary-color, 0.7);
-          // color: $white;
-          // border-color: rgba($gray-dark, 0.7);
-        }
-
-        &__false {
-          // border-color: $primary-color;
-          border-color: $orange;
-        }
+      &.state__false {
+        cursor: pointer;
+        transition: all 0.3s ease-out;
+        border-color: $orange;
       }
     }
 
@@ -135,7 +135,8 @@ export default Vue.extend({
     }
 
     &__true {
-      color: $gray;
+      color: $white;
+      transition: all 0.3s;
     }
   }
 }
