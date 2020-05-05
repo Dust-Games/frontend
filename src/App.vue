@@ -8,6 +8,7 @@
 
     <Sidebar class="app__sidebar" @onChangeLanguage="onChangeLanguage" />
     <main class="app__main">
+      <button @click="showAlert">Показать</button>
       <!-- <InDevelopment v-if="showIsInDevelopment && isInDevelopment" /> -->
       <router-view />
     </main>
@@ -17,6 +18,16 @@
 <script lang="ts">
 import Vue from "vue";
 import { mapGetters, mapActions } from "vuex";
+
+declare module "vue/types/vue" {
+  interface Vue {
+    $notify: any;
+  }
+
+  interface VueConstructor {
+    $notify: any;
+  }
+}
 
 export default Vue.extend({
   name: "App",
@@ -37,6 +48,10 @@ export default Vue.extend({
       } else {
         this.$i18n.locale = "en";
       }
+    },
+
+    showAlert() {
+      this.$notify.default("Message!", { timeout: 40000 });
     }
   }
 });

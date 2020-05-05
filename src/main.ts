@@ -21,6 +21,10 @@ import "@/assets/icomoon/style.css";
 import vClickOutside from "v-click-outside";
 Vue.use(vClickOutside);
 
+// Уведомления
+import Notify from "vue-dust-notify";
+Vue.use(Notify);
+
 // Валидация переменных (преимущественно в полях ввода)
 // import Vuelidate from "vuelidate";
 // Vue.use(Vuelidate as any);
@@ -95,7 +99,6 @@ Vue.use(VueYandexMetrika, {
   id: "62301178",
   router: router,
   env: process.env.NODE_ENV
-  // other options
 });
 
 new Vue({
