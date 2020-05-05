@@ -110,7 +110,7 @@ export default Vue.extend({
     },
 
     onChangeHamburgerState(isChecked: boolean) {
-      console.log(123);
+      // console.log(123);
       this.isMenuShow = isChecked;
     }
   }
