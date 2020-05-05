@@ -51,7 +51,7 @@ export default Vue.extend({
     },
 
     showAlert() {
-      this.$notify.default("Message!", { timeout: 40000 });
+      this.$notify.default("Message!", { timeout: 40000, title: "445" });
     }
   }
 });

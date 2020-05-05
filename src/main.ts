@@ -24,6 +24,7 @@ Vue.use(vClickOutside);
 // Уведомления
 import Notify from "vue-dust-notify";
 Vue.use(Notify);
+import "vue-dust-notify/dist/vue-dust-notify.css";
 
 // Валидация переменных (преимущественно в полях ввода)
 // import Vuelidate from "vuelidate";
