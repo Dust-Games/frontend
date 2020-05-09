@@ -6,7 +6,7 @@
     <!-- @click="onToWallet()" -->
     <div class="nav__item" disabled>{{ $t("tournaments") }}</div>
     <div class="nav__item" disabled>{{ $t("bets") }}</div>
-    <div class="nav__item" disabled>{{ $t("leagues") }}</div>
+    <div class="nav__item" @click="onToLeagues()">{{ $t("leagues") }}</div>
     <div class="nav__item" disabled>{{ $t("premium") }}</div>
   </nav>
 </template>
@@ -18,8 +18,8 @@
     "menu": "Main",
     "wallet": "Wallet @:soon",
     "tournaments": "Tournaments @:soon",
-    "bets": "Bets @:soon",
-    "leagues": "Leagues @:soon",
+    "bets": "Forecasts @:soon",
+    "leagues": "Leagues",
     "premium": "Premium @:soon"
   },
   "ru": {
@@ -27,8 +27,8 @@
     "menu": "Главная",
     "wallet": "Кошелек @:soon",
     "tournaments": "Турниры @:soon",
-    "bets": "Ставки @:soon",
-    "leagues": "Лиги @:soon",
+    "bets": "Прогнозы @:soon",
+    "leagues": "Лиги",
     "premium": "Премиум @:soon"
   }
 }
@@ -46,6 +46,11 @@ export default Vue.extend({
 
     onToHome() {
       this.$router.push("/home");
+      this.onChange();
+    },
+
+    onToLeagues() {
+      this.$router.push("/leagues");
       this.onChange();
     },
 

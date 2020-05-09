@@ -28,6 +28,18 @@ const routes = [
     redirect: "/"
   },
 
+  // Всё, что касается пользователя - профиль, кошелек
+  ...withPrefix("/leagues", [
+    {
+      path: "/",
+      name: "leaguesMain",
+      component: () => import("@modules/leagues/views/Main.vue"),
+      meta: {
+        title: "Лиги"
+      }
+    }
+  ]),
+
   {
     path: "/oauth/:accountName/:type/callback",
     name: "accountLink",
