@@ -33,7 +33,7 @@ const errorInterceptor = (error: any) => {
       // notify.warn("Please login again", "Session Expired");
       // localStorage.removeItem("token");
       // router.push("/auth");
-      console.log("Акк уже прибинден");
+      // console.log("Акк уже прибинден");
       break;
 
     default:

@@ -28,7 +28,7 @@ export default Vue.extend({
 
   async mounted() {
     try {
-      console.log(this.$route.params);
+      // console.log(this.$route.params);
       const url = this.$route.fullPath || null;
       const type = this.$route.params.type || null;
       const resp = await this.setAccount(url);

@@ -49,10 +49,10 @@ export default {
         "oauth/" + data.accountName + "/" + data.type
       );
 
-      console.log(resp);
+      // console.log(resp);
       return resp.data;
     } catch (errors) {
-      console.log(errors, data);
+      // console.log(errors, data);
 
       throw errors.error;
     }
