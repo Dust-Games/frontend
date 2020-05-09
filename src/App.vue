@@ -8,7 +8,6 @@
 
     <Sidebar class="app__sidebar" @onChangeLanguage="onChangeLanguage" />
     <main class="app__main">
-      <button @click="showAlert">Показать</button>
       <!-- <InDevelopment v-if="showIsInDevelopment && isInDevelopment" /> -->
       <router-view />
     </main>
@@ -48,10 +47,6 @@ export default Vue.extend({
       } else {
         this.$i18n.locale = "en";
       }
-    },
-
-    showAlert() {
-      this.$notify.default("Message!", { timeout: 40000, title: "445" });
     }
   }
 });

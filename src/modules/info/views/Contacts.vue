@@ -29,7 +29,7 @@ export default Vue.extend({
   components: {
     ruContacts,
     enContacts,
-    Layout: () => import("../layouts/Info")
+    Layout: () => import("@layouts/Info")
   },
 
   computed: {

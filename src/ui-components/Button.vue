@@ -5,6 +5,7 @@
     :disabled="disabled"
     :class="[size, theme]"
     :style="{ width: width, height: height }"
+    @click="onClick"
   >
     <div v-show="!isLoading">
       <slot />
@@ -34,7 +35,7 @@ export default Vue.extend({
   props: {
     type: { type: String, default: "button" },
     width: { type: String, default: "max-content" },
-    height: { type: String, default: "auto" },
+    height: { type: String, default: "min-content" },
     // small, normal, large
     size: { type: String, default: "normal" },
     // primary, orange, blue, gray
@@ -42,6 +43,16 @@ export default Vue.extend({
     disabled: { type: Boolean, default: false },
     // Для индикатора загрузки
     isLoading: { type: Boolean, default: false }
+  },
+
+  methods: {
+    onClick(event: any) {
+      if (this.type != "submit") {
+        event.stopPropagation();
+        event.preventDefault();
+      }
+      this.$emit("click", event);
+    }
   }
 });
 </script>
@@ -92,7 +103,17 @@ export default Vue.extend({
   }
 
   &.blue {
-    background: $deep-blue;
+    background: $blue-deep;
+    @include buttonHover;
+  }
+
+  &.blue-steel {
+    background: $blue-steel;
+    @include buttonHover;
+  }
+
+  &.blue-fly {
+    background: $blue-fly;
     @include buttonHover;
   }
 

@@ -32,7 +32,7 @@
 import Vue from "vue";
 
 export default Vue.extend({
-  name: "AuthModal",
+  name: "AuthModalLayout",
 
   components: {
     Close: () => import("@ui-components/Close")

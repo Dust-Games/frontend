@@ -6,7 +6,8 @@
     <!-- @click="onToWallet()" -->
     <div class="nav__item" disabled>{{ $t("tournaments") }}</div>
     <div class="nav__item" disabled>{{ $t("bets") }}</div>
-    <div class="nav__item" @click="onToLeagues()">{{ $t("leagues") }}</div>
+    <div class="nav__item" disabled>{{ $t("leagues") }}</div>
+    <div class="nav__item" @click="onToLeagues()">{{ $t("lorLeague") }}</div>
     <div class="nav__item" disabled>{{ $t("premium") }}</div>
   </nav>
 </template>
@@ -19,7 +20,8 @@
     "wallet": "Wallet @:soon",
     "tournaments": "Tournaments @:soon",
     "bets": "Forecasts @:soon",
-    "leagues": "Leagues",
+    "leagues": "Leagues @:soon",
+    "lorLeague": "LoR Rate League",
     "premium": "Premium @:soon"
   },
   "ru": {
@@ -28,7 +30,8 @@
     "wallet": "Кошелек @:soon",
     "tournaments": "Турниры @:soon",
     "bets": "Прогнозы @:soon",
-    "leagues": "Лиги",
+    "leagues": "Лиги @:soon",
+    "lorLeague": "LoR Rate League",
     "premium": "Премиум @:soon"
   }
 }
