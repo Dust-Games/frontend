@@ -27,7 +27,7 @@ interface UserLogin {
 }
 
 interface UserRegister {
-  login: string;
+  username: string;
   email: string;
   password: string;
 }
@@ -90,6 +90,7 @@ export default {
 
         commit("setToken", resp.access_token);
         commit("setUser", resp.user, { root: true });
+        commit("setBalance", resp.billing, { root: true });
       } catch (errors) {
         throw errors;
       }

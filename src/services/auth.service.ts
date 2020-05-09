@@ -20,7 +20,7 @@ interface UserLogin {
 }
 
 interface UserRegister {
-  login: string;
+  username: string;
   email: string;
   password: string;
 }
@@ -42,9 +42,8 @@ interface AuthResponse {
 }
 
 export default {
-  async login({ email, password }: UserLogin) {
+  async login(data: UserLogin) {
     try {
-      const data = { email, password };
       const resp: AuthResponse = await httpClient.post("auth/login", data);
       return resp.data;
     } catch (errors) {
@@ -52,9 +51,8 @@ export default {
     }
   },
 
-  async register({ login, email, password }: UserRegister) {
+  async register(data: UserRegister) {
     try {
-      const data = { login, email, password };
       const resp: AuthResponse = await httpClient.post("auth/register", data);
 
       return resp.data;
