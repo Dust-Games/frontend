@@ -13,12 +13,30 @@
         v-model="selectedWeek"
         :item="week + 1"
       >
-        {{ "Неделя " + (week + 1) }}
+        {{ $t("week") + (week + 1) }}
       </RadioButton>
     </div>
 
-    Выбранная неделя: {{ selectedWeek }}
-    <Table :header="header" :rows="rows" :sortOrderr="sortOrder" />
+    <Table
+      :header="header"
+      :rows="rows"
+      :sortOrder="sortOrder"
+      detailRow="table-detail-row2"
+      withPaginationInfo
+    >
+      <!--  -->
+      <template #actions="props">
+        {{ $t("rules") }}
+        <div class="table-button-container">
+          <button class="btn btn-warning btn-sm" @click="editRow(props.rowData, props.vuetable)">
+            {{ $t("rules") }}
+          </button>
+        </div>
+      </template>
+      <!--  -->
+
+      <template #_detailRow><TableDetailRow2 /></template>
+    </Table>
   </div>
 </template>
 
@@ -30,7 +48,8 @@
     "username": "username",
     "score": "score",
     "all-points": "all-points",
-    "rules": "Rules"
+    "rules": "Rules",
+    "week": "Week "
   },
   "ru": {
     "title": "LoR Rate League",
@@ -38,7 +57,8 @@
     "username": "игрок",
     "score": "очки за неделю",
     "all-points": "общие очки",
-    "rules": "Регламент"
+    "rules": "Регламент",
+    "week": "Неделя "
   }
 }
 </i18n>
@@ -46,6 +66,7 @@
 <script lang="ts">
 import Vue from "vue";
 // import i18n from "i18n";
+import VuetableFieldHandle from "vuetable-2/src/components/VuetableFieldHandle.vue";
 
 export default Vue.extend({
   name: "LeaguesMain",
@@ -53,16 +74,21 @@ export default Vue.extend({
   components: {
     Table: () => import("@ui-components/Table"),
     Button: () => import("@ui-components/Button"),
-    RadioButton: () => import("@ui-components/RadioButton")
+    RadioButton: () => import("@ui-components/RadioButton"),
+    TableDetailRow2: () => import("./TableDetailRow")
   },
 
   data() {
     return {
       header: [
+        {
+          name: VuetableFieldHandle
+        },
         { name: "position", title: () => this.$i18n.t("position"), sortField: "position" },
-        { name: "username", title: () => this.$i18n.t("username") },
+        { name: "username", title: () => this.$i18n.t("username"), sortField: "username" },
         { name: "score", title: () => this.$i18n.t("score") },
-        { name: "all-points", title: () => this.$i18n.t("all-points") }
+        { name: "all-points", title: () => this.$i18n.t("all-points") },
+        "actions"
       ] as Array<Object>,
       sortOrder: [{ field: "position", direction: "asc" }] as Array<Object>,
       rows: [] as Object,
@@ -87,17 +113,15 @@ export default Vue.extend({
   },
 
   methods: {
-    getRows() {
-      // selectedWeek
-      console.log(this.rows2);
-      this.rows = this.rows2;
+    editRow(rowData: any, vuetable: any) {
+      console.log(rowData, vuetable);
+      alert("You clicked edit on" + JSON.stringify(rowData));
+      vuetable.toggleDetailRow(rowData.position);
     },
 
-    getWeekObject(week: number): any {
-      return {
-        text: "Неделя " + (week + 1),
-        id: week + 1
-      };
+    getRows() {
+      // selectedWeek
+      this.rows = this.rows2;
     },
 
     toLeagueRules() {
@@ -124,6 +148,7 @@ export default Vue.extend({
   &__weeks {
     display: flex;
     flex-wrap: wrap;
+    margin-bottom: 15px;
 
     &-item {
       margin-right: 15px;

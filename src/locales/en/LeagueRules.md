@@ -1,41 +1,201 @@
-##### Terms of Service
+#### 1. Общие положения:
+**1.1.** Начало игр- каждый день кроме воскресений в 20:00 МСК;
+**1.2.** Версия игры: последняя доступная версия в лаунчере Riot, apple store или google play, регион RUSSIA или любой EURO регион.
+**1.3.** Мультиаккаунтинг запрещен. Запрещены любые действия, направленные на передачу игрового аккаунта какому-либо третьему лицу.
+**1.4.** Для регистрации в лиге необходимо написать команду !reg ежедневно в течении 30 минут до начала игр на [Discord-сервере](https://discord.gg/WWKGaHX) в канале *#registration*, все участники впервые подавшие заявку по умолчанию попадают в D-класс. Вступить в противостояние в лиге можно в любое время. 
+Регистрируясь в лиге игрок подтверждает что __**прочитал**__ настоящий регламент и __**согласен**__ со всеми его положениями.
+**1.5.** Всё общение с организаторами и другими участниками во время игр проходят на Discord-сервере: https://discord.gg/WWKGaHX
+Необходимо выбрать роль Legends of Runeterra нажав на соответствующую эмоцию-иконку игры в канале #game-role, а также не отключать уведомления (пинги) на каналах турнира во время проведения игр.
+**1.6.** Организаторы оставляют за собой право изменять и дополнять настоящие правила. 
+Уведомления об изменениях происходят в канале *#news-league* на [Discord-сервере](https://discord.gg/WWKGaHX)
 
-These Terms of Service (“Terms”) are a contract between you and DUST, INC. They govern your use of our sites, services, mobile apps, products, and content (“Services”).
+#### 2. Формат лиги:
+**2.1.** Лига делится на 5 классов:
+**D-класс** — туда попадают все новички, вне зависимости от заслуг в других соревнованиях по данной и/или других дисциплинах.
+**С-класс**
+**B-класс**
+**A-класс**
+**S-класс**
 
-By visiting dust.games, you agree to these Terms. If you don’t agree to any of the Terms, you can’t use the services.
+**2.2.** За каждое противостояние игроки получают **Dust League Points (DLP)** в следующем порядке:
+Чистая победа (2-0) — 5 DLP
+Победа (2-1) — 4 DLP
+Поражение (1-2) — 2 DLP
+Чистое поражение (0-2) — 1 DLP
+Техническое поражение — 0 DLP
+Техническая победа — 3 DLP
 
-##### Content rights & responsibilities
+DLP сбрасываются каждую игровую неделю, однако подсчёт общезаработанных DLP остается.
+Общезаработанное количество DLP — определяет класс в следующем сезоне.
 
-You acknowledge that the Services contain information, software, articles, reviews, content, photographs, audio and video clips, graphics, links, logos, trademarks, the “look and feel” of our websites, applications and software and other material (collectively, the “Content”) that are protected by copyright, trademark and/or other proprietary rights of DUST, INC. or third parties. All Content on the Services is protected by applicable copyright laws. You agree to comply with all copyright laws and any copyright notices, information, or restrictions contained in any Content available on or accessed through the Services. Users of the Services may use the Content only for their personal, noncommercial use. Businesses, organizations or other legal entities may not become Members, and are not permitted to use the Services for any purpose, including but not limited to collecting usernames and/or email addresses of Members by electronic or other means for the purpose of sending unsolicited email and unauthorized framing of, or linking to, the Services or users on the Services.
+**2.3.** Переход в иной класс осуществляется по окончанию каждой игровой недели:
+**1 неделя:**
+16 лучших игроков* D-класса переходят в C-класс.**
+**2 неделя:**
+16 лучших игроков D-класса переходят в C-класс.
+8 лучших игроков C-класса переходят в B-класс.
+**3 неделя:**
+16 лучших игроков D-класса переходят в C-класс.
+8 лучших игроков C-класса переходят в B-класс.
+4 лучших игрока B-класса переходят в A-класс.
+**4 неделя:**
+16 лучших игроков D-класса переходят в C-класс.
+8 лучших игроков C-класса переходят в B-класс.
+4 худших игроков C-класса переходят в D-класс.
+4 лучших игрока B-класса переходят в A-класс.
+**5 неделя:**
+16 лучших игроков D-класса переходят в C-класс.
+8 лучших игроков C-класса переходят в B-класс.
+4 худших игроков C-класса переходят в D-класс.
+4 лучших игрока B-класса переходят в A-класс.
+2 худших игрока B-класса переходят в C-класс.
+**6 неделя:**
+16 лучших игроков D-класса переходят в C-класс.
+8 лучших игроков C-класса переходят в B-класс.
+4 худших игроков C-класса переходят в D-класс.
+4 лучших игрока B-класса переходят в A-класс.
+2 худших игрока B-класса переходят в C-класс.
+2 худших игрока A-класса переходят в B-класс.
+**7 неделя:**
+16 лучших игроков D-класса переходят в C-класс.
+8 лучших игроков C-класса переходят в B-класс.
+4 худших игроков C-класса переходят в D-класс.
+4 лучших игрока B-класса переходят в A-класс.
+2 худших игрока B-класса переходят в C-класс.
+2 худших игрока A-класса переходят в B-класс.
+**8 неделя:**
+16 лучших игроков D-класса переходят в C-класс.
+8 лучших игроков C-класса переходят в B-класс.
+4 худших игроков C-класса переходят в D-класс.
+4 лучших игрока B-класса переходят в A-класс.
+2 худших игрока B-класса переходят в C-класс.
+1 лучший игрок A-класса переходят в S-класс.
+2 худших игрока A-класса переходят в B-класс.
+**9 неделя:**
+16 лучших игроков D-класса переходят в C-класс.
+16 лучших игроков C-класса переходят в B-класс.
+4 худших игрока C-класса переходят в D-класс.
+8 лучших игроков B-класса переходят в A-класс.
+2 худших игрока B-класса переходят в C-класс.
+1 лучший игрок A-класса переходят в S-класс.
+2 худших игрока A-класса переходят в B-класс.
+**10-16 неделя:**
+16 лучших игроков D-класса переходят в C-класс.
+16 лучших игроков C-класса переходят в B-класс.
+4 худших игрока C-класса переходят в D-класс.
+8 лучших игроков B-класса переходят в A-класс.
+2 худших игрока B-класса переходят в C-класс.
+1 лучший игрок A-класса переходят в S-класс.
+2 худших игрока A-класса переходят в B-класс.
+**Каждую вторую неделю начиная с 10:**
+1 худший игрок S-класса переходит в A-класс.
+**2.3.1.** Лучшие и худшие игроки определяются по количеству еженедельных DLP в своем классе.
+**2.3.2.** В случае если количество еженедельных DLP одинаковое у нескольких игроков для перехода в другой класс, смотрится общее количество DLP, в случае равного количества общих DLP в иной класс попадают несколько игроков сверх установленного лимита недели.
 
-Except as expressly permitted, you may not (i) modify, publish, transmit, reproduce, create derivative works from, distribute, perform, display, adapt, aggregate, sell, transfer or in any way exploit any of the Content, code or Material (defined below), in whole or in part, or (ii) use any robot, spider, site search and/or retrieval application, or other device to scrape, extract, retrieve or index any portion of the Services. Content consisting of downloadable or web-based software may not be reverse engineered unless specifically authorized by the owner of the software’s patent and/or copyright. You also agree not to circumvent, disable or otherwise interfere with any security related features of the Services or the Content, including features that prevent or restrict use or copying, or that enforce limitations on use. To the extent that you provide us with any suggestions, feedback or other information relating to our business or the Services (including, but not limited to, suggested new products or services or improvements to existing products and services), such information is provided to us on a non-confidential and unrestricted basis, and you hereby grant to the Licensee a non-exclusive, worldwide, perpetual, royalty-free, fully transferable and sublicensable right and license to reproduce, display, distribute, use and fully exploit such suggestions, feedback and information.
+**2.4.** По окончанию каждой недели лучшие игроки каждого класса приглашаются на турнир, где будут разыграны призы предоставленные RIOT Games согласно **п.7.1.** а также между ними будут разыграны PoroPoints.
+По окончанию 12-й недели 2 лучших игрока S-класса гарантированно получают прямой инвайт на Турнир Короля Поро с гарантированным призовым фондом 100 000 руб.
+Остальные игроки могут инвайты на турнир набирая как можно больше PoroPoints в рамках программы "Золотого Поро".
+**2.4.1.** На еженедельный турнир приглашаются 32 игрока равномерно из всех классов кроме S, Игроки S-класса приглашаются гарантировано.
+(Например на 9-й неделе: будет приглашено 2 игрока S-класса, 8 игроков A-класса, 8 игроков B-класса, 7 игроков C-класса и 7 игроков D-класса)
+**2.4.2.** Игроки делятся на 4 группы по 8 человек. Где необходимо сыграть каждый с каждым по 1 матчу в течении следующей недели с понедельника по пятницу включительно. Серия игр БО3, до 9 недели ограничений по колодам нету. *(После 9 недели будет сообщено дополнительно.)*
+1 человек имеющий наибольшее количество побед попадает в плей-офф который проходит в воскресенье в 18:00. Которые разыграют между собой награды предоставленные Riot Games и PoroPoints.
+Матчи плей-офф могут транслироваться на нашем официальном twitch-канале, необходимо быть готовыми сделать настройки согласно указаниям организаторов.
 
-##### No children
+**2.5.** Игровая неделя длится с понедельника по субботу, игры проходят каждый день в 20:00 по МСК.
+**2.6.** В течении 30 минут до начала на [Discord-сервере](https://discord.gg/WWKGaHX) в канале *#registration* необходмо написать команду !reg
+**2.7.** Если для вас не нашлось пары противника своего класса, вам автоматически начисляется техническая победа.
+**2.8.** В случаях если противник не явился в течении 1 часа чтобы договорится о времени игр необходимо написать !winner TW — тогда вам засчитается техническая победа.
 
-DUST is only for people 14 years old and over. By using dust.games, you affirm that you are over 14. If we learn someone under 14 is using dust.games, we’ll terminate their account.
+#### 3. Формат игр:
+**3.1.** Best of 3 (Лучший из 3 игр, или до 2-х побед, ничьи не учитываются)
+**3.2.** Все игроки одного класса распределяются случайным образом на пары.
+**3.3.** Игрок добавляет оппонента в друзья и:
+**3.3.1.** D и С-класс — могут играть любыми колодами без заявления. Любые колоды можно менять между играми.
+**3.3.2.** B, A и S класс — заявляют 2 свои колоды таким образом, чтобы регион появлялся лишь 1 раз (например: острова+демассия и фрельйорд+пилтовер).
+После стартует партия. Победивший игрок МЕНЯЕТ колоду, проигравший игрок может взять любую.
 
-##### Incorporated rules and policies
+**3.4.** По окончанию игр и партии участники ОБЯЗАТЕЛЬНО делают скриншоты для возможного решения в спорных ситуациях.
+**3.5.** Затем **победитель** пишет в канал *#registration* команду !winner и указывает счёт 2-0 или 2-1, (*пример* **!winner 2-0**)
+**3.6.** **Проигравший** при согласии с счётом может написать **!да**, если не согласен с результатам может написать **!спор**, Максимальное время на оспаривание результатов — 30 минут после завершения матча.
+**3.7.** В случае спора открывается диспут, где в ситуации разбирается судья.
 
-By using the Services, you agree to let Medium collect and use information as detailed in our Privacy Policy. If you’re outside the United States, you consent to letting DUST transfer, store, and process your information (including your personal information and content) in and out of the United States.
+#### 4. Подготовка к матчу:
+**4.1.** Участники в соответствии с информацией о сопернике игры списываются с ним, добавляют в друзья в клиенте игры и должны сыграть дружеский матч в течении 20 часов (до 16:00 следующего дня).
+Договорится о времени матча необходимо в течении 1 часа с момента объявления начала игр. Если договорится не удалось — матчи должны быть сыграны в течении 2-х(двух) часов с момента объявления начала игр. В ином случае игрок готовый сыграть в течении 2-х часов(а другой не готов и договорится не удалось) пишет команду **!winner TW**, противник также может оспорить техническую победу в течении 30 минут.
 
-By using dust.games, you agree to follow these Policies. If you don’t, we may suspend or delete your account.
+**4.2.** В случаях спорных ситуаций, Скриншоты с результатами матчей направляются в соответствующий текстовый диспут-канал Discord участниками с текстовым пояснением.
 
-We may deny access to functionality for emails at our sole discretion, for example, created using the services of generating temporary emails, and whose reliability level is below the maximum permissible according to the respective ratings. Should it happen please use email with another domain.
+#### 5. Перерывы и паузы:
+**5.1.** Между играми игроки имеют право на паузу по личным обстоятельствам длиной не более 10 минут после окончания предыдущей игры;
 
-##### Disclaimer of warranty.
+#### 6. Конфликтные и спорные ситуации:
+**6.1.** При общении с организаторами, судьями и комментаторами лиги и другими участниками следует соблюдать уважительный стиль общения;
+**6.2.** В случае возникновения спорных или конфликтных ситуаций необходимо сохранять скриншоты переписки в качестве подтверждения для последующего вынесения решения относительно ситуации;
+**6.3.** Спорной или конфликтной ситуацией может считаться:
+- Попытка обмануть организаторов, судей и участников лиги;
+- Намеренная задержка матча;
+- Оскорбление участников лиги;
+- Оскорбление комментаторов лиги;
+- Повторение конфликтных ситуаций.
 
-DUST provides the Services to you as is. You use them at your own risk and discretion. That means they don’t come with any warranty. None express, none implied. No implied warranty of merchantability, fitness for a particular purpose, availability, security, title or non-infringement.
+Организатор или Судья вправе вынести предупреждение или дисквалифицировать участников из лиги указав при этом одну из перечисленных причин;
+**6.4.** После окончания матча у игроков есть 30 минут на апелляцию результата игры. Апелляция принимается только со скриншотами результата матча,игр и в противном случае рассматриваться не будет;
+**6.5.** Любое решение организаторов относительно спорной/конфликтной ситуации считается окончательным и его обсуждение считается нарушением правил даже в том случае, если противоречит правилам турнира.
 
-##### Limitation of Liability.
+#### 7. Призовые награды и выплаты.
+**7.1.** Все внутриигровые награды выдаются в течении 7 рабочих дней после окончания турнира.
+Еженедельные награды игроков по итогам недели попавшие на турнир согласно **п.4.1.**:
+**1-е место:** 1000 внутриигровых монет и 1 жетон экспедиции, 60 PoroPoints
+**2-е место:** 6000 осколков и 1 жетон экспедиции, 30 PoroPoints
+**3-е и 4-е место:** 3600 осколков, 15 PoroPoints
+**7.1.1.** Для оперативного получения внутриигровых наград необходимо иметь аккаунт привязанный к RU региону.
+Поменять регион своего аккаунта можно через техническую поддержку RIOT games.
 
-DUST won’t be liable to you for any damages that arise from your using the Services. This includes if the Services are hacked or unavailable. This includes all types of damages (indirect, incidental, consequential, special or exemplary). And it includes all kinds of legal claims, such as breach of contract, breach of warranty, tort, or any other loss.
+**7.2.** Все награды платформы DUST выдаются в течении 3-х дней после окончания игровой недели.
+**7.2.1** Призовой фонд платформы различается в зависимости от недели:
+**1 неделя:**
+4 лучших игрока D-класса — 1 DustCoin
+**2 неделя:**
+4 лучших игрока D-класса — 1 DustCoin
+2 лучших игрока C-класса — 2 DustCoin
+**3 неделя:**
+4 лучших игрока D-класса — 1 DustCoin
+2 лучших игрока C-класса — 2 DustCoin
+1 лучший игрок B-класса — 3 DustCoin
+**4 неделя:**
+4 лучших игрока D-класса — 1 DustCoin
+2 лучших игрока C-класса — 2 DustCoin
+1 лучший игрок B-класса — 3 DustCoin
+**5 неделя:**
+4 лучших игрока D-класса — 1 DustCoin
+2 лучших игрока C-класса — 2 DustCoin
+1 лучший игрок B-класса — 3 DustCoin
+1 лучший игрок A-класса — 4 DustCoin
+**6 неделя:**
+8 лучших игроков D-класса — 1 DustCoin
+8 лучших игроков C-класса — 2 DustCoin
+2 лучших игрока B-класса — 3 DustCoin
+1 лучший игрок A-класса — 4 DustCoin
+**7 неделя:**
+16 лучших игроков D-класса — 1 DustCoin
+8 лучших игроков C-класса — 2 DustCoin
+2 лучших игрока B-класса — 3 DustCoin
+2 лучших игрока A-класса — 4 DustCoin
+**8 неделя:**
+16 лучших игроков D-класса — 1 DustCoin
+8 лучших игроков C-класса — 2 DustCoin
+4 лучших игрока B-класса — 3 DustCoin
+2 лучших игрока A-класса — 4 DustCoin
+**9 неделя:**
+16 лучших игроков D-класса — 1 DustCoin
+16 лучших игроков C-класса — 2 DustCoin
+8 лучших игроков B-класса — 3 DustCoin
+4 лучших игрока A-класса — 4 DustCoin
+**10-16 неделя:**
+16 лучших игроков D-класса — 1 DustCoin
+32 лучших игроков C-класса — 2 DustCoin
+16 лучших игроков B-класса — 3 DustCoin
+8 лучших игроков A-класса — 4 DustCoin
+Все игроки S-класса — 10 DustCoin
 
-##### Severability.
-
-If any provision of these terms is found invalid by a court of competent jurisdiction, you agree that the court should try to give effect to the parties’ intentions as reflected in the provision and that other provisions of the Terms will remain in full effect.
-
-Choice of law and jurisdiction. These Terms are governed by Delaware state law, without reference to its conflict of laws provisions. You agree that any suit arising from the Services must take place in a court located in Delaware state.
-
-##### Entire agreement.
-
-These Terms (including any document incorporated by reference into them) are the whole agreement between DUST, INC. and you concerning the Services.
+**7.3.** По итогам Сезона Топ-30 игроков по общему количеству DLP получат дополнительные награды о которых будет сообщено дополнительно.

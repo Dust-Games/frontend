@@ -3,13 +3,13 @@
     <div class="footer__soc-networks">
       <span>{{ $t("socNetworksText") }}</span>
       <div class="footer__soc-networks-icons">
-        <a href="https://vk.com/dustlords" target="_blank" @click="$emit('change')">
+        <a href="https://vk.com/dust_global" target="_blank" @click="$emit('change')">
           <i class="footer__link footer__soc-networks-icon icon-vk" />
         </a>
         <a href="https://www.twitch.tv/dust_ru" target="_blank" @click="$emit('change')">
           <i class="footer__link footer__soc-networks-icon icon-twitch" />
         </a>
-        <a href="https://discordapp.com/invite/kYbYjYs" target="_blank" @click="$emit('change')">
+        <a href="https://discord.gg/WWKGaHX" target="_blank" @click="$emit('change')">
           <i class="footer__link footer__soc-networks-icon icon-discord" />
         </a>
       </div>

@@ -63,10 +63,11 @@ export default {
   }
 
   &__welcome {
-    font-family: Roboto;
+    // font-family: Roboto;
 
-    & > * {
-      font-family: Roboto;
+    & > * + * {
+      // font-family: Roboto;
+      margin-top: 15px;
     }
     // margin: 0;
   }

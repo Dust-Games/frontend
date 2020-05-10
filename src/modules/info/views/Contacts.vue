@@ -1,9 +1,6 @@
 <template>
-  <Layout>
+  <Layout :component="component">
     <template #title>{{ $t("contacts") }}</template>
-    <template #content>
-      <component :is="componentName" />
-    </template>
   </Layout>
 </template>
 
@@ -27,17 +24,15 @@ export default Vue.extend({
   name: "InfoContacts",
 
   components: {
-    ruContacts,
-    enContacts,
     Layout: () => import("@layouts/Info")
   },
 
   computed: {
-    componentName(): string {
+    component(): string {
       if (this.$i18n.locale == "en") {
-        return "enContacts";
+        return enContacts;
       } else {
-        return "ruContacts";
+        return ruContacts;
       }
     }
   }

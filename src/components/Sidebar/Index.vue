@@ -54,7 +54,7 @@ export default Vue.extend({
   padding: 30px;
   background: $primary-color;
   width: 276px;
-  height: calc(100vh - 60px);
+  height: 100vh;
 
   &__mobile {
     flex-direction: row;

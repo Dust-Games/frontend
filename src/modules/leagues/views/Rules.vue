@@ -1,10 +1,12 @@
 <template>
-  <Layout>
-    <template #title>{{ $t("rules") }}</template>
-
-    <template #content>
-      <Button theme="blue-steel" @click.prevent="toLeague()">{{ $t("back") }}</Button>
-      <component :is="componentName" />
+  <Layout :component="component">
+    <template #title>
+      <div class="rules__header">
+        <h1 class="rules__title">{{ $t("rules") }}</h1>
+        <Button class="rules__back" theme="blue-steel" @click.prevent="toLeague()">
+          {{ $t("back") }}
+        </Button>
+      </div>
     </template>
   </Layout>
 </template>
@@ -31,18 +33,16 @@ export default Vue.extend({
   name: "LeagueRules",
 
   components: {
-    ruLeagueRules,
-    enLeagueRules,
     Layout: () => import("@layouts/Info"),
     Button: () => import("@ui-components/Button")
   },
 
   computed: {
-    componentName(): string {
+    component(): string {
       if (this.$i18n.locale == "en") {
-        return "enLeagueRules";
+        return enLeagueRules;
       } else {
-        return "ruLeagueRules";
+        return ruLeagueRules;
       }
     }
   },
@@ -56,11 +56,20 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-.about {
-  text-align: left;
-  padding: 40px;
+.rules {
+  &__header {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
   &__title {
-    text-transform: uppercase;
+    margin: 0;
+    margin-right: 15px;
+  }
+
+  &__back {
+    font-size: 14px;
   }
 }
 </style>

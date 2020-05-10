@@ -1,22 +1,39 @@
 <template>
-  <div>
+  <div class="table">
     <vuetable
       ref="vuetable"
-      api-url="https://vuetable.ratiw.net/api/users"
-      :fields="header"
-      :data="rows"
-      :sort-order="sortOrder"
-      pagination-path=""
-      :per-table="2"
+      v-bind="attr"
+      :data-manager="dataManager"
+      @vuetable:loading="onLoading"
+      @vuetable:loaded="onLoaded"
       @vuetable:pagination-data="onPaginationData"
-      :css="css.table"
-    ></vuetable>
-    <!-- api-url="https://vuetable.ratiw.net/api/users"
-      pagination-path="" -->
+    >
+      <!-- Для особых полей, например, actions -->
+      <template v-for="(_, name) in $scopedSlots" :slot="name" slot-scope="props">
+        <slot :name="name" v-bind="{ ...props, vuetable: $refs.vuetable }" />
+      </template>
+
+      <!-- Для детальной строки, в слот можно поместить что-то, что переопределит строку -->
+      <!-- <div v-if="!!$scopedSlots._detailRow">
+        <slot name="_detailRow" />
+      </div>
+      <TableDetailRow v-else /> -->
+    </vuetable>
+
+    <!-- api-url="https://vuetable.ratiw.net/api/users" -->
     <!-- :api-mode="false" -->
     <!-- :data-manager="dataManager" -->
-    <div style="padding-top:10px">
-      <div>
+
+    <!-- Пагинация -->
+    <div class="table__pagination">
+      <vuetable-pagination
+        class="table__pagination-actions"
+        ref="pagination"
+        :css="css.pagination"
+        @vuetable-pagination:change-page="onChangePage"
+      />
+
+      <div class="table__pagination-info">
         {{
           $t("paginationInfo", {
             from: paginationData.from,
@@ -25,12 +42,6 @@
           })
         }}
       </div>
-
-      <vuetable-pagination
-        ref="pagination"
-        :css="css.pagination"
-        @vuetable-pagination:change-page="onChangePage"
-      ></vuetable-pagination>
     </div>
   </div>
 </template>
@@ -47,36 +58,43 @@
 </i18n>
 
 <script>
+import Vue from "vue";
+import DetailRow from "./TableDetailRow";
+Vue.component("table-detail-row", DetailRow); // <--- register the component to Vue
+
 export default {
   name: "UiTable",
 
   props: {
     header: { type: Array, default: () => [] },
     rows: { type: Array, default: () => [] },
-    sortOrder: { type: Array, default: () => [] }
+    sortOrder: { type: Array, default: () => [] },
+    // detailRow: { type: String },
+    withPaginationActions: { type: Boolean, default: false }
   },
 
   components: {
     Vuetable: () => import("vuetable-2"),
     VuetablePagination: () => import("vuetable-2/src/components/VuetablePagination")
+    // TableDetailRow: () => import("./TableDetailRow")
   },
 
   data() {
     return {
-      data: [],
+      isLoading: false,
       paginationData: {},
       css: {
         table: {
           tableWrapper: "table-wrapper",
-          tableHeaderClass: "fixed",
-          tableBodyClass: "vuetable-semantic-no-top fixed",
-          tableClass: "ui blue selectable unstackable celled table",
-          loadingClass: "loading",
-          ascendingIcon: "blue chevron up icon",
-          descendingIcon: "blue chevron down icon",
-          ascendingClass: "sorted-asc",
-          descendingClass: "sorted-desc",
-          sortableIcon: "grey sort icon",
+          tableHeaderClass: "table__header",
+          tableBodyClass: "table__body",
+          tableClass: "table",
+          loadingClass: "table__loading icon-chevron-up",
+          ascendingIcon: "table__icon table__icon-header icon-sort-asc",
+          descendingIcon: "table__icon table__icon-header icon-sort-down",
+          ascendingClass: "table__sorted-asc",
+          descendingClass: "table__sorted-desc",
+          sortableIcon: "table__icon table__icon-header icon-unsorted",
           handleIcon: "grey sidebar icon"
         },
 
@@ -96,20 +114,40 @@ export default {
     };
   },
 
+  computed: {
+    attr() {
+      return {
+        fields: this.header,
+        // data
+        data: this.rows,
+        "api-mode": false,
+        // "data-manager": this.dataManager,
+        // api
+        // "api-url": "https://vuetable.ratiw.net/api/users",
+        // "query-params": { sort: "sort_order", page: "page_no", perPage: "page_size" },
+        // other
+        css: this.css.table,
+        "sort-order": this.sortOrder,
+        // detail row
+        "detail-row-component": "table-detail-row",
+        "track-by": "position",
+        // pagination
+        // "pagination-path": "", // для сервера
+        "pagination-path": "pagination",
+        "per-table": 2
+      };
+    }
+  },
+
   watch: {
-    data(newVal, oldVal) {
+    rows(newVal, oldVal) {
       // this.$refs.vuetable.refresh();
     }
   },
 
-  mounted() {
-    // axios.get("https://vuetable.ratiw.net/api/users").then(response => {
-    //   this.data = response.data.data;
-    // });
-  },
-
   methods: {
     onPaginationData(paginationData) {
+      console.log("6767", paginationData);
       this.paginationData = paginationData;
       this.$refs.pagination.setPaginationData(paginationData);
     },
@@ -118,25 +156,42 @@ export default {
       this.$refs.vuetable.changePage(page);
     },
 
-    dataManager(sortOrder) {
-      if (this.rows.length < 1) return;
-
-      let local = this.data;
+    dataManager(sortOrder, pagination) {
+      let local = this.rows;
+      console.log(456, local);
+      if (this.data.length < 1) return;
 
       // sortOrder can be empty, so we have to check for that as well
-      // if (sortOrder.length > 0) {
-      //   console.log("orderBy:", sortOrder[0].sortField, sortOrder[0].direction);
-      //   local = _.orderBy(local, sortOrder[0].sortField, sortOrder[0].direction);
-      // }
+      if (sortOrder.length > 0) {
+        // Sort ASC
+        // homes.sort((a, b) => {
+        //   return parseFloat(a.price) - parseFloat(b.price);
+        // });
+
+        // // Sort DESC
+        // homes.sort(compareDESC);
+
+        console.log("orderBy:", sortOrder[0].sortField, sortOrder[0].direction);
+        // local = _.orderBy(local, sortOrder[0].sortField, sortOrder[0].direction);
+      }
+
+      pagination = this.$refs.vuetable.makePagination(local.length, this.perPage);
+      console.log("pagination:", pagination);
+      let from = pagination.from - 1;
+      let to = from + this.perPage;
 
       return {
-        data: local
+        pagination: pagination
+        // data: _.slice(local, from, to)
       };
-    }
+    },
 
-    // onActionClicked(action, data) {
-    //   console.log("slot actions: on-click", data.name);
-    // }
+    onLoading() {
+      this.isLoading = true;
+    },
+    onLoaded() {
+      this.isLoading = false;
+    }
   }
 };
 </script>
@@ -149,9 +204,7 @@ export default {
 
 .table {
   &-wrapper {
-    background: $primary-color;
-    border-radius: 5px;
-    padding: 10px;
+    border-radius: 15px;
   }
 
   &__icon {
@@ -160,6 +213,40 @@ export default {
     &-double {
       padding: 0 7px;
       font-size: 20px;
+    }
+
+    &-header {
+      font-size: 18px;
+      padding-top: 1px;
+    }
+  }
+
+  &__body {
+    background: $primary-color;
+    border-radius: 15px;
+    width: 100%;
+    border-collapse: collapse;
+
+    thead {
+      font-size: 16px;
+      font-weight: normal;
+
+      th {
+        border: 1px $gray solid;
+        padding: 10px;
+      }
+    }
+
+    td {
+      border: 1px $gray solid;
+      padding: 10px;
+    }
+  }
+
+  &__sorted {
+    &-asc,
+    &-desc {
+      color: $blue;
     }
   }
 
@@ -178,12 +265,32 @@ export default {
 
     &-disabled {
       color: $gray !important;
+      pointer-events: none;
     }
 
     &-item {
       font-size: 20px;
       padding: 5px 10px;
       cursor: pointer;
+    }
+  }
+}
+</style>
+
+<style lang="scss" scoped>
+.table {
+  &__pagination {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 20px 0 10px;
+
+    & > * {
+      margin-bottom: 10px;
+    }
+
+    &-actions {
+      margin-right: 15px;
     }
   }
 }

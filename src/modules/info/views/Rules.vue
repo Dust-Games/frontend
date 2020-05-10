@@ -1,9 +1,6 @@
 <template>
-  <Layout>
+  <Layout :component="component">
     <template #title>{{ $t("rules") }}</template>
-    <template #content>
-      <component :is="componentName" />
-    </template>
   </Layout>
 </template>
 
@@ -27,17 +24,15 @@ export default Vue.extend({
   name: "InfoRules",
 
   components: {
-    ruRules,
-    enRules,
     Layout: () => import("@layouts/Info")
   },
 
   computed: {
-    componentName(): string {
+    component(): string {
       if (this.$i18n.locale == "en") {
-        return "enRules";
+        return enRules;
       } else {
-        return "ruRules";
+        return ruRules;
       }
     }
   }

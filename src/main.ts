@@ -26,6 +26,12 @@ import Notify from "vue-dust-notify";
 Vue.use(Notify);
 import "vue-dust-notify/dist/vue-dust-notify.css";
 
+import VueSimpleMarkdown from "vue-simple-markdown";
+var HEADINGS_REGEX = /^(#{1,6}) (.+)/;
+Vue.use(VueSimpleMarkdown);
+
+import "vue-simple-markdown/dist/vue-simple-markdown.css";
+
 // Валидация переменных (преимущественно в полях ввода)
 // import Vuelidate from "vuelidate";
 // Vue.use(Vuelidate as any);

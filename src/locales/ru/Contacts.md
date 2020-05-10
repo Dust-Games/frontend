@@ -1,3 +1,3 @@
 По всем вопросам и предложениям обращайтесь на почту:
 
-[info@dust.games](info@dust.games "По любым вопросам")
+## info@dust.games

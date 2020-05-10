@@ -28,35 +28,39 @@ module.exports = {
       }
     },
     module: {
-      rules: [{
-        test: /\.md$/,
-        use: [{
-            loader: "vue-loader",
-            options: {
-              compilerOptions: {
-                preserveWhiteSpace: false
-              }
-            }
-          },
-          {
-            loader: "@tianyong90/vue-markdown-loader",
-            options: {
-              contentCssClass: "markdown-body",
-              markdown: {
-                lineNumbers: true // enable linenumber
-              }
-            }
-          }
-        ]
-      }]
+      rules: [
+        {
+          test: /\.md$/,
+          loader: "raw-loader" // npm install -D raw-loader
+        }
+        // {
+        //   test: /\.css$/i,
+        //   use: ["css-loader"]
+        // }
+        // {
+        //   test: /\.css$/,
+        //   use: [
+        //     "vue-style-loader",
+        //     {
+        //       loader: "css-loader",
+        //       options: {
+        //         // включаем CSS модули
+        //         modules: true,
+        //         // настраиваем генерируемое имя класса
+        //         localIdentName: "[local]_[hash:base64:8]"
+        //       }
+        //     }
+        //   ]
+        // }
+      ]
     }
   },
   pluginOptions: {
     i18n: {
       locale: "ru",
       fallbackLocale: "ru"
-        // localeDir: "locales",
-        // enableInSFC: true
+      // localeDir: "locales",
+      // enableInSFC: true
     }
   },
   css: {
