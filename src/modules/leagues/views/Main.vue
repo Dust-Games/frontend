@@ -17,26 +17,20 @@
       </RadioButton>
     </div>
 
-    <Table
-      :header="header"
-      :rows="rows"
-      :sortOrder="sortOrder"
-      detailRow="table-detail-row2"
-      withPaginationInfo
-    >
-      <!--  -->
-      <template #actions="props">
-        {{ $t("rules") }}
-        <div class="table-button-container">
-          <button class="btn btn-warning btn-sm" @click="editRow(props.rowData, props.vuetable)">
-            {{ $t("rules") }}
-          </button>
-        </div>
-      </template>
-      <!--  -->
-
-      <template #_detailRow><TableDetailRow2 /></template>
-    </Table>
+    <div class="leagues__table" v-for="className in ['D', 'C', 'B', 'A', 'S']" :key="className">
+      <h2 class="leagues__table-title">{{ $t("class", { value: className }) }}</h2>
+      <Table
+        :header="header"
+        :rows="getRows(className)"
+        :perPage="5"
+        trackBy="id"
+        detailRow="table-detail-row2"
+        withPagination
+        @cell-clicked="onCellClicked($event, className)"
+      >
+        <template #_detailRow><TableDetailRow2 /></template>
+      </Table>
+    </div>
   </div>
 </template>
 
@@ -49,7 +43,8 @@
     "score": "score",
     "all-points": "all-points",
     "rules": "Rules",
-    "week": "Week "
+    "week": "Week ",
+    "class": "Class {value}"
   },
   "ru": {
     "title": "LoR Rate League",
@@ -58,15 +53,24 @@
     "score": "очки за неделю",
     "all-points": "общие очки",
     "rules": "Регламент",
-    "week": "Неделя "
+    "week": "Неделя ",
+    "class": "Класс {value}"
   }
 }
 </i18n>
 
 <script lang="ts">
 import Vue from "vue";
-// import i18n from "i18n";
-import VuetableFieldHandle from "vuetable-2/src/components/VuetableFieldHandle.vue";
+import VuetableFieldSequence from "vuetable-2/src/components/VuetableFieldSequence.vue";
+
+interface IRows {
+  id: number;
+  username: string;
+  position: number;
+  score: number;
+  "all-points": number;
+  class: string;
+}
 
 export default Vue.extend({
   name: "LeaguesMain",
@@ -82,46 +86,76 @@ export default Vue.extend({
     return {
       header: [
         {
-          name: VuetableFieldHandle
+          name: VuetableFieldSequence,
+          title: "№",
+          width: "5%"
         },
-        { name: "position", title: () => this.$i18n.t("position"), sortField: "position" },
+        { name: "id", visible: false },
+        {
+          name: "position",
+          title: () => this.$i18n.t("position"),
+          sortField: "position"
+        },
         { name: "username", title: () => this.$i18n.t("username"), sortField: "username" },
         { name: "score", title: () => this.$i18n.t("score") },
         { name: "all-points", title: () => this.$i18n.t("all-points") },
         "actions"
       ] as Array<Object>,
       sortOrder: [{ field: "position", direction: "asc" }] as Array<Object>,
-      rows: [] as Object,
-      rows2: [
-        { username: "Lalala", position: 67, score: 123, "all-points": 9 },
-        { username: "A Plum", position: 667, score: 5, "all-points": 9 },
-        { username: "Plum", position: 6667, score: 5, "all-points": 9 }
-      ] as Object,
+      rows: [
+        { id: 0, username: "Lalala", position: 4, score: 123, "all-points": 9, class: "D" },
+        { id: 1, username: "A Plum", position: 5, score: 5, "all-points": 9, class: "D" },
+        { id: 2, username: "Plum", position: 3, score: 5, "all-points": 9, class: "D" },
+        { id: 3, username: "Lala7la", position: 1, score: 123, "all-points": 9, class: "D" },
+        { id: 0, username: "Lala la", position: 4, score: 123, "all-points": 9, class: "C" },
+        { id: 1, username: "A  Plum", position: 5, score: 5, "all-points": 9, class: "C" },
+        { id: 2, username: "Plu m", position: 3, score: 5, "all-points": 9, class: "C" },
+        { id: 3, username: "Lala7 la", position: 1, score: 123, "all-points": 9, class: "C" },
+        { id: 5, username: "Plu7m", position: 8, score: 5, "all-points": 9, class: "B" },
+        { id: 6, username: "Lalalty a", position: 40, score: 123, "all-points": 9, class: "B" },
+        { id: 6, username: "A Plyy um", position: 2, score: 5, "all-points": 9, class: "B" },
+        { id: 7, username: "Plumyy yy", position: 6, score: 5, "all-points": 9, class: "B" },
+        { id: 6, username: "A Plyy um", position: 2, score: 5, "all-points": 9, class: "A" },
+        { id: 7, username: "Plumyy yy", position: 6, score: 5, "all-points": 9, class: "A" },
+        { id: 2, username: "Plum", position: 3, score: 5, "all-points": 9, class: "S" },
+        { id: 3, username: "Lala7la", position: 1, score: 123, "all-points": 9, class: "S" },
+        { id: 4, username: "A Pl7um", position: 7, score: 5, "all-points": 9, class: "S" },
+        { id: 5, username: "Plu7m", position: 8, score: 5, "all-points": 9, class: "S" }
+      ] as Array<IRows>,
       weeks: [0, 1, 2, 3, 4] as Array<Number>,
-      selectedWeek: 1 as Number
+      selectedWeek: 1 as number
     };
   },
 
   watch: {
     selectedWeek(newVal) {
-      this.getRows();
+      // this.getRows();
     }
   },
 
   mounted() {
-    this.getRows();
+    // this.getRows();
   },
 
   methods: {
+    onCellClicked(event: any, className: string) {
+      console.log(event, className);
+    },
+
     editRow(rowData: any, vuetable: any) {
-      console.log(rowData, vuetable);
-      alert("You clicked edit on" + JSON.stringify(rowData));
       vuetable.toggleDetailRow(rowData.position);
     },
 
-    getRows() {
-      // selectedWeek
-      this.rows = this.rows2;
+    getRows(className: string) {
+      // const rows = (this as any)["rows" + className];
+
+      return this.rows.filter(row => row.class == className);
+
+      // if (rows) {
+      //   return rows;
+      // } else {
+      //   return [];
+      // }
     },
 
     toLeagueRules() {
@@ -153,6 +187,12 @@ export default Vue.extend({
     &-item {
       margin-right: 15px;
       margin-bottom: 10px;
+    }
+  }
+
+  &__table {
+    &-title {
+      margin-top: 25px;
     }
   }
 }
