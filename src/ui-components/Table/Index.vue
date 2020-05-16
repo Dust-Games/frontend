@@ -202,7 +202,7 @@ export default {
     rows(newVal, oldVal) {
       this.data = newVal;
       this.$nextTick(() => {
-        if (this.$refs.vuetable) {
+        if (this.$refs[this.vuetableRef]) {
           this.$refs[this.vuetableRef].setData(newVal);
         }
       });
@@ -213,7 +213,7 @@ export default {
     this.data = this.rows;
 
     this.$nextTick(() => {
-      if (this.$refs.vuetable) {
+      if (this.$refs[this.vuetableRef]) {
         this.$refs[this.vuetableRef].setData(this.data);
       }
     });
@@ -225,18 +225,19 @@ export default {
     },
 
     onScrollbarVisible(toggle) {
-      console.log(toggle);
+      // console.log(toggle);
       // this.scrollbarVisible = toggle;
     },
 
     onRowHeaderEvent(type, payload) {
-      console.log("onRowHeaderEvent:", type, payload);
+      // console.log("onRowHeaderEvent:", type, payload);
 
       let handler = RowEventHandler;
 
       return typeof handler[type] === "function"
         ? handler[type](this, this.$refs[this.vuetableRef], payload)
-        : console.log("Unhandled event: ", type, payload);
+        : // : console.log("Unhandled event: ", type, payload);
+          null;
     },
 
     onPaginationData(paginationData) {
@@ -263,14 +264,27 @@ export default {
         const sortField = sortOrder[0].sortField;
 
         local = local.sort((a, b) => {
-          if (sortOrder[0].direction == "asc") {
-            if (a[sortField] < b[sortField]) return -1;
-            if (a[sortField] > b[sortField]) return 1;
-            return 0;
+          // console.log(typeof sortField);
+          if (typeof sortField == "number") {
+            // if (sortOrder[0].direction == "asc") {
+            //   if (a[sortField] < b[sortField]) return -1;
+            //   return (a[sortField] > b[sortField]) return 1;
+            //   return 0;
+            // } else {
+            //   if (a[sortField] > b[sortField]) return -1;
+            //   if (a[sortField] < b[sortField]) return 1;
+            //   return 0;
+            // }
           } else {
-            if (a[sortField] > b[sortField]) return -1;
-            if (a[sortField] < b[sortField]) return 1;
-            return 0;
+            if (sortOrder[0].direction == "asc") {
+              if (a[sortField] < b[sortField]) return -1;
+              if (a[sortField] > b[sortField]) return 1;
+              return 0;
+            } else {
+              if (a[sortField] > b[sortField]) return -1;
+              if (a[sortField] < b[sortField]) return 1;
+              return 0;
+            }
           }
         });
       }
@@ -387,12 +401,9 @@ export default {
     flex-wrap: wrap;
     margin: 20px 0 10px;
 
-    & > * {
-      margin-bottom: 10px;
-    }
-
     &-actions {
       margin-right: 15px;
+      margin-bottom: 10px;
     }
   }
 }

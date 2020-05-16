@@ -22,7 +22,7 @@
       <Table
         :header="header"
         :rows="getRows(className)"
-        :perPage="5"
+        :perPage="2"
         trackBy="id"
         detailRow="table-detail-row2"
         withPagination
@@ -61,7 +61,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import VuetableFieldSequence from "vuetable-2/src/components/VuetableFieldSequence.vue";
+// import VuetableFieldSequence from "vuetable-2/src/components/VuetableFieldSequence.vue";
 
 interface IRows {
   id: number;
@@ -76,7 +76,7 @@ export default Vue.extend({
   name: "LeaguesMain",
 
   components: {
-    Table: () => import("@ui-components/Table"),
+    Table: () => import("@ui-components/Table/Index"),
     Button: () => import("@ui-components/Button"),
     RadioButton: () => import("@ui-components/RadioButton"),
     TableDetailRow2: () => import("./TableDetailRow")
@@ -85,11 +85,11 @@ export default Vue.extend({
   data() {
     return {
       header: [
-        {
-          name: VuetableFieldSequence,
-          title: "№",
-          width: "5%"
-        },
+        // {
+        //   name: VuetableFieldSequence,
+        //   title: "№",
+        //   width: "5%"
+        // },
         { name: "id", visible: false },
         {
           name: "position",
@@ -139,7 +139,7 @@ export default Vue.extend({
 
   methods: {
     onCellClicked(event: any, className: string) {
-      console.log(event, className);
+      // console.log(event, className);
     },
 
     editRow(rowData: any, vuetable: any) {
@@ -167,6 +167,8 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .leagues {
+  margin-bottom: 50px;
+
   &__title {
     margin: 0;
     margin-right: 20px;
