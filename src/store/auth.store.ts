@@ -56,65 +56,47 @@ export default {
 
   actions: {
     async login({ commit }: any, data: UserLogin) {
-      try {
-        const resp: AuthResponse = await AuthService.login(data);
-        localStorage.setItem("access_token", resp.access_token);
-        localStorage.setItem("refresh_token", resp.refresh_token);
+      const resp: AuthResponse = await AuthService.login(data);
+      localStorage.setItem("access_token", resp.access_token);
+      localStorage.setItem("refresh_token", resp.refresh_token);
 
-        commit("setToken", resp.access_token);
-        commit("setUser", resp.user, { root: true });
-        commit("setBalance", resp.billing, { root: true });
-      } catch (errors) {
-        throw errors;
-      }
+      commit("setToken", resp.access_token);
+      commit("setUser", resp.user, { root: true });
+      commit("setBalance", resp.billing, { root: true });
     },
 
     async setUser({ commit }: any, resp: AuthResponse) {
-      try {
-        localStorage.setItem("access_token", resp.access_token);
-        localStorage.setItem("refresh_token", resp.refresh_token);
+      localStorage.setItem("access_token", resp.access_token);
+      localStorage.setItem("refresh_token", resp.refresh_token);
 
-        commit("setToken", resp.access_token);
-        commit("setUser", resp.user, { root: true });
-        commit("setBalance", resp.billing, { root: true });
-      } catch (errors) {
-        throw errors;
-      }
+      commit("setToken", resp.access_token);
+      commit("setUser", resp.user, { root: true });
+      commit("setBalance", resp.billing, { root: true });
     },
 
     async register({ commit }: any, data: UserRegister) {
-      try {
-        const resp: AuthResponse = await AuthService.register(data);
-        localStorage.setItem("access_token", resp.access_token);
-        localStorage.setItem("refresh_token", resp.refresh_token);
+      const resp: AuthResponse = await AuthService.register(data);
+      localStorage.setItem("access_token", resp.access_token);
+      localStorage.setItem("refresh_token", resp.refresh_token);
 
-        commit("setToken", resp.access_token);
-        commit("setUser", resp.user, { root: true });
-        commit("setBalance", resp.billing, { root: true });
-      } catch (errors) {
-        throw errors;
-      }
+      commit("setToken", resp.access_token);
+      commit("setUser", resp.user, { root: true });
+      commit("setBalance", resp.billing, { root: true });
     },
 
     async refreshToken({ commit }: any) {
-      try {
-        const oldRefreshToken: string = localStorage.getItem("refresh_token") || "";
-        const resp: AuthResponse = await AuthService.refreshToken(oldRefreshToken);
-        localStorage.setItem("access_token", resp.access_token);
-        localStorage.setItem("refresh_token", resp.refresh_token);
+      const oldRefreshToken: string = localStorage.getItem("refresh_token") || "";
+      const resp: AuthResponse = await AuthService.refreshToken(oldRefreshToken);
+      localStorage.setItem("access_token", resp.access_token);
+      localStorage.setItem("refresh_token", resp.refresh_token);
 
-        commit("setToken", resp.access_token);
-      } catch (errors) {
-        throw errors;
-      }
+      commit("setToken", resp.access_token);
     },
 
     async logout({ commit }: any) {
       try {
         const refreshToken: string = localStorage.getItem("refresh_token") || "";
         await AuthService.logout(refreshToken);
-      } catch (errors) {
-        throw errors;
       } finally {
         localStorage.setItem("access_token", "");
         localStorage.setItem("refresh_token", "");

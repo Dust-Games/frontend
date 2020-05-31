@@ -47,7 +47,7 @@
             <!-- Блок для ввода логина -->
             <div class="register__block">
               <div class="register__label">
-                <i class="register__block-icon icon-email" />
+                <i class="register__block-icon icon-person_outlineperm_identity" />
                 {{ $t("username") }}
                 <i class="register__required-star">{{ $t("star") }}</i>
               </div>

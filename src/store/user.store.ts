@@ -56,50 +56,30 @@ export default {
 
   actions: {
     async getUser({ commit }: any) {
-      try {
-        const resp: getUserResponse = await UserService.getUser();
+      const resp: getUserResponse = await UserService.getUser();
 
-        await commit("setUser", resp.user);
-        await commit("setBalance", resp.billing, { root: true });
-      } catch (errors) {
-        throw errors;
-      }
+      await commit("setUser", resp.user);
+      await commit("setBalance", resp.billing, { root: true });
     },
 
     async setUser({ commit }: any, user: User) {
-      try {
-        await commit("setUser", user);
-      } catch (errors) {
-        throw errors;
-      }
+      await commit("setUser", user);
     },
 
     async getAccountLink({ commit }: any, data: accountLinkData) {
-      try {
-        const resp: getAccountLinkResponse = await UserService.getAccountLink(data);
-        return resp.redirect_url;
-      } catch (errors) {
-        throw errors;
-      }
+      const resp: getAccountLinkResponse = await UserService.getAccountLink(data);
+      return resp.redirect_url;
     },
 
     async setAccount({ commit }: any, url: string) {
-      try {
-        const resp: any = await UserService.setAccount(url);
-        return resp;
-      } catch (errors) {
-        throw errors;
-      }
+      const resp: any = await UserService.setAccount(url);
+      return resp;
     },
 
     async getAccounts({ commit }: any) {
-      try {
-        const resp: any = await UserService.getAccounts();
-        await commit("setAccounts", resp);
-        return resp;
-      } catch (errors) {
-        throw errors;
-      }
+      const resp: any = await UserService.getAccounts();
+      await commit("setAccounts", resp);
+      return resp;
     }
   }
 };

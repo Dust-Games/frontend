@@ -82,8 +82,8 @@ export default Vue.extend({
   .app {
     &__main {
       padding: 40px;
-      width: calc(100% - 80px);
-      overflow-y: visible;
+      height: 100%;
+      width: 100%;
     }
   }
 }

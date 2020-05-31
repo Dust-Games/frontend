@@ -1,5 +1,9 @@
 <template>
   <div class="table">
+    <span v-if="isLoading">{{ $t("loading") }}</span>
+
+    <!-- {{ pagination }} -->
+
     <vuetable
       :ref="vuetableRef"
       v-bind="attr"
@@ -37,13 +41,7 @@
       />
 
       <div class="table__pagination-info" м->
-        {{
-          $t("paginationInfo", {
-            from: paginationData.from,
-            to: paginationData.to,
-            total: paginationData.total
-          })
-        }}
+        {{ $t("paginationInfo", { ...pagination }) }}
       </div>
     </div>
 
@@ -71,10 +69,12 @@
 <i18n>
 {
   "en": {
-    "paginationInfo": "Displaying {from} to {to} of {total}"
+    "paginationInfo": "Displaying {from} to {to} of {total}",
+    "loading": "Loading..."
   },
   "ru": {
-    "paginationInfo": "Показано {from} - {to} из {total}"
+    "paginationInfo": "Показано {from} - {to} из {total}",
+    "loading": "Загрузка..."
   }
 }
 </i18n>
@@ -97,7 +97,11 @@ export default {
     header: { type: Array, default: () => [] },
     rows: { type: Array, default: () => [] },
     sortOrder: { type: Array, default: () => [] },
+    pagination: { type: Object, default: () => ({}) },
     perPage: { type: Number, default: 10 },
+    // pageFrom: { type: Number, default: 1 },
+    // pageTo: { type: Number, default: 1 },
+    // pageTotal: { type: Number, default: 1 },
     trackBy: { type: String, default: "" },
     // detailRow: { type: String },
     withPagination: { type: Boolean, default: false },
@@ -118,7 +122,6 @@ export default {
       data: [],
       tableId: IDGenerator(),
       isLoading: false,
-      paginationData: {},
       css: {
         table: {
           tableWrapper: "table-wrapper",
@@ -156,11 +159,13 @@ export default {
       let data = {};
 
       if (this.withPagination) {
-        pagination = {
-          // "pagination-path": "", // для сервера
-          "pagination-path": "pagination",
-          "per-table": this.perPage
-        };
+        if (this.withApi) {
+          pagination = {
+            // "pagination-path": "", // для сервера
+            "pagination-path": "pagination",
+            "per-table": this.perPage
+          };
+        }
       }
 
       if (this.withApi) {
@@ -240,23 +245,25 @@ export default {
           null;
     },
 
-    onPaginationData(paginationData) {
-      this.paginationData = paginationData;
+    async onPaginationData(paginationData) {
+      console.log(!!this.$refs[this.paginationRef]);
+      setTimeout(() => {}, 100);
       this.$nextTick(() => {
+        console.log("445", !!this.$refs[this.paginationRef]);
         if (this.$refs[this.paginationRef]) {
+          console.log(!!this.$refs[this.paginationRef]);
           this.$refs[this.paginationRef].setPaginationData(paginationData);
         }
       });
     },
 
     onChangePage(page) {
-      this.$refs[this.vuetableRef].changePage(page);
+      this.$emit("change-page", page);
+      // this.$refs[this.vuetableRef].changePage(page);
     },
 
     dataManager(sortOrder, pagination) {
       let local = this.data;
-      const { perPage } = this;
-
       if (local.length < 1) return;
 
       // sortOrder can be empty, so we have to check for that as well
@@ -289,13 +296,9 @@ export default {
         });
       }
 
-      pagination = this.$refs[this.vuetableRef].makePagination(local.length, perPage);
-      let from = pagination.from - 1;
-      let to = from + perPage;
-
       return {
-        pagination: pagination,
-        data: local.slice(from, to)
+        pagination: this.pagination,
+        data: local
       };
     },
 
@@ -305,6 +308,12 @@ export default {
 
     onLoaded() {
       this.isLoading = false;
+
+      this.$refs[this.paginationRef].setPaginationData(this.pagination);
+      // if (this.$refs[this.paginationRef]) {
+      //   console.log("666", !!this.$refs[this.paginationRef]);
+      //   this.$refs[this.paginationRef].setPaginationData(this.pagination);
+      // }
     }
   }
 };

@@ -27,21 +27,13 @@ export default {
 
   actions: {
     async getBalance({ commit }: any) {
-      try {
-        const balance: Balance = await UserService.getWallet();
+      const balance: Balance = await UserService.getWallet();
 
-        commit("setBalance", balance);
-      } catch (errors) {
-        throw errors.response.data.message;
-      }
+      commit("setBalance", balance);
     },
 
     async setBalance({ commit }: any, balance: Balance) {
-      try {
-        commit("setBalance", balance);
-      } catch (errors) {
-        throw errors.response.data.message;
-      }
+      commit("setBalance", balance);
     }
   }
 };

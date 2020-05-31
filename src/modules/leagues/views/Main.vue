@@ -5,28 +5,32 @@
       <Button theme="blue-steel" @click.prevent="toLeagueRules()">{{ $t("rules") }}</Button>
     </div>
 
+    <p class="leagues__info">{{ $t("info") }}</p>
+
     <div class="leagues__weeks">
       <RadioButton
         v-for="week in weeks"
         :key="week"
         class="leagues__weeks-item"
         v-model="selectedWeek"
-        :item="week + 1"
+        :item="week"
       >
-        {{ $t("week") + (week + 1) }}
+        {{ $t("week") + week }}
       </RadioButton>
     </div>
 
-    <div class="leagues__table" v-for="className in ['D', 'C', 'B', 'A', 'S']" :key="className">
-      <h2 class="leagues__table-title">{{ $t("class", { value: className }) }}</h2>
+    <div class="leagues__table" v-for="className in classNames" :key="className">
+      <h2 class="leagues__table-title">{{ $t("class", { value: className.toUpperCase() }) }}</h2>
       <Table
         :header="header"
-        :rows="getRows(className)"
+        :rows="rows[className].data"
+        :pagination="getPagination(rows[className])"
         :perPage="2"
         trackBy="id"
         detailRow="table-detail-row2"
         withPagination
         @cell-clicked="onCellClicked($event, className)"
+        @change-page="onChangePage($event, rows[className])"
       >
         <template #_detailRow><TableDetailRow2 /></template>
       </Table>
@@ -38,20 +42,22 @@
 {
   "en": {
     "title": "LoR Rate League",
+    "info": "This page shows the rating of players in five classes - S, A, B, C, D (for more details see rules).",
     "position": "position",
     "username": "username",
     "score": "score",
-    "all-points": "all-points",
+    "total_score": "total score",
     "rules": "Rules",
     "week": "Week ",
     "class": "Class {value}"
   },
   "ru": {
     "title": "LoR Rate League",
+    "info": "На этой странице представлен рейтинг игроков по пяти классам - S, A, B, C, D (подробнее в регламенте).",
     "position": "место",
     "username": "игрок",
     "score": "очки за неделю",
-    "all-points": "общие очки",
+    "total_score": "общие очки",
     "rules": "Регламент",
     "week": "Неделя ",
     "class": "Класс {value}"
@@ -61,16 +67,18 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { mapActions } from "vuex";
+import http from "@services/httpClient";
 // import VuetableFieldSequence from "vuetable-2/src/components/VuetableFieldSequence.vue";
 
-interface IRows {
-  id: number;
-  username: string;
-  position: number;
-  score: number;
-  "all-points": number;
-  class: string;
-}
+// interface IRows {
+//   id: number;
+//   username: string;
+//   // position: number;
+//   score: number;
+//   total_score: number;
+//   class: string;
+// }
 
 export default Vue.extend({
   name: "LeaguesMain",
@@ -85,11 +93,6 @@ export default Vue.extend({
   data() {
     return {
       header: [
-        // {
-        //   name: VuetableFieldSequence,
-        //   title: "№",
-        //   width: "5%"
-        // },
         { name: "id", visible: false },
         {
           name: "position",
@@ -98,46 +101,48 @@ export default Vue.extend({
         },
         { name: "username", title: () => this.$i18n.t("username"), sortField: "username" },
         { name: "score", title: () => this.$i18n.t("score") },
-        { name: "all-points", title: () => this.$i18n.t("all-points") },
-        "actions"
+        { name: "total_score", title: () => this.$i18n.t("total_score") }
+        // "actions"
       ] as Array<Object>,
       sortOrder: [{ field: "position", direction: "asc" }] as Array<Object>,
-      rows: [
-        { id: 0, username: "Lalala", position: 4, score: 123, "all-points": 9, class: "D" },
-        { id: 1, username: "A Plum", position: 5, score: 5, "all-points": 9, class: "D" },
-        { id: 2, username: "Plum", position: 3, score: 5, "all-points": 9, class: "D" },
-        { id: 3, username: "Lala7la", position: 1, score: 123, "all-points": 9, class: "D" },
-        { id: 0, username: "Lala la", position: 4, score: 123, "all-points": 9, class: "C" },
-        { id: 1, username: "A  Plum", position: 5, score: 5, "all-points": 9, class: "C" },
-        { id: 2, username: "Plu m", position: 3, score: 5, "all-points": 9, class: "C" },
-        { id: 3, username: "Lala7 la", position: 1, score: 123, "all-points": 9, class: "C" },
-        { id: 5, username: "Plu7m", position: 8, score: 5, "all-points": 9, class: "B" },
-        { id: 6, username: "Lalalty a", position: 40, score: 123, "all-points": 9, class: "B" },
-        { id: 6, username: "A Plyy um", position: 2, score: 5, "all-points": 9, class: "B" },
-        { id: 7, username: "Plumyy yy", position: 6, score: 5, "all-points": 9, class: "B" },
-        { id: 6, username: "A Plyy um", position: 2, score: 5, "all-points": 9, class: "A" },
-        { id: 7, username: "Plumyy yy", position: 6, score: 5, "all-points": 9, class: "A" },
-        { id: 2, username: "Plum", position: 3, score: 5, "all-points": 9, class: "S" },
-        { id: 3, username: "Lala7la", position: 1, score: 123, "all-points": 9, class: "S" },
-        { id: 4, username: "A Pl7um", position: 7, score: 5, "all-points": 9, class: "S" },
-        { id: 5, username: "Plu7m", position: 8, score: 5, "all-points": 9, class: "S" }
-      ] as Array<IRows>,
-      weeks: [0, 1, 2, 3, 4] as Array<Number>,
-      selectedWeek: 1 as number
+      rows: {} as any,
+      selectedWeek: 1 as number,
+      currencyWeek: 0
     };
   },
 
-  watch: {
-    selectedWeek(newVal) {
-      // this.getRows();
+  computed: {
+    weeks(): Number[] {
+      const length = Number(this.currencyWeek) + 3;
+
+      return Array(length)
+        .fill(5)
+        .map((v, i) => i + 1);
+    },
+
+    classNames(): string[] {
+      return Object.keys(this.rows).filter(className => this.rows[className].data.length);
     }
   },
 
-  mounted() {
-    // this.getRows();
+  watch: {
+    async selectedWeek(newVal) {
+      this.rows = await this.getTableByWeek(this.selectedWeek);
+    }
+  },
+
+  async mounted() {
+    try {
+      // this.currencyWeek = await this.getCurrentWeek();
+      this.rows = await this.getTableByWeek(this.selectedWeek);
+    } catch (errors) {
+      this.$notify.error(errors);
+    }
   },
 
   methods: {
+    ...mapActions(["getCurrentWeek", "getTableByWeek", "getTableByWeekByPage"]),
+
     onCellClicked(event: any, className: string) {
       // console.log(event, className);
     },
@@ -146,17 +151,27 @@ export default Vue.extend({
       vuetable.toggleDetailRow(rowData.position);
     },
 
-    getRows(className: string) {
-      // const rows = (this as any)["rows" + className];
-
-      return this.rows.filter(row => row.class == className);
-
-      // if (rows) {
-      //   return rows;
-      // } else {
-      //   return [];
-      // }
+    getPagination(objectValue: any): any {
+      const { data, ...res } = objectValue;
+      return res;
     },
+
+    async onChangePage(page: number, className: string) {
+      this.rows = await this.getTableByWeekByPage({ week: this.selectedWeek, className, page });
+      console.log(this.rows);
+    },
+
+    // getRows(className: string) {
+    //   // const rows = (this as any)["rows" + className];
+
+    //   return this.rows.filter(row => row.class == className);
+
+    //   // if (rows) {
+    //   //   return rows;
+    //   // } else {
+    //   //   return [];
+    //   // }
+    // },
 
     toLeagueRules() {
       this.$router.push("/leagues/rules");
@@ -179,6 +194,11 @@ export default Vue.extend({
       flex-wrap: wrap;
       margin-bottom: 40px;
     }
+  }
+
+  &__info {
+    margin-top: -35px;
+    margin-bottom: 40px;
   }
 
   &__weeks {
