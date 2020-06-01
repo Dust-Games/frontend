@@ -5,7 +5,7 @@
       {{ $t("description") }}
       <br />
       <!-- eslint-disable-next-line vue-i18n/no-v-html -->
-      <p v-html="$t('available')" />
+      <!-- <p v-html="$t('available')" /> -->
     </div>
     <!-- <Carousel class="home__carousel" />
     <Tournaments class="home__tournaments" />
@@ -22,18 +22,22 @@
 {
   "en": {
     "home": "Main page",
-    "description": "Welcome! There is available pages now:",
-    "available": "Signup (including via social networks)<br />Login (including via social networks)<br />Sidebar bottom info<br />Linked accounts"
+    "description": "Welcome!"
   },
   "ru": {
     "home": "Главная страница",
-    "description": "Добро пожаловать! Сейчас доступно:",
-    "available": "Регистрация (в т.ч. через соцсети)<br />Вход (в т.ч. через соцсети)<br />Информация внизу сайдбара<br />Привязанные аккаунты"
+    "description": "Добро пожаловать!"
   }
 }
 </i18n>
 
 <script>
+// "description": "Welcome! There is available pages now:",
+// "available": "Signup (including via social networks)<br />Login (including via social networks)<br />Sidebar bottom info<br />Linked accounts"
+
+// "description": "Добро пожаловать! Сейчас доступно:",
+// "available": "Регистрация (в т.ч. через соцсети)<br />Вход (в т.ч. через соцсети)<br />Информация внизу сайдбара<br />Привязанные аккаунты<br />Таблица для LoR"
+
 export default {
   name: "Home",
 

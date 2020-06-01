@@ -7,7 +7,7 @@
         :disabled="disabled"
         :type="type"
         :placeholder="placeholder"
-        :class="{ error: (v.dirty && v.invalid) || (v.validated && v.invalid) }"
+        :class="[{ error: (v.dirty && v.invalid) || (v.validated && v.invalid) }, theme]"
         :style="{
           width: width,
           height: height,
@@ -48,6 +48,7 @@ export default Vue.extend({
     // Остальное
     type: { type: String, default: "text" },
     placeholder: { type: String, default: "" },
+    theme: { type: String, default: "dark" },
     // errorDescription: { type: String, default: "" }, // this.$t("error")
     width: { type: String, default: "max-content" },
     height: { type: String, default: "35px" },
@@ -79,7 +80,14 @@ export default Vue.extend({
 .ui-input {
   border: 1px solid $black;
   color: $white;
-  background: $blue-dark;
+
+  &.dark {
+    background: $blue-dark;
+  }
+
+  &.light {
+    background: $primary-color;
+  }
 
   &::placeholder {
     color: $gray;

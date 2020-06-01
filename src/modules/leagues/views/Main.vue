@@ -7,6 +7,11 @@
 
     <p class="leagues__info">{{ $t("info") }}</p>
 
+    <!-- <div class="leagues__filter">
+      <p class="leagues__filter-title">{{ $t("filter") }}</p>
+      <Input class="leagues__filter-input" :value="filter" @input="onFilter" theme="light" />
+    </div> -->
+
     <div class="leagues__weeks">
       <RadioButton
         v-for="week in weeks"
@@ -19,18 +24,17 @@
       </RadioButton>
     </div>
 
-    <div class="leagues__table" v-for="className in classNames" :key="className">
+    <div class="leagues__table" v-for="(className, index) in classNames" :key="className">
       <h2 class="leagues__table-title">{{ $t("class", { value: className.toUpperCase() }) }}</h2>
       <Table
         :header="header"
         :rows="rows[className].data"
         :pagination="getPagination(rows[className])"
-        :perPage="2"
         trackBy="id"
         detailRow="table-detail-row2"
         withPagination
         @cell-clicked="onCellClicked($event, className)"
-        @change-page="onChangePage($event, rows[className])"
+        @change-page="onChangePage($event, className, index + 1)"
       >
         <template #_detailRow><TableDetailRow2 /></template>
       </Table>
@@ -49,7 +53,8 @@
     "total_score": "total score",
     "rules": "Rules",
     "week": "Week ",
-    "class": "Class {value}"
+    "class": "Class {value}", 
+    "filter": "Filter by nickname"
   },
   "ru": {
     "title": "LoR Rate League",
@@ -60,7 +65,8 @@
     "total_score": "общие очки",
     "rules": "Регламент",
     "week": "Неделя ",
-    "class": "Класс {value}"
+    "class": "Класс {value}", 
+    "filter": "Фильтр по никнейму"
   }
 }
 </i18n>
@@ -68,17 +74,6 @@
 <script lang="ts">
 import Vue from "vue";
 import { mapActions } from "vuex";
-import http from "@services/httpClient";
-// import VuetableFieldSequence from "vuetable-2/src/components/VuetableFieldSequence.vue";
-
-// interface IRows {
-//   id: number;
-//   username: string;
-//   // position: number;
-//   score: number;
-//   total_score: number;
-//   class: string;
-// }
 
 export default Vue.extend({
   name: "LeaguesMain",
@@ -86,6 +81,7 @@ export default Vue.extend({
   components: {
     Table: () => import("@ui-components/Table/Index"),
     Button: () => import("@ui-components/Button"),
+    // Input: () => import("@ui-components/Input"),
     RadioButton: () => import("@ui-components/RadioButton"),
     TableDetailRow2: () => import("./TableDetailRow")
   },
@@ -96,10 +92,14 @@ export default Vue.extend({
         { name: "id", visible: false },
         {
           name: "position",
-          title: () => this.$i18n.t("position"),
-          sortField: "position"
+          title: () => this.$i18n.t("position")
+          // sortField: "position"
         },
-        { name: "username", title: () => this.$i18n.t("username"), sortField: "username" },
+        {
+          name: "username",
+          title: () => this.$i18n.t("username")
+          // sortField: "username"
+        },
         { name: "score", title: () => this.$i18n.t("score") },
         { name: "total_score", title: () => this.$i18n.t("total_score") }
         // "actions"
@@ -107,13 +107,14 @@ export default Vue.extend({
       sortOrder: [{ field: "position", direction: "asc" }] as Array<Object>,
       rows: {} as any,
       selectedWeek: 1 as number,
-      currencyWeek: 0
+      currencyWeek: 0,
+      filter: "" as string
     };
   },
 
   computed: {
     weeks(): Number[] {
-      const length = Number(this.currencyWeek) + 3;
+      const length = Number(this.currencyWeek);
 
       return Array(length)
         .fill(5)
@@ -133,7 +134,8 @@ export default Vue.extend({
 
   async mounted() {
     try {
-      // this.currencyWeek = await this.getCurrentWeek();
+      this.currencyWeek = await this.getCurrentWeek();
+      this.selectedWeek = this.currencyWeek;
       this.rows = await this.getTableByWeek(this.selectedWeek);
     } catch (errors) {
       this.$notify.error(errors);
@@ -141,7 +143,7 @@ export default Vue.extend({
   },
 
   methods: {
-    ...mapActions(["getCurrentWeek", "getTableByWeek", "getTableByWeekByPage"]),
+    ...mapActions(["getCurrentWeek", "getTableByWeek", "getTableByWeekByPage", "search"]),
 
     onCellClicked(event: any, className: string) {
       // console.log(event, className);
@@ -151,28 +153,36 @@ export default Vue.extend({
       vuetable.toggleDetailRow(rowData.position);
     },
 
+    async onFilter(value: string) {
+      this.filter = value;
+      this.rows = await this.search({ week: this.selectedWeek, query: value });
+    },
+
+    /** Взять объект со страницами. Если загружаем первый раз,
+     * то он прям в объекте, иначе в meta
+     */
     getPagination(objectValue: any): any {
       const { data, ...res } = objectValue;
-      return res;
+
+      if (res.meta) {
+        return res.meta;
+      } else {
+        return res;
+      }
     },
 
-    async onChangePage(page: number, className: string) {
-      this.rows = await this.getTableByWeekByPage({ week: this.selectedWeek, className, page });
-      console.log(this.rows);
+    // Поменять страницу на page по классу и выбранной неделе
+    async onChangePage(page: number, className: string, classNameIndex: Number) {
+      this.rows[className] = await this.getTableByWeekByPage({
+        week: this.selectedWeek,
+        className: classNameIndex,
+        page
+      });
+
+      // console.log("response", this.rows[className]);
     },
 
-    // getRows(className: string) {
-    //   // const rows = (this as any)["rows" + className];
-
-    //   return this.rows.filter(row => row.class == className);
-
-    //   // if (rows) {
-    //   //   return rows;
-    //   // } else {
-    //   //   return [];
-    //   // }
-    // },
-
+    // Перейти на страницу регламента
     toLeagueRules() {
       this.$router.push("/leagues/rules");
     }
@@ -198,7 +208,15 @@ export default Vue.extend({
 
   &__info {
     margin-top: -35px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
+  }
+
+  &__filter {
+    margin: 0px 0 25px;
+
+    &-title {
+      margin-bottom: 5px;
+    }
   }
 
   &__weeks {

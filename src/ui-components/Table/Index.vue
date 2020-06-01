@@ -1,9 +1,6 @@
 <template>
   <div class="table">
     <span v-if="isLoading">{{ $t("loading") }}</span>
-
-    <!-- {{ pagination }} -->
-
     <vuetable
       :ref="vuetableRef"
       v-bind="attr"
@@ -40,7 +37,7 @@
         @vuetable-pagination:change-page="onChangePage"
       />
 
-      <div class="table__pagination-info" м->
+      <div class="table__pagination-info">
         {{ $t("paginationInfo", { ...pagination }) }}
       </div>
     </div>
@@ -82,6 +79,11 @@
 <script>
 import Vue from "vue";
 import DetailRow from "./TableDetailRow";
+
+import VuetablePagination from "vuetable-2/src/components/VuetablePagination";
+import VuetableRowHeader from "vuetable-2/src/components/VuetableRowHeader.vue";
+import Vuetable from "vuetable-2";
+
 Vue.component("table-detail-row", DetailRow); // <--- register the component to Vue
 
 function IDGenerator() {
@@ -109,9 +111,9 @@ export default {
   },
 
   components: {
-    Vuetable: () => import("vuetable-2"),
-    VuetablePagination: () => import("vuetable-2/src/components/VuetablePagination"),
-    VuetableRowHeader: () => import("vuetable-2/src/components/VuetableRowHeader.vue"),
+    Vuetable: Vuetable,
+    VuetablePagination: VuetablePagination,
+    VuetableRowHeader: VuetableRowHeader,
     RowFilter: () => import("./TableRowFilter.vue")
 
     // TableDetailRow: () => import("./TableDetailRow")
@@ -120,7 +122,7 @@ export default {
   data() {
     return {
       data: [],
-      tableId: IDGenerator(),
+      tableId: IDGenerator(), // Для уникальности таблицы
       isLoading: false,
       css: {
         table: {
@@ -194,37 +196,43 @@ export default {
       };
     },
 
-    vuetableRef() {
-      return "vuetable" + this.tableId;
+    paginationRef() {
+      return "pagination-" + this.tableId;
     },
 
-    paginationRef() {
-      return "pagination" + this.tableId;
+    vuetableRef() {
+      return "vuetable-" + this.tableId;
     }
   },
 
   watch: {
-    rows(newVal, oldVal) {
-      this.data = newVal;
-      this.$nextTick(() => {
-        if (this.$refs[this.vuetableRef]) {
-          this.$refs[this.vuetableRef].setData(newVal);
-        }
-      });
+    rows: {
+      handler: function(newVal) {
+        this.data = newVal;
+        this.refreshData();
+      },
+      immediate: true
     }
   },
 
   mounted() {
     this.data = this.rows;
-
-    this.$nextTick(() => {
-      if (this.$refs[this.vuetableRef]) {
-        this.$refs[this.vuetableRef].setData(this.data);
-      }
-    });
+    this.refreshData();
   },
 
   methods: {
+    refreshData() {
+      this.$nextTick(() => {
+        if (this.$refs[this.vuetableRef]) {
+          this.$refs[this.vuetableRef].setData(this.data);
+        }
+
+        if (this.$refs[this.paginationRef]) {
+          this.$refs[this.paginationRef].setPaginationData(this.pagination);
+        }
+      });
+    },
+
     onCellClicked(props) {
       this.$emit("cell-clicked", { ...props, vuetable: this.$refs[this.vuetableRef] });
     },
@@ -246,20 +254,12 @@ export default {
     },
 
     async onPaginationData(paginationData) {
-      console.log(!!this.$refs[this.paginationRef]);
-      setTimeout(() => {}, 100);
-      this.$nextTick(() => {
-        console.log("445", !!this.$refs[this.paginationRef]);
-        if (this.$refs[this.paginationRef]) {
-          console.log(!!this.$refs[this.paginationRef]);
-          this.$refs[this.paginationRef].setPaginationData(paginationData);
-        }
-      });
+      this.$refs[this.paginationRef].setPaginationData(paginationData);
     },
 
     onChangePage(page) {
       this.$emit("change-page", page);
-      // this.$refs[this.vuetableRef].changePage(page);
+      this.$emit("vuetable-pagination:change-page", page);
     },
 
     dataManager(sortOrder, pagination) {
@@ -271,28 +271,27 @@ export default {
         const sortField = sortOrder[0].sortField;
 
         local = local.sort((a, b) => {
-          // console.log(typeof sortField);
-          if (typeof sortField == "number") {
-            // if (sortOrder[0].direction == "asc") {
-            //   if (a[sortField] < b[sortField]) return -1;
-            //   return (a[sortField] > b[sortField]) return 1;
-            //   return 0;
-            // } else {
-            //   if (a[sortField] > b[sortField]) return -1;
-            //   if (a[sortField] < b[sortField]) return 1;
-            //   return 0;
-            // }
+          // if (typeof sortField == "number") {
+          //   // if (sortOrder[0].direction == "asc") {
+          //   //   if (a[sortField] < b[sortField]) return -1;
+          //   //   return (a[sortField] > b[sortField]) return 1;
+          //   //   return 0;
+          //   // } else {
+          //   //   if (a[sortField] > b[sortField]) return -1;
+          //   //   if (a[sortField] < b[sortField]) return 1;
+          //   //   return 0;
+          //   // }
+          // } else {
+          if (sortOrder[0].direction == "asc") {
+            if (a[sortField] < b[sortField]) return -1;
+            if (a[sortField] > b[sortField]) return 1;
+            return 0;
           } else {
-            if (sortOrder[0].direction == "asc") {
-              if (a[sortField] < b[sortField]) return -1;
-              if (a[sortField] > b[sortField]) return 1;
-              return 0;
-            } else {
-              if (a[sortField] > b[sortField]) return -1;
-              if (a[sortField] < b[sortField]) return 1;
-              return 0;
-            }
+            if (a[sortField] > b[sortField]) return -1;
+            if (a[sortField] < b[sortField]) return 1;
+            return 0;
           }
+          // }
         });
       }
 
@@ -308,12 +307,6 @@ export default {
 
     onLoaded() {
       this.isLoading = false;
-
-      this.$refs[this.paginationRef].setPaginationData(this.pagination);
-      // if (this.$refs[this.paginationRef]) {
-      //   console.log("666", !!this.$refs[this.paginationRef]);
-      //   this.$refs[this.paginationRef].setPaginationData(this.pagination);
-      // }
     }
   }
 };

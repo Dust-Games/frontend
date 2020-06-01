@@ -4,7 +4,7 @@ import i18n from "vue-i18n";
 // console.log(i18n);
 
 const httpClient = axios.create({
-  baseURL: "https://api.dust.games/",
+  baseURL: process.env.VUE_APP_BACKEND_HOST + "/",
   headers: {
     "Content-Type": "application/json",
     // токен

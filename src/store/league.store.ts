@@ -45,6 +45,14 @@ export default {
       } catch (errors) {
         throw errors.response.data.message;
       }
+    },
+
+    async search({ commit }: any, data: { week: number; query: string }) {
+      try {
+        return await LeagueService.search(data);
+      } catch (errors) {
+        throw errors.response.data.message;
+      }
     }
   }
 };

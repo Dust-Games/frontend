@@ -43,5 +43,17 @@ export default {
     } catch (errors) {
       throw errors.error;
     }
+  },
+
+  async search({ week, query }: { week: number; query: string }) {
+    try {
+      const resp: { data: any } = await httpClient.get(
+        "league/week/" + week + "/members?q=" + query
+      );
+
+      return resp.data;
+    } catch (errors) {
+      throw errors.error;
+    }
   }
 };
