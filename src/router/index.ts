@@ -3,6 +3,9 @@ import VueRouter from "vue-router";
 // import { TokenService } from "../services/auth.service";
 import store from "@store/index";
 
+import leagues from "./leagues";
+import info from "./info";
+
 Vue.use(VueRouter);
 
 const withPrefix = (prefix: any, routes: any) =>
@@ -29,27 +32,7 @@ const routes = [
   },
 
   // Всё, что касается пользователя - профиль, кошелек
-  ...withPrefix("/leagues", [
-    {
-      path: "/",
-      name: "leaguesMain",
-      component: () => import("@modules/leagues/views/Main.vue"),
-      meta: {
-        title: "Лиги",
-        public: true
-      }
-    },
-
-    {
-      path: "/rules",
-      name: "leaguesRules",
-      component: () => import("@modules/leagues/views/Rules.vue"),
-      meta: {
-        title: "Регламент лиги",
-        public: true
-      }
-    }
-  ]),
+  ...withPrefix("/leagues", leagues),
 
   {
     path: "/oauth/:accountName/:type/callback",
@@ -92,44 +75,18 @@ const routes = [
   ]),
 
   // Справочная информация
-  ...withPrefix("/info", [
-    {
-      path: "/rules",
-      name: "infoRules",
-      component: () => import("@modules/info/views/Rules.vue"),
-      meta: {
-        title: "Правила",
-        public: true
-      }
-    },
-    {
-      path: "/about",
-      name: "infoAbout",
-      component: () => import("@modules/info/views/About.vue"),
-      meta: {
-        title: "О нас",
-        public: true
-      }
-    },
-    {
-      path: "/contacts",
-      name: "infoContacts",
-      component: () => import("@modules/info/views/Contacts.vue"),
-      meta: {
-        title: "Контакты",
-        public: true
-      }
-    },
-    {
-      path: "/team",
-      name: "infoTeam",
-      component: () => import("@modules/info/views/Team.vue"),
-      meta: {
-        title: "Наша команда",
-        public: true
-      }
+  ...withPrefix("/info", info),
+
+  // Страница "Не найдено"
+  {
+    path: "/examples",
+    name: "examples",
+    component: () => import("@ui-components/examples/Index"),
+    meta: {
+      title: "UI-компоненты",
+      public: true
     }
-  ]),
+  },
 
   // Страница "Не найдено"
   {

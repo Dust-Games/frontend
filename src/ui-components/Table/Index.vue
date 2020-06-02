@@ -1,6 +1,7 @@
 <template>
   <div class="table">
     <span v-if="isLoading">{{ $t("loading") }}</span>
+
     <vuetable
       :ref="vuetableRef"
       v-bind="attr"
@@ -41,25 +42,6 @@
         {{ $t("paginationInfo", { ...pagination }) }}
       </div>
     </div>
-
-    <!-- Пример -->
-    <!-- <Table
-      :header="header"
-      :rows="rows"
-      :sortOrder="sortOrder"
-      :perPage="5"
-      detailRow="table-detail-row2"
-      withPaginationInfo
-    >
-      <template #actions="{ rowData, vuetable }">
-        <div class="table-button-container">
-          <Button theme="blue" @click="editRow(rowData, vuetable)">
-            {{ $t("rules") }}
-          </Button>
-        </div>
-      </template>
-      <template #_detailRow><TableDetailRow2 /></template>
-    </Table> -->
   </div>
 </template>
 
