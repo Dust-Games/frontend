@@ -35,7 +35,7 @@ export default Vue.extend({
   props: {
     type: { type: String, default: "button" },
     width: { type: String, default: "max-content" },
-    height: { type: String, default: "min-content" },
+    height: { type: String, default: "40px" },
     // small, normal, large
     size: { type: String, default: "normal" },
     // primary, orange, blue, gray
@@ -70,24 +70,15 @@ export default Vue.extend({
   color: $white;
   text-transform: uppercase;
   font-weight: bold;
+  padding: 0 15px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &:hover {
     cursor: pointer;
     transition: 0.3s;
-  }
-
-  // Размеры
-
-  &.small {
-    padding: 10px;
-  }
-
-  &.normal {
-    padding: 12px;
-  }
-
-  &.large {
-    padding: 20px;
   }
 
   // Темы

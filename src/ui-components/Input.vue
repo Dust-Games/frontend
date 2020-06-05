@@ -1,5 +1,5 @@
 <template>
-  <div class="ui-input-wrapper">
+  <div class="ui-input-wrapper" :style="{ width: width, height: height }">
     <ValidationProvider :name="name" :rules="rules" v-slot="v" :vid="vid">
       <input
         class="ui-input"
@@ -17,6 +17,8 @@
       />
       <!-- v-tooltip="errorDescription" -->
     </ValidationProvider>
+
+    <slot />
   </div>
 </template>
 
@@ -80,6 +82,16 @@ export default Vue.extend({
 .ui-input {
   border: 1px solid $black;
   color: $white;
+
+  &-wrapper {
+    position: relative;
+  }
+
+  &__icon {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+  }
 
   &.dark {
     background: $blue-dark;

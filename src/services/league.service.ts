@@ -48,7 +48,7 @@ export default {
   async search({ week, query }: { week: number; query: string }) {
     try {
       const resp: { data: any } = await httpClient.get(
-        "league/week/" + week + "/members?q=" + query
+        "league/week/" + week + "/members?username=" + query
       );
 
       return resp.data;

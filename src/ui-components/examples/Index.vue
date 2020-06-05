@@ -1,5 +1,12 @@
 <template>
   <div>
+    <div>
+      <p>Иконки</p>
+      <a href="file:///var/www/dust/frontend/src/assets/icomoon/demo.html" target="_blank">
+        file:///var/www/dust/frontend/src/assets/icomoon/demo.html
+      </a>
+    </div>
+
     <div v-for="(item, index) in items" :key="index">
       <p>{{ componentNames[index] }}</p>
       <component :is="item" />
