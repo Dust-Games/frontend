@@ -63,7 +63,7 @@ export default Vue.extend({
         } else {
           newItems = newItems.filter(newItem => newItem != this.value);
 
-          console.log(newItems, this.value);
+          // console.log(newItems, this.value);
         }
         this.$emit("input", newItems);
 
