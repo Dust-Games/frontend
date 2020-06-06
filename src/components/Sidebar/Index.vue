@@ -2,7 +2,7 @@
   <div class="sidebar-wrapper">
     <!-- Большой экран -->
     <div class="sidebar" v-if="windowWidth > 700">
-      <div class="sidebar__logo"><img src="@/assets/images/logo.svg" /></div>
+      <div class="sidebar__logo"><img src="@/assets/images/logo.png" /></div>
       <User class="sidebar__user" />
       <Nav class="sidebar__nav" />
       <Footer class="sidebar__footer" @onChangeLanguage="onChangeLanguage" />
@@ -61,9 +61,12 @@ export default Vue.extend({
   }
 
   &__logo {
-    height: 40px;
-    width: 158px;
     margin-right: -5px;
+
+    & > * {
+      height: 40px;
+      width: 158px;
+    }
   }
 
   &__user {

@@ -67,6 +67,7 @@ export default Vue.extend({
   position: relative;
   padding-left: 32px;
   padding-top: 0px;
+  min-height: 20px;
 
   user-select: none;
   // width: max-content;

@@ -1,7 +1,7 @@
 <template>
   <div class="sidebar-mobile" v-click-outside="onHide">
     <!-- Лого -->
-    <div class="sidebar-mobile__logo"><img src="@/assets/images/logo.svg" /></div>
+    <div class="sidebar-mobile__logo"><img src="@/assets/images/logo.png" /></div>
     <!-- Гамбургер -->
     <MobileHamburger class="sidebar-mobile__hamburger" v-model="isMenuShow" />
     <!-- Само меню -->
@@ -92,9 +92,13 @@ export default Vue.extend({
   }
 
   &__logo {
-    height: 25px;
-    width: 100px;
     padding-left: 20px;
+    margin-top: 5px;
+
+    & > * {
+      height: 35px;
+      // width: 100px;
+    }
   }
 
   &__menu {

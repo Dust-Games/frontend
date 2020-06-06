@@ -1,17 +1,17 @@
 <template>
-  <div>
+  <div class="storybook">
     <div>
       <p>Иконки</p>
       <a href="file:///var/www/dust/frontend/src/assets/icomoon/demo.html" target="_blank">
         file:///var/www/dust/frontend/src/assets/icomoon/demo.html
       </a>
     </div>
+    <br />
 
-    <div v-for="(item, index) in items" :key="index">
-      <p>{{ componentNames[index] }}</p>
+    <details v-for="(item, index) in items" :key="index" class="storybook__block">
+      <summary class="storybook__title">{{ componentNames[index] }}</summary>
       <component :is="item" />
-      <br />
-    </div>
+    </details>
   </div>
 </template>
 
@@ -53,3 +53,22 @@ export default Vue.extend({
   }
 });
 </script>
+
+<style lang="scss">
+.storybook {
+  &__title {
+    padding: 10px 0;
+    font-size: 16px;
+    font-weight: bold;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__block {
+    display: flex;
+    flex-direction: column;
+  }
+}
+</style>

@@ -67,8 +67,8 @@
     "info": "This page shows the rating of players in five classes - S, A, B, C, D (for more details see rules).",
     "position": "position",
     "username": "username",
-    "score": "score",
-    "total_score": "total score",
+    "score": "week DLP",
+    "total_score": "all DLP",
     "rules": "Rules",
     "week": "Week ",
     "class": "Class {value}", 
@@ -79,8 +79,8 @@
     "info": "На этой странице представлен рейтинг игроков по пяти классам - S, A, B, C, D (подробнее в регламенте).",
     "position": "место",
     "username": "игрок",
-    "score": "очки за неделю",
-    "total_score": "общие очки",
+    "score": "week DLP",
+    "total_score": "all DLP",
     "rules": "Регламент",
     "week": "Неделя ",
     "class": "Класс {value}", 
@@ -250,7 +250,7 @@ export default Vue.extend({
   }
 
   &__info {
-    margin-top: -35px;
+    margin-top: -25px;
     margin-bottom: 20px;
   }
 
@@ -261,7 +261,7 @@ export default Vue.extend({
       display: flex;
 
       & > * {
-        margin-right: 10px;
+        margin-right: 0px;
       }
     }
 
@@ -273,6 +273,7 @@ export default Vue.extend({
     }
 
     &-clear {
+      background: transparent !important;
     }
 
     &-title {

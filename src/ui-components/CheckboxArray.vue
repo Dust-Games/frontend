@@ -1,11 +1,8 @@
 <template>
   <label class="ui-checkbox" :disabled="disabled">
     <div class="ui-checkbox__slot">
-      <slot />
+      <slot>{{ value }}</slot>
     </div>
-
-    {{ items }}
-    {{ booleanValue }}
 
     <ValidationProvider :name="name" :rules="rules" v-slot="v">
       <input type="checkbox" v-model="innerValue" />
@@ -29,7 +26,7 @@ export default Vue.extend({
 
   model: {
     prop: "items",
-    event: "input"
+    event: "change"
   },
 
   props: {
@@ -57,17 +54,16 @@ export default Vue.extend({
       },
 
       set(value: boolean) {
-        let newItems: Array<any> = this.items;
+        let newItems: Array<any> = JSON.parse(JSON.stringify(this.items));
+
         if (value) {
           newItems.push(this.value);
         } else {
           newItems = newItems.filter(newItem => newItem != this.value);
-
-          // console.log(newItems, this.value);
         }
-        this.$emit("input", newItems);
 
         this.booleanValue = value;
+        this.$emit("change", newItems);
       }
     }
   }
