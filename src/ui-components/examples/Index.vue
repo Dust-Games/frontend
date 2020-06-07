@@ -8,10 +8,10 @@
     </div>
     <br />
 
-    <details v-for="(item, index) in items" :key="index" class="storybook__block">
-      <summary class="storybook__title">{{ componentNames[index] }}</summary>
+    <div v-for="(item, index) in items" :key="index">
       <component :is="item" />
-    </details>
+      <hr />
+    </div>
   </div>
 </template>
 
@@ -69,6 +69,15 @@ export default Vue.extend({
   &__block {
     display: flex;
     flex-direction: column;
+
+    &-inner {
+      display: flex;
+
+      & > * {
+        margin-right: 10px;
+        margin-bottom: 10px;
+      }
+    }
   }
 }
 </style>

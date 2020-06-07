@@ -6,6 +6,15 @@ import store from "@store/index";
 import leagues from "./leagues";
 import info from "./info";
 
+const originalPush = VueRouter.prototype.push;
+VueRouter.prototype.push = async function push(location: any) {
+  try {
+    return await originalPush.call(this, location);
+  } catch (err) {
+    return err;
+  }
+};
+
 Vue.use(VueRouter);
 
 const withPrefix = (prefix: any, routes: any) =>
@@ -107,7 +116,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (to == from) {
+  if (from.fullPath === to.fullPath) {
     return;
   }
 

@@ -1,9 +1,12 @@
 <template>
-  <div>
+  <details class="storybook__block">
+    <summary class="storybook__title">Чекбокс (Checkbox)</summary>
     <p>{{ exampleValue }}</p>
 
-    <Checkbox v-model="exampleValue">Выбери меня</Checkbox>
-  </div>
+    <div class="storybook__block-inner">
+      <Checkbox v-model="exampleValue">Выбери меня</Checkbox>
+    </div>
+  </details>
 </template>
 
 <script lang="ts">

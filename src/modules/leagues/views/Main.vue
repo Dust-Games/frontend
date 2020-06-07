@@ -32,8 +32,8 @@
         v-for="week in weeks"
         :key="week"
         class="leagues__weeks-item"
+        :value="week"
         v-model="selectedWeek"
-        :item="week"
       >
         {{ $t("week") + week }}
       </RadioButton>

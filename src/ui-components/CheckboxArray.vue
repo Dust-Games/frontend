@@ -1,21 +1,7 @@
 <template>
-  <label class="ui-checkbox" :disabled="disabled">
-    <div class="ui-checkbox__slot">
-      <slot>{{ value }}</slot>
-    </div>
-
-    <ValidationProvider :name="name" :rules="rules" v-slot="v">
-      <input type="checkbox" v-model="innerValue" />
-      <span
-        class="state"
-        :class="[
-          innerValue ? 'state__true icon-checkmark' : 'state__false',
-          { bold: bold, error: (v.dirty && v.invalid) || (v.validated && v.invalid) }
-        ]"
-        :disabled="disabled"
-      />
-    </ValidationProvider>
-  </label>
+  <Checkbox v-model="innerValue" v-bind="$attrs">
+    <slot>{{ value }}</slot>
+  </Checkbox>
 </template>
 
 <script lang="ts">
@@ -29,16 +15,14 @@ export default Vue.extend({
     event: "change"
   },
 
+  components: {
+    Checkbox: () => import("@ui-components/Checkbox")
+  },
+
   props: {
     // Значение для выбора
     value: { type: [String, Object], required: true },
-    items: { type: Array, required: true },
-    // Остальное
-    bold: { type: Boolean, default: false },
-    disabled: { type: Boolean, default: false },
-    // Для валидации
-    rules: [String, Object],
-    name: { type: String, default: "" }
+    items: { type: Array, required: true }
   },
 
   data() {
@@ -115,12 +99,12 @@ export default Vue.extend({
     position: absolute;
     top: 0;
     left: 0;
-    height: 17px;
-    width: 17px;
+    height: 20px;
+    width: 20px;
     background-color: $blue-dark;
     border: 1px solid $gray;
     border-radius: 5px;
-    padding-left: 3px;
+    padding-left: 2px;
     padding-top: 3px;
     font-size: 14px;
     color: $white;

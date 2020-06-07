@@ -1,14 +1,15 @@
 <template>
   <nav class="nav">
-    <div class="nav__item" @click="onToHome()">{{ $t("menu") }}</div>
-
-    <div class="nav__item" disabled>{{ $t("wallet") }}</div>
-    <!-- @click="onToWallet()" -->
-    <div class="nav__item" disabled>{{ $t("tournaments") }}</div>
-    <div class="nav__item" disabled>{{ $t("bets") }}</div>
-    <div class="nav__item" disabled>{{ $t("leagues") }}</div>
-    <div class="nav__item" @click="onToLeagues()">{{ $t("lorLeague") }}</div>
-    <div class="nav__item" disabled>{{ $t("premium") }}</div>
+    <div
+      class="nav__item"
+      v-for="(item, index) in items"
+      :key="index"
+      :active="$route.fullPath == item.path"
+      :disabled="item.isDisabled"
+      @click="onTo(item.path)"
+    >
+      {{ item.title }}
+    </div>
   </nav>
 </template>
 
@@ -16,7 +17,7 @@
 {
   "en": {
     "soon": "(soon!)",
-    "menu": "Main",
+    "home": "Main",
     "wallet": "Wallet @:soon",
     "tournaments": "Tournaments @:soon",
     "bets": "Forecasts @:soon",
@@ -26,7 +27,7 @@
   },
   "ru": {
     "soon": "(скоро!)",
-    "menu": "Главная",
+    "home": "Главная",
     "wallet": "Кошелек @:soon",
     "tournaments": "Турниры @:soon",
     "bets": "Прогнозы @:soon",
@@ -44,26 +45,27 @@ import { mapActions } from "vuex";
 export default Vue.extend({
   name: "SidebarNav",
 
+  data() {
+    return {
+      items: [
+        { title: this.$i18n.t("home"), path: "/", isDisabled: false },
+        { title: this.$i18n.t("wallet"), path: "/user/wallet", isDisabled: true },
+        { title: this.$i18n.t("tournaments"), path: "/user/wallet", isDisabled: true },
+        { title: this.$i18n.t("bets"), path: "/user/wallet", isDisabled: true },
+        { title: this.$i18n.t("leagues"), path: "/leagues", isDisabled: true },
+        { title: this.$i18n.t("lorLeague"), path: "/leagues", isDisabled: false },
+        { title: this.$i18n.t("premium"), path: "/leagues", isDisabled: true }
+      ]
+    };
+  },
+
   methods: {
     ...mapActions(["setIsMobileMenuOpen"]),
 
-    onToHome() {
-      this.$router.push("/home");
-      this.onChange();
-    },
-
-    onToLeagues() {
-      this.$router.push("/leagues");
-      this.onChange();
-    },
-
-    onToWallet() {
-      this.$router.push("/user/wallet");
-      this.onChange();
-    },
-
-    onChange() {
+    onTo(path: string) {
+      this.$router.push(path);
       this.setIsMobileMenuOpen(false);
+      console.log(this.$route);
     }
   }
 });
@@ -83,6 +85,10 @@ export default Vue.extend({
     &[disabled] {
       color: $gray-dark;
       pointer-events: none;
+    }
+
+    &:not([disabled])[active] {
+      color: $orange;
     }
   }
 }

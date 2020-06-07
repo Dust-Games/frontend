@@ -8,8 +8,10 @@
           { error: (v.dirty && v.invalid) || (v.validated && v.invalid) }
         ]"
       >
-        <input :id="item" type="radio" v-model="innerValue" :value="item" />
-        <label class="ui-radiobutton__slot" :for="item" :disabled="disabled"><slot /></label>
+        <input :id="value" type="radio" v-model="innerValue" :value="value" />
+        <label class="ui-radiobutton__slot" :for="value" :disabled="disabled">
+          <slot>{{ value }}</slot>
+        </label>
       </div>
     </ValidationProvider>
   </div>
@@ -21,34 +23,41 @@ import Vue from "vue";
 export default Vue.extend({
   name: "UiRadioButton",
 
+  model: {
+    prop: "selectedItem",
+    event: "change"
+  },
+
   props: {
-    item: { type: [String, Number] },
-    value: { type: [String, Number] },
+    // Значение для выбора
+    value: { type: [String, Number, Object], required: true },
+    selectedItem: { type: [String, Number, Object] },
+    // Другое
     disabled: { type: Boolean, default: false },
     // Для валидации
     rules: [String, Object],
     name: { type: String, default: "" }
   },
 
-  data() {
-    return {
-      selectedItem: ""
-    };
-  },
+  // data() {
+  //   return {
+  //     selectedItem: ""
+  //   };
+  // },
 
   computed: {
     innerValue: {
       get(): string | number {
-        return this.value;
+        return this.selectedItem || "";
       },
 
-      set(value: string | number) {
-        this.$emit("input", value);
+      set(selectedItem: string | number) {
+        this.$emit("change", selectedItem);
       }
     },
 
     isChecked(): boolean {
-      return this.innerValue == this.item;
+      return this.innerValue == this.value;
     }
   }
 });
@@ -119,11 +128,12 @@ export default Vue.extend({
       background: $blue-dark;
       border-color: $gray;
       color: $white;
+      transition: all 0.3s;
     }
 
     &__true {
       background: $orange-juice;
-      border: transparent;
+      border-color: $orange;
       color: $white;
       transition: all 0.3s;
     }
