@@ -65,7 +65,6 @@ export default Vue.extend({
     onTo(path: string) {
       this.$router.push(path);
       this.setIsMobileMenuOpen(false);
-      console.log(this.$route);
     }
   }
 });
