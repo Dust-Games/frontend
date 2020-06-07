@@ -116,10 +116,6 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (from.fullPath === to.fullPath) {
-    return;
-  }
-
   const isLogged = localStorage.getItem("access_token") || false;
   const isPublic = to.matched.some(record => record.meta.public);
 

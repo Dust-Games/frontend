@@ -4,7 +4,7 @@
       class="nav__item"
       v-for="(item, index) in items"
       :key="index"
-      :active="$route.fullPath == item.path"
+      :active="isActive(item)"
       :disabled="item.isDisabled"
       @click="onTo(item.path)"
     >
@@ -48,7 +48,12 @@ export default Vue.extend({
   data() {
     return {
       items: [
-        { title: this.$i18n.t("home"), path: "/", isDisabled: false },
+        {
+          title: this.$i18n.t("home"),
+          path: "/home",
+          availablePaths: ["/", "/home"],
+          isDisabled: false
+        },
         { title: this.$i18n.t("wallet"), path: "/user/wallet", isDisabled: true },
         { title: this.$i18n.t("tournaments"), path: "/user/wallet", isDisabled: true },
         { title: this.$i18n.t("bets"), path: "/user/wallet", isDisabled: true },
@@ -65,6 +70,14 @@ export default Vue.extend({
     onTo(path: string) {
       this.$router.push(path);
       this.setIsMobileMenuOpen(false);
+    },
+
+    isActive(item: { availablePaths: string[]; path: string }) {
+      if (item.availablePaths) {
+        return item.availablePaths.includes(this.$route.fullPath);
+      } else {
+        return this.$route.fullPath == item.path;
+      }
     }
   }
 });
