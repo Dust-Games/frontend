@@ -41,20 +41,24 @@
 
     <div class="leagues__table-wrapper">
       <div class="leagues__table" v-for="(className, index) in classNames" :key="className">
-        <h2 class="leagues__table-title">{{ $t("class", { value: className.toUpperCase() }) }}</h2>
+        <div v-if="rows[className].data.length != 0">
+          <h2 class="leagues__table-title">
+            {{ $t("class", { value: className.toUpperCase() }) }}
+          </h2>
 
-        <Table
-          :header="header"
-          :rows="rows[className].data"
-          :pagination="getPagination(rows[className])"
-          trackBy="id"
-          detailRow="table-detail-row2"
-          withPagination
-          @cell-clicked="onCellClicked($event, className)"
-          @change-page="onChangePage($event, className, index + 1)"
-        >
-          <template #_detailRow><TableDetailRow2 /></template>
-        </Table>
+          <Table
+            :header="header"
+            :rows="rows[className].data"
+            :pagination="getPagination(rows[className])"
+            trackBy="id"
+            detailRow="table-detail-row2"
+            withPagination
+            @cell-clicked="onCellClicked($event, className)"
+            @change-page="onChangePage($event, className, classNames.length - index)"
+          >
+            <template #_detailRow><TableDetailRow2 /></template>
+          </Table>
+        </div>
       </div>
     </div>
   </div>
@@ -141,7 +145,7 @@ export default Vue.extend({
     },
 
     classNames(): string[] {
-      return Object.keys(this.rows).filter(className => this.rows[className].data.length);
+      return Object.keys(this.rows);
     }
   },
 

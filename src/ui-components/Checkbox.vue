@@ -93,12 +93,12 @@ export default Vue.extend({
     position: absolute;
     top: 0;
     left: 0;
-    height: 17px;
-    width: 17px;
+    height: 20px;
+    width: 20px;
     background-color: $blue-dark;
     border: 1px solid $gray;
     border-radius: 5px;
-    padding-left: 3px;
+    padding-left: 2px;
     padding-top: 3px;
     font-size: 14px;
     color: $white;

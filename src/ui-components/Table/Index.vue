@@ -351,7 +351,7 @@ export default {
   &__pagination {
     &-wrapper {
       background: $primary-color;
-      border-radius: 5px;
+      // border-radius: 5px;
       padding: 10px;
       margin-top: 5px;
       width: min-content;

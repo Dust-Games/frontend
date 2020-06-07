@@ -9,8 +9,8 @@
         :placeholder="placeholder"
         :class="[{ error: (v.dirty && v.invalid) || (v.validated && v.invalid) }, theme]"
         :style="{
-          width: width,
-          height: height,
+          width: '100%',
+          height: '100%',
           fontSize: fontSize,
           padding: padding
         }"

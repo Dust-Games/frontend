@@ -33,7 +33,7 @@
               v-model="email"
               rules="required|email"
               name="Логин"
-              width="calc(100% - 70px)"
+              width="100%"
               placeholder="example@email.com"
             />
           </div>
@@ -48,7 +48,7 @@
               v-model="password"
               rules="required"
               name="Пароль"
-              width="calc(100% - 70px)"
+              width="100%"
               :placeholder="$t('passwordExample')"
               type="password"
             />

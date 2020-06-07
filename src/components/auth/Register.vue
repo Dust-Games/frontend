@@ -37,7 +37,6 @@
               </div>
               <Input
                 class="register__input"
-                width="186px"
                 placeholder="example@email.com"
                 v-model="email"
                 rules="required|email"
@@ -53,7 +52,6 @@
               </div>
               <Input
                 class="register__input"
-                width="186px"
                 placeholder="example@email.com"
                 v-model="username"
                 rules="required|min:3"
@@ -72,7 +70,6 @@
               </div>
               <Input
                 class="register__input"
-                width="186px"
                 v-model="password"
                 rules="required|min:10|is_not:email|is_not:username"
                 vid="password"
@@ -90,7 +87,6 @@
               </div>
               <Input
                 class="register__input"
-                width="186px"
                 v-model="repeatPassword"
                 rules="required|confirmed:password"
                 :placeholder="$t('passwordExample')"
@@ -388,6 +384,7 @@ export default Vue.extend({
 
   &__login {
     text-align: center;
+    margin-top: 10px;
   }
 }
 
