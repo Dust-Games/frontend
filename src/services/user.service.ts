@@ -43,18 +43,28 @@ export default {
   },
 
   // Начать привязку соцсети
+  // Возвращаем вместе со статусами и ош
   async getAccountLink(data: accountLinkData) {
     try {
-      const resp: getAccountLinkResponse = await httpClient.get(
-        "oauth/" + data.accountName + "/" + data.type
-      );
+      const resp: any = await httpClient.get("oauth/" + data.accountName + "/" + data.type);
 
       // console.log(resp);
-      return resp.data;
+
+      switch (resp.status) {
+        case 201:
+          // console.log("Такого юзера еще нет");
+          throw "Такого юзера еще нет";
+        // break;
+
+        default:
+          break;
+      }
+
+      return resp;
     } catch (errors) {
       // console.log(errors, data);
 
-      throw errors.error;
+      throw errors;
     }
   },
 

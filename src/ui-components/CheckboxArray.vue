@@ -8,7 +8,7 @@
 import Vue from "vue";
 
 export default Vue.extend({
-  name: "UiCheckboxAdvanced",
+  name: "UiCheckboxArray",
 
   model: {
     prop: "items",
