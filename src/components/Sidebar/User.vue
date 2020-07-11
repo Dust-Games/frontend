@@ -22,16 +22,18 @@
         <i class="user__icon  icon-person_outlineperm_identity" />
         <span class=" user__auth-nickname-text">{{ user.username || $t("load") }}</span>
       </div>
-      <!-- Баланс дасткоинов -->
-      <!-- @click="onToWallet()" -->
-      <div class=" user__block" v-if="!mobile">
-        <i class="user__icon icon-dust" />
-        {{ balance.dust_coins_num || $t("load") }}
-      </div>
-      <!-- Баланс usd -->
-      <div class="user__block" v-if="!mobile">
-        <i class="user__icon icon-usd" />
-        {{ balance.usd_tokens_num || $t("load") }}
+      <!-- Баланс -->
+      <div class="user__link" v-if="!mobile" @click="onToWallet()">
+        <!-- Баланс дасткоинов -->
+        <div class="user__block">
+          <i class="user__icon icon-dust" />
+          {{ balance.dust_coins_num || $t("load") }}
+        </div>
+        <!-- Баланс usd -->
+        <div class="user__block">
+          <i class="user__icon icon-usd" />
+          {{ balance.usd_tokens_num || $t("load") }}
+        </div>
       </div>
       <!-- Кнопка выхода из аккаунта -->
       <div class="user__link user__block" @click="onLogout()">
@@ -134,7 +136,7 @@ export default {
     align-items: center;
 
     &-signup {
-      margin-top: -3px;
+      margin-top: -1px;
     }
   }
 

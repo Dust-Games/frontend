@@ -176,6 +176,7 @@ export default Vue.extend({
       try {
         this.isSocNetworkLoading = true;
         const url: any = await this.getAccountLink({ accountName, type: "login" });
+        // console.log(url);
         this.isSocNetworkLoading = false;
         window.open(url);
 

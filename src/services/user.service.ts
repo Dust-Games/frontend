@@ -46,21 +46,19 @@ export default {
   // Возвращаем вместе со статусами и ош
   async getAccountLink(data: accountLinkData) {
     try {
-      const resp: any = await httpClient.get("oauth/" + data.accountName + "/" + data.type);
+      const resp: any = await httpClient.get(`oauth/${data.accountName}/${data.type}`);
 
-      // console.log(resp);
+      // switch (resp.status) {
+      //   case 201:
+      //     // console.log("Такого юзера еще нет");
+      //     throw "Такого юзера еще нет";
+      //   // break;
 
-      switch (resp.status) {
-        case 201:
-          // console.log("Такого юзера еще нет");
-          throw "Такого юзера еще нет";
-        // break;
+      //   default:
+      //     break;
+      // }
 
-        default:
-          break;
-      }
-
-      return resp;
+      return resp.data;
     } catch (errors) {
       // console.log(errors, data);
 

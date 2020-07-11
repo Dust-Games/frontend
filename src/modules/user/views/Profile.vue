@@ -1,14 +1,45 @@
 <template>
   <div class="profile">
     <h1 class="profile__title">{{ $t("profile") }}</h1>
+
     <div class="profile__common">
-      <p>{{ $t("username") }} {{ user.username }}</p>
-      <p>{{ $t("email") }} {{ user.email }}</p>
-      <p>
-        {{ $t("accounts") }}
-        <br />
-        {{ !!accounts.length ? accounts : $t("emptyAccounts") }}
-      </p>
+      <div class="profile__common-header">
+        <!-- Логин -->
+        <div class="profile__light-block">
+          <h3 class="profile__light-block-title">{{ $t("username") }}</h3>
+          <p class="profile__light-block-text">{{ user.username }}</p>
+        </div>
+        <!-- Email -->
+        <div class="profile__light-block">
+          <h3 class="profile__light-block-title">{{ $t("email") }}</h3>
+          <p class="profile__light-block-text">{{ user.email }}</p>
+        </div>
+        <!-- Дата создания профиля -->
+        <div class="profile__light-block">
+          <h3 class="profile__light-block-title">{{ $t("created_at") }}</h3>
+          <p class="profile__light-block-text">{{ user.created_at }}</p>
+        </div>
+        <!-- Подтвержденный ли email -->
+        <div class="profile__light-block">
+          <h3 class="profile__light-block-title">{{ $t("email_verified") }}</h3>
+          <p class="profile__light-block-text">{{ user.email_verified ? $t("yes") : $t("no") }}</p>
+        </div>
+      </div>
+
+      <hr class="profile__hr" />
+
+      <div class="profile__common-content">
+        <!-- Социальные сети -->
+        <div class="profile__block">
+          <h3 class="profile__block-title">{{ $t("accounts") }}</h3>
+          <p class="profile__block-text">
+            {{ !!accounts.length ? accounts : $t("emptyAccounts") }}
+          </p>
+        </div>
+      </div>
+
+      <!-- <h3>{{ $t("sessions") }}</h3>
+      <Table :rows="sessions" :header="sessionsHeader" /> -->
     </div>
   </div>
 </template>
@@ -19,15 +50,27 @@
     "profile": "Profile",
     "username": "Login: ",
     "email": "Email: ",
+    "created_at": "Registration date:",
+    "email_verified": "Verified email:",
+    "yes": "yes",
+    "no": "no",
     "accounts": "Soc networks: ",
-    "emptyAccounts": "Oops... Empty!"
+    "emptyAccounts": "Oops... Empty!",
+    "sessions": "Sessions",
+    "updated_at_session": "Date"
   },
   "ru": {
     "profile": "Профиль",
     "username": "Логин: ",
-     "email": "Email: ",
+    "email": "Email: ",
+    "created_at": "Дата регистрации:",
+    "email_verified": "Подтвержденный email:",
+    "yes": "да",
+    "no": "нет",
     "accounts": "Социальные сети: ",
-    "emptyAccounts": "Упс... Пусто!"
+    "emptyAccounts": "Упс... Пусто!",
+    "sessions": "Сессии",
+    "updated_at_session": "Дата последнего захода"
   }
 }
 </i18n>
@@ -39,77 +82,107 @@ import { mapGetters, mapActions } from "vuex";
 export default Vue.extend({
   name: "Profile",
 
+  components: {
+    // Table: () => import("@ui-components/Table")
+  },
+
   data() {
-    return {};
+    return {
+      sessions: "",
+      sessionsHeader: [
+        // {
+        //   name: "__sequence",
+        //   title: "№"
+        // },
+        {
+          name: "updated_at",
+          title: () => this.$i18n.t("updated_at_session"),
+          sortField: "updated_at"
+        }
+      ] as Array<Object>
+    };
   },
 
   computed: {
     ...mapGetters(["user", "accounts"])
   },
 
-  mounted() {
-    this.getUser();
-    this.getAccounts();
+  async mounted() {
+    await this.getUser();
+    await this.getAccounts();
+    this.sessions = await this.getSessions();
   },
 
   methods: {
-    ...mapActions(["getAccounts", "getUser"])
+    ...mapActions(["getAccounts", "getUser", "getSessions"])
   }
 });
 </script>
 
 <style lang="scss" scoped>
 .profile {
-  text-align: left;
-  max-width: 1080px;
-  margin: 0 auto;
+  &__common {
+    &-header {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+
+      margin-bottom: 15px;
+    }
+
+    &-content {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+  }
+
+  &__hr {
+    border: 0;
+    border-bottom: 1px solid $white;
+    margin: 5px 0 35px;
+  }
+
+  &__light-block {
+    color: $white;
+    padding: 20px 35px 20px 0;
+    width: min-content;
+
+    display: flex;
+    flex-direction: column;
+
+    &-title {
+      margin: 0;
+      margin-bottom: 10px;
+      white-space: nowrap;
+    }
+
+    &-text {
+      margin: 0;
+    }
+  }
 
   &__block {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
-
-  &__block1 {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-
-    padding-bottom: 30px;
-
-    & > * {
-      flex: 1;
-    }
-  }
-
-  &__avatar {
-    max-width: 100px;
-    display: block;
-
-    &-wrapper {
-      margin: auto;
-    }
-  }
-
-  &__connection {
-    display: inline;
-
-    & + & {
-      padding-left: 10px;
-    }
-  }
-
-  &__personal-info {
-    background: $gray-light;
+    background: $blue-steel;
+    color: $white;
     padding: 20px;
-    color: $gray-darkest;
-    flex: 2;
-  }
+    margin: 0 15px 15px 0;
+    border-radius: 6px;
+    width: min-content;
 
-  &__achievements {
-    padding: 20px;
-    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    &-title {
+      margin: 0;
+      margin-bottom: 15px;
+      white-space: nowrap;
+    }
+
+    &-text {
+      margin: 0;
+    }
   }
 }
 </style>

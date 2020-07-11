@@ -80,6 +80,11 @@ export default {
       const resp: any = await UserService.getAccounts();
       await commit("setAccounts", resp);
       return resp;
+    },
+
+    async getSessions({ commit }: any) {
+      const resp: any = await UserService.getSessions();
+      return resp;
     }
   }
 };

@@ -1,13 +1,18 @@
 <template>
-  <div>{{ response || $t("proccess") }}</div>
+  <div class="account-link">
+    <h1>{{ $t("authFor", { socNetwork }) }}</h1>
+    <p>{{ response || $t("proccess") }}</p>
+  </div>
 </template>
 
 <i18n>
 {
   "en": {
+    "authFor": "Auth for {socNetwork}",
     "proccess": "Authorize the social network..."
   },
   "ru": {
+    "authFor": "Авторизация для {socNetwork}",
     "proccess": "Авторизируем соцсеть..."
   }
 }
@@ -26,12 +31,19 @@ export default Vue.extend({
     };
   },
 
+  computed: {
+    socNetwork(): string {
+      return this.$route.params.accountName;
+    }
+  },
+
   async mounted() {
     try {
-      // console.log(this.$route.params);
       const url = this.$route.fullPath || null;
       const type = this.$route.params.type || null;
       const resp = await this.setAccount(url);
+
+      // console.log({ url, type, resp });
 
       if (type == "register") {
         if (resp) {
