@@ -8,7 +8,7 @@
         <h3 class="wallet__block-title">{{ $t("DUSTtokens") }}</h3>
         <p class="wallet__block-text">
           <i class="wallet__icon icon-dust" />
-          <span>{{ balance.dust_coins_num }}</span>
+          <span>{{ balance.dust_coins_num || $t("notFound") }}</span>
         </p>
       </div>
       <!-- доллары -->
@@ -16,9 +16,27 @@
         <h3 class="wallet__block-title">{{ $t("USDtokens") }}</h3>
         <p class="wallet__block-text">
           <i class="wallet__icon icon-usd" />
-          <span>{{ balance.usd_tokens_num }}</span>
+          <span>{{ balance.usd_tokens_num || $t("notFound") }}</span>
         </p>
       </div>
+    </div>
+
+    <div class="wallet__trades">
+      <RadioButton
+        v-for="trade in trades"
+        :key="trade.id"
+        class="wallet__trades-item"
+        :value="trade.id"
+        v-model="selectedTradeId"
+      >
+        {{ $t(trade.id) }}
+      </RadioButton>
+    </div>
+
+    <div class="wallet__trades-content">
+      <!-- eslint-disable-next-line vue-i18n/no-dynamic-keys -->
+      <h2>{{ $t(selectedTradeId) }}</h2>
+      <p>В разработке.</p>
     </div>
   </div>
 </template>
@@ -28,29 +46,67 @@
   "en": {
     "wallet": "Wallet",
     "DUSTtokens": "DUST coins",
-    "USDtokens": "USD tokens"
+    "USDtokens": "USD tokens",
+    "buyDust": "Buy DUST coins",
+    "buyUSD": "Buy USD tokens",
+    "sellDust": "Sell DUST coins",
+    "sellUSD": "Sell USD tokens",
+    "createOrder": "Create order",
+    "notFound": "???"
   },
   "ru": {
     "wallet": "Кошелек",
     "DUSTtokens": "DUST коины",
-    "USDtokens": "USD токены"
+    "USDtokens": "USD токены",
+    "buyDust": "Купить DUST коины",
+    "buyUSD": "Купить USD токены",
+    "sellDust": "Продать DUST коины",
+    "sellUSD": "Продать USD токены",
+    "createOrder": "Создать ордер",
+    "notFound": "???"
   }
 }
 </i18n>
 
 <script lang="ts">
 import Vue from "vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default Vue.extend({
   name: "Wallet",
 
   components: {
-    // Button: () => import("@ui-components/Button")
+    RadioButton: () => import("@ui-components/RadioButton")
+  },
+
+  data() {
+    return {
+      myOrderList: [],
+      trades: [{ id: "buyDust" }, { id: "sellDust" }, { id: "buyUSD" }, { id: "sellUSD" }],
+      selectedTradeId: "buyDust"
+    };
   },
 
   computed: {
     ...mapGetters(["balance"])
+  },
+
+  async mounted() {
+    this.myOrderList = await this.getMyOrderList();
+    await this.onCreateOrder(5, 10);
+  },
+
+  methods: {
+    ...mapActions(["getMyOrderList", "createOrder", "closeOrder"]),
+
+    onOpenTrade(value: string) {
+      this.selectedTradeId = value;
+    },
+
+    async onCreateOrder(amount: number, exchange_rate: number) {
+      await this.createOrder();
+      this.myOrderList = await this.getMyOrderList({ amount, exchange_rate });
+    }
   }
 });
 </script>
@@ -111,6 +167,28 @@ export default Vue.extend({
 
   &__icon {
     font-size: 28px;
+  }
+
+  &__trades {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    border: 1px solid $orange;
+    border-radius: 30px;
+    width: max-content;
+
+    & > * {
+      margin: 10px;
+    }
+
+    /deep/.ui-radiobutton__slot {
+      white-space: nowrap;
+    }
+
+    &-content {
+      margin-top: 30px;
+    }
   }
 }
 </style>
