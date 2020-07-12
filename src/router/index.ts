@@ -119,7 +119,7 @@ router.beforeEach((to, from, next) => {
   const isLogged = localStorage.getItem("access_token") || false;
   const isPublic = to.matched.some(record => record.meta.public);
 
-  console.log({ isLogged, isPublic, to });
+  // console.log({ isLogged, isPublic, to });
 
   // console.log(isPublic, isLogged, to, from);
   // if (to.path == "/auth/logout") {
