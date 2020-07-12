@@ -47,20 +47,20 @@ const routes = [
     path: "/oauth/:accountName/:type/callback",
     name: "accountLink",
     component: () => import("@modules/user/views/AccountLink.vue"),
-    meta: (route: any) => ({
-      title: "Авторизация соцсети через " + route.params.accountName,
+    meta: {
+      title: "Авторизация соцсети",
       public: true
-    })
+    }
   },
 
   {
     path: "/oauth/:accountName/bind/:callback",
     name: "accountLinkBind",
     component: () => import("@modules/user/views/AccountLink.vue"),
-    meta: (route: any) => ({
-      title: "Авторизация соцсети через " + route.params.accountName,
+    meta: {
+      title: "Авторизация соцсети",
       public: true
-    })
+    }
   },
 
   // Всё, что касается пользователя - профиль, кошелек
@@ -119,17 +119,19 @@ router.beforeEach((to, from, next) => {
   const isLogged = localStorage.getItem("access_token") || false;
   const isPublic = to.matched.some(record => record.meta.public);
 
+  console.log({ isLogged, isPublic, to });
+
   // console.log(isPublic, isLogged, to, from);
   // if (to.path == "/auth/logout") {
   //   return next("/");
   // }
 
-  // if (!isPublic && !isLogged) {
-  //   return next({
-  //     path: "/home",
-  //     query: { redirect: to.fullPath } // Store the full path to redirect the user to after login
-  //   });
-  // }
+  if (!isPublic && !isLogged) {
+    return next({
+      path: "/home",
+      query: { redirect: to.fullPath } // Store the full path to redirect the user to after login
+    });
+  }
 
   next();
 });

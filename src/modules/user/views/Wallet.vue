@@ -48,9 +48,9 @@
     "DUSTtokens": "DUST coins",
     "USDtokens": "USD tokens",
     "buyDust": "Buy DUST coins",
-    "buyUSD": "Buy USD tokens",
+    "buyUSD": "Deposit USD tokens",
     "sellDust": "Sell DUST coins",
-    "sellUSD": "Sell USD tokens",
+    "sellUSD": "Take out USD tokens",
     "createOrder": "Create order",
     "notFound": "???"
   },
@@ -59,9 +59,9 @@
     "DUSTtokens": "DUST коины",
     "USDtokens": "USD токены",
     "buyDust": "Купить DUST коины",
-    "buyUSD": "Купить USD токены",
+    "buyUSD": "Внести USD токены",
     "sellDust": "Продать DUST коины",
-    "sellUSD": "Продать USD токены",
+    "sellUSD": "Вывести USD токены",
     "createOrder": "Создать ордер",
     "notFound": "???"
   }

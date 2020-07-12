@@ -18,7 +18,6 @@
   "en": {
     "soon": "(soon!)",
     "home": "Main",
-    "wallet": "Wallet @:soon",
     "tournaments": "Tournaments @:soon",
     "bets": "Forecasts @:soon",
     "leagues": "Leagues @:soon",
@@ -28,7 +27,6 @@
   "ru": {
     "soon": "(скоро!)",
     "home": "Главная",
-    "wallet": "Кошелек @:soon",
     "tournaments": "Турниры @:soon",
     "bets": "Прогнозы @:soon",
     "leagues": "Лиги @:soon",
@@ -54,7 +52,6 @@ export default Vue.extend({
           availablePaths: ["/", "/home"],
           isDisabled: false
         },
-        { title: this.$i18n.t("wallet"), path: "/user/wallet", isDisabled: true },
         { title: this.$i18n.t("tournaments"), path: "/user/wallet", isDisabled: true },
         { title: this.$i18n.t("bets"), path: "/user/wallet", isDisabled: true },
         { title: this.$i18n.t("leagues"), path: "/leagues", isDisabled: true },

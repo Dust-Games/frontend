@@ -91,6 +91,12 @@ export default Vue.extend({
     position: absolute;
     bottom: 10px;
     right: 10px;
+
+    &.with-hover:hover {
+      cursor: pointer;
+      transition: 0.3s;
+      color: $orange;
+    }
   }
 
   &.dark {

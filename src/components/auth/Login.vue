@@ -1,5 +1,10 @@
 <template>
-  <AuthModal modalName="login" :sizes="{ width: '400px' }" @before-close="beforeClose">
+  <AuthModal
+    modalName="login"
+    :sizes="{ width: '400px' }"
+    :clickToClose="false"
+    @before-close="beforeClose"
+  >
     <ValidationObserver v-slot="{ handleSubmit, errors }">
       <form class="login" @submit.prevent="handleSubmit(onSubmit)">
         <div class="login__header">
@@ -28,7 +33,7 @@
               {{ $t("email") }}
             </div>
 
-            <Input
+            <InputComponent
               class="login__input"
               v-model="email"
               rules="required|email"
@@ -43,15 +48,21 @@
               <i class="login__block-icon icon-password" />
               {{ $t("password") }}
             </div>
-            <Input
+            <InputComponent
               class="login__input"
               v-model="password"
               rules="required"
               name="Пароль"
               width="100%"
               :placeholder="$t('passwordExample')"
-              type="password"
-            />
+              :type="isShowPassword ? 'text' : 'password'"
+            >
+              <i
+                class="ui-input__icon with-hover"
+                :class="isShowPassword ? 'icon-eye-blocked' : 'icon-eye'"
+                @click="onTogglePassword"
+              />
+            </InputComponent>
           </div>
         </div>
 
@@ -105,7 +116,7 @@ export default Vue.extend({
 
   components: {
     AuthModal: () => import("@layouts/AuthModal"),
-    Input: () => import("@ui-components/Input"),
+    InputComponent: () => import("@ui-components/Input"),
     Button: () => import("@ui-components/Button")
   },
 
@@ -115,7 +126,8 @@ export default Vue.extend({
       password: "" as String,
       isSocNetworkLoading: false as Boolean,
       backendError: "" as String,
-      isLoading: false as Boolean
+      isLoading: false as Boolean,
+      isShowPassword: false as Boolean
     };
   },
 
@@ -128,6 +140,10 @@ export default Vue.extend({
 
     hide() {
       this.$modal.hide("login");
+    },
+
+    onTogglePassword() {
+      this.isShowPassword = !this.isShowPassword;
     },
 
     getErrorsText(errors: any) {

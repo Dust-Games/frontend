@@ -70,6 +70,20 @@ export default {
   async setAccount(url: string) {
     try {
       const resp: any = await httpClient.get(url);
+
+      switch (resp.status) {
+        case 201:
+          return {
+            status: "warning",
+            statusText: "Этот юзер не привязан ни к одному аккаунту. Надо зарегистрироваться.",
+            action: "register",
+            data: resp.data
+          };
+
+        default:
+          break;
+      }
+
       return resp.data;
     } catch (errors) {
       throw errors.error;

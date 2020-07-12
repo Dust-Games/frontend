@@ -272,7 +272,7 @@ export default Vue.extend({
       try {
         this.isLoading = true;
         const { username, email, password, oauthId } = this;
-        await this.register({ username, email, password, oauth_account: oauthId });
+        await this.register({ username, email, password, oauth_account: Number(oauthId) });
 
         this.hide();
         this.$router.push("/home");

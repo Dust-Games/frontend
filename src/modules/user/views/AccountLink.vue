@@ -45,18 +45,37 @@ export default Vue.extend({
 
       // console.log({ url, type, resp });
 
-      if (type == "register") {
-        if (resp) {
-          this.$modal.show("register", {
-            username: resp.username,
-            email: resp.email,
-            oauthId: resp.id
-          });
-        } else {
-          this.$modal.show("register");
-        }
-      } else if (type == "login") {
-        this.setUser(resp);
+      switch (type) {
+        // Если юзер пытался зарегаться
+        case "register":
+          if (resp) {
+            this.$modal.show("register", {
+              username: resp.username,
+              email: resp.email,
+              oauthId: resp.id
+            });
+          } else {
+            this.$modal.show("register");
+          }
+          break;
+        // Если юзер пытался войти
+        case "login":
+          // Если ответ говорит ему - надо регаться
+          if (resp.action == "register") {
+            // Посылаем сообщение с объяснениями
+            this.$notify[resp.status](resp.statusText, { timeout: 6000 });
+            // Перенаправляем на регистрацию
+            this.$modal.show("register", {
+              username: resp.data.username,
+              email: resp.data.email,
+              oauthId: resp.data.id
+            });
+          } else {
+            this.setUser(resp);
+          }
+          break;
+        default:
+          break;
       }
       this.$router.replace({ name: "home" });
     } catch (errors) {
