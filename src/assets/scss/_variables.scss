@@ -1,19 +1,35 @@
-$gray-darkest: #151924;
 // Оттенки серого
-$white: white;
-$gray-light: #babec1;
-$gray: #81919b;
-$gray-dark: #415663;
-$black: #11131b;
+$white: var(--white);
+$gray-900: var(--gray-900);
+$gray-1000: var(--gray-1000);
+$gray-2000: var(--gray-2000);
+$gray-2500: var(--gray-2500);
+$black: var(--black);
+$black-rgb: var(--black-rgb);
+
+$primary-color: var(--primary-color);
+$primary-color-2000: var(--primary-color-2000);
+
 // Другие цвета
-$primary-color: #14233b;
-$blue-light: #2d9cdb;
-$blue: rgb(85, 123, 173);
-$blue-dark: #091322;
-$blue-fly: linear-gradient(90deg, #48c6ef 0%, #6f86d6 100%);
-$blue-deep: linear-gradient(90deg, #e0c3fc 0%, #8ec5fc 100%);
-$blue-steel: #585e92;
-$orange: #ff9a44;
-$orange-juice: linear-gradient(90deg, #fc6080 0%, #ff9a44 100%);
-$orange-juice-dark: linear-gradient(90deg, #be3853 0%, #c77126 100%);
-$red: #ff364e;
+
+$blue-light: var(--blue-light);
+$blue: var(--blue);
+$blue-2000: var(--blue-2000);
+$blue-dark: var(--blue-dark);
+$blue-fly: var(--blue-fly);
+$blue-deep: var(--blue-deep);
+$blue-steel: var(--blue-steel);
+$orange-900: var(--orange-900);
+$orange: var(--orange);
+$orange-2000: var(--orange-2000);
+$orange-juice: var(--orange-juice);
+$orange-juice-dark: var(--orange-juice-dark);
+
+// Красный
+$red-900: var(--red-900);
+$red-1000: var(--red-1000);
+$red-2000: var(--red-2000);
+$red-2500: var(--red-2500);
+$red-3000: var(--red-3000);
+$from-black-to-red-vert: var(--from-black-to-red-vert);
+$from-black-to-red-hor: var(--from-black-to-red-hor);

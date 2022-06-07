@@ -1,83 +1,20 @@
 <template>
-  <AuthModal
-    modalName="login"
-    :sizes="{ width: '400px' }"
-    :clickToClose="false"
-    @before-close="beforeClose"
-  >
-    <ValidationObserver v-slot="{ handleSubmit, errors }">
-      <form class="login" @submit.prevent="handleSubmit(onSubmit)">
-        <div class="login__header">
-          <h1 class="login__title">{{ $t("login") }}</h1>
-          <div class="login__soc-networks">
-            <!-- <i @click="$emit('change')" class="login__header-icon icon-google" />
-            <i @click="$emit('change')" class="login__header-icon icon-vk" /> -->
-            <i @click="onLinkAccount('steam')" class="login__header-icon icon-steam" />
-            <!-- v-tooltip="$t('loginWith') + 'steam'" -->
-            <i @click="onLinkAccount('twitch')" class="login__header-icon icon-twitch" />
-            <i @click="onLinkAccount('discord')" class="login__header-icon icon-discord" />
-            <i @click="onLinkAccount('battlenet')" class="login__header-icon icon-battlenet" />
-          </div>
-          <span v-show="isSocNetworkLoading">{{ $t("load") }}</span>
-        </div>
+  <div class="login">
+    <h1 class="login__title">{{ $t("login") }}</h1>
 
-        <!-- Ошибки -->
-        <span class="login__errors">{{ getErrorsText(errors) }}</span>
-
-        <!-- Поля ввода -->
-        <div class="login__inputs">
-          <!-- Блок для ввода емайла -->
-          <div class="login__block">
-            <div class="login__label">
-              <i class="login__block-icon icon-email" />
-              {{ $t("email") }}
-            </div>
-
-            <InputComponent
-              class="login__input"
-              v-model="email"
-              rules="required|email"
-              name="Логин"
-              width="100%"
-              placeholder="example@email.com"
-            />
-          </div>
-          <!-- Блок для ввода пароля -->
-          <div class="login__block">
-            <div class="login__label">
-              <i class="login__block-icon icon-password" />
-              {{ $t("password") }}
-            </div>
-            <InputComponent
-              class="login__input"
-              v-model="password"
-              rules="required"
-              name="Пароль"
-              width="100%"
-              :placeholder="$t('passwordExample')"
-              :type="isShowPassword ? 'text' : 'password'"
-            >
-              <i
-                class="ui-input__icon with-hover"
-                :class="isShowPassword ? 'icon-eye-blocked' : 'icon-eye'"
-                @click="onTogglePassword"
-              />
-            </InputComponent>
-          </div>
-        </div>
-
-        <!-- <p class="link login__password-reset" @click="onToPasswordReset()">
-          {{ $t("passwordReset") }}
-        </p> -->
-
-        <Button class="login__submit" type="submit" width="100%" :isLoading="isLoading">
-          {{ $t("loginButton") }}
-        </Button>
-
-        <p class="link login__signup" @click="onToSignup()">{{ $t("signup") }}</p>
-      </form>
-    </ValidationObserver>
-  </AuthModal>
+    <Button
+      class="login__button"
+      width="100%"
+      theme="blue-steel"
+      :isLoading="isLoading"
+      @click="onLinkAccount('discord')"
+    >
+      <div class="login__button-content">
+        <i class="login__button-icon icon-discord" />
+        Войти через Discord
+      </div>
+    </Button>
+  </div>
 </template>
 
 <i18n>
@@ -112,11 +49,9 @@ import Vue from "vue";
 import { mapActions } from "vuex";
 
 export default Vue.extend({
-  name: "AuthLoginModal",
+  name: "Auth_Login",
 
   components: {
-    AuthModal: () => import("@layouts/AuthModal"),
-    InputComponent: () => import("@ui-components/Input"),
     Button: () => import("@ui-components/Button")
   },
 
@@ -134,14 +69,6 @@ export default Vue.extend({
   methods: {
     ...mapActions(["login", "getBalance", "getAccountLink"]),
 
-    show() {
-      this.$modal.show("login");
-    },
-
-    hide() {
-      this.$modal.hide("login");
-    },
-
     onTogglePassword() {
       this.isShowPassword = !this.isShowPassword;
     },
@@ -157,12 +84,12 @@ export default Vue.extend({
     },
 
     onToPasswordReset() {
-      this.hide();
+      this.$emit("hide");
       this.$modal.show("passwordReset");
     },
 
     onToSignup() {
-      this.hide();
+      this.$emit("hide");
       this.$modal.show("register");
     },
 
@@ -179,7 +106,8 @@ export default Vue.extend({
         this.isLoading = true;
         const { email, password } = this;
         await this.login({ email, password });
-        this.hide();
+
+        this.$emit("hide");
         this.$router.push("/home");
       } catch (errors) {
         this.backendError = errors;
@@ -207,78 +135,23 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .login {
-  .link {
-    color: $blue-light;
-    @include linkHover;
-  }
-
-  &__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-
-    margin-bottom: 50px;
-
-    &-icon {
-      font-size: 20px;
-      @include linkHover;
-
-      & + & {
-        margin-left: 14px;
-      }
-
-      &.icon-vk {
-        font-size: 28px;
-      }
-
-      &.icon-battlenet {
-        font-size: 25px;
-      }
-    }
-  }
-
   &__title {
-    margin: 0;
-    margin-right: 20px;
+    margin: -5px 20px 0 0;
     font-size: 30px;
   }
 
-  &__errors {
-    position: absolute;
-    margin-top: -40px;
-    margin-left: -15px;
-    margin-right: 15px;
-    color: $red;
-    font-size: 12px;
-  }
+  &__button {
+    margin-top: 30px;
 
-  &__block {
-    & + & {
-      margin-top: 25px;
+    &-content {
+      display: flex;
+      align-items: center;
     }
 
     &-icon {
+      font-size: 16px;
       margin-right: 10px;
     }
-  }
-
-  &__label {
-    margin-bottom: 10px;
-    font-size: 18px;
-  }
-
-  &__password-reset {
-    margin: 10px 0 50px;
-  }
-
-  &__signup {
-    margin-top: 15px;
-    text-align: center;
-  }
-
-  &__submit {
-    margin-top: 50px;
   }
 }
 </style>

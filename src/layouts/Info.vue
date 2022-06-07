@@ -1,10 +1,11 @@
 <template>
-  <div class="info-layout">
-    <h1 class="info-layout__title"><slot name="title" /></h1>
-    <div class="info-layout__content">
+  <DefaultLayout>
+    <template #title><slot name="title" /></template>
+
+    <div class="info-layout">
       <vue-simple-markdown :source="component" :postrender="postRender" />
     </div>
-  </div>
+  </DefaultLayout>
 </template>
 
 <script lang="ts">
@@ -15,6 +16,10 @@ export default Vue.extend({
 
   props: {
     component: { type: String, required: true }
+  },
+
+  components: {
+    DefaultLayout: () => import("./Default")
   },
 
   data() {
@@ -80,11 +85,6 @@ export default Vue.extend({
 
   /deep/a {
     color: $white;
-  }
-
-  &__content {
-    padding-top: 10px;
-    padding-bottom: 50px;
   }
 }
 </style>

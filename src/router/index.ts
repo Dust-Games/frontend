@@ -1,7 +1,7 @@
 import Vue from "vue";
-import VueRouter from "vue-router";
-// import { TokenService } from "../services/auth.service";
-import store from "@store/index";
+import VueRouter, { Route } from "vue-router";
+import { updateTitle } from "@/helpers/title.helper";
+import { eventBus } from "@/plugins/EventBus.plugin";
 
 import leagues from "./leagues";
 import info from "./info";
@@ -30,7 +30,7 @@ const routes = [
     name: "home",
     component: () => import("@modules/common/views/Home.vue"),
     meta: {
-      title: "Главная",
+      title: "Main",
       public: true
     }
   },
@@ -48,7 +48,7 @@ const routes = [
     name: "accountLink",
     component: () => import("@modules/user/views/AccountLink.vue"),
     meta: {
-      title: "Авторизация соцсети",
+      title: "Social network auth",
       public: true
     }
   },
@@ -58,10 +58,41 @@ const routes = [
     name: "accountLinkBind",
     component: () => import("@modules/user/views/AccountLink.vue"),
     meta: {
-      title: "Авторизация соцсети",
+      title: "Social network auth",
       public: true
     }
   },
+
+  ...withPrefix("/auth", [
+    {
+      path: "/",
+      redirect: "/auth/login"
+    },
+    {
+      path: "/login",
+      name: "authLogin",
+      meta: {
+        title: "Login",
+        public: true
+      },
+      beforeEnter: (to: Route, from: Route, next: any) => {
+        next({ name: "home" });
+
+        setTimeout(() => {
+          eventBus.$emit("login");
+        }, 1);
+      }
+    }
+    // {
+    //   path: "/register",
+    //   name: "authRegister",
+    //   component: () => import("@/modules/auth/views/Register"),
+    //   meta: {
+    //     title: "Register",
+    //     public: true
+    //   }
+    // }
+  ]),
 
   // Всё, что касается пользователя - профиль, кошелек
   ...withPrefix("/user", [
@@ -70,7 +101,7 @@ const routes = [
       name: "userWallet",
       component: () => import("@modules/user/views/Wallet.vue"),
       meta: {
-        title: "Кошелек"
+        title: "Wallet"
       }
     },
     {
@@ -78,7 +109,15 @@ const routes = [
       name: "userProfile",
       component: () => import("@modules/user/views/Profile.vue"),
       meta: {
-        title: "DUST | Профиль"
+        title: "Profile"
+      }
+    },
+    {
+      path: "/cards",
+      name: "userCards",
+      component: () => import("@modules/user/views/Cards.vue"),
+      meta: {
+        title: "Cards"
       }
     }
   ]),
@@ -88,22 +127,11 @@ const routes = [
 
   // Страница "Не найдено"
   {
-    path: "/examples",
-    name: "examples",
-    component: () => import("@ui-components/examples/Index"),
-    meta: {
-      title: "UI-компоненты",
-      public: true
-    }
-  },
-
-  // Страница "Не найдено"
-  {
     path: "*",
     name: "not-found",
     component: () => import("@modules/other/views/NotFound.vue"),
     meta: {
-      title: "Не найдено",
+      title: "Страница не найдена",
       public: true
     }
   }
@@ -137,9 +165,7 @@ router.beforeEach((to, from, next) => {
 });
 
 router.afterEach(to => {
-  Vue.nextTick(() => {
-    document.title = to.meta.title ? to.meta.title + " | DUST" : "DUST";
-  });
+  updateTitle(to);
 });
 
 export default router;

@@ -84,13 +84,13 @@ export default Vue.extend({
   }
 }
 
-/deep/.v--modal {
-  background: $primary-color;
+/deep/.vm--modal {
+  background: $from-black-to-red-vert;
   box-shadow: none;
+}
 
-  &-background {
-    background: rgba($black, 0.9);
-  }
+/deep/.vm--overlay {
+  background: rgba($black-rgb, 0.6);
 }
 
 .auth-modal {

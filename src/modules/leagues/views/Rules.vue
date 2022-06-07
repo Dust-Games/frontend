@@ -1,5 +1,5 @@
 <template>
-  <Layout :component="component">
+  <InfoLayout :component="component">
     <template #title>
       <div class="rules__header">
         <h1 class="rules__title">{{ $t("rules") }}</h1>
@@ -8,7 +8,7 @@
         </Button>
       </div>
     </template>
-  </Layout>
+  </InfoLayout>
 </template>
 
 <i18n>
@@ -33,7 +33,7 @@ export default Vue.extend({
   name: "LeagueRules",
 
   components: {
-    Layout: () => import("@layouts/Info"),
+    InfoLayout: () => import("@layouts/Info"),
     Button: () => import("@ui-components/Button")
   },
 

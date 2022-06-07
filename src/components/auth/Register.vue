@@ -1,134 +1,126 @@
 <template>
-  <AuthModal
-    modalName="register"
-    :sizes="{ maxWidth: windowWidth > 660 ? 630 : 310 }"
-    :clickToClose="false"
-    @before-open="beforeOpen"
-    @before-close="beforeClose"
-  >
-    <ValidationObserver v-slot="{ handleSubmit, errors }">
-      <form class="register" @submit.prevent="handleSubmit(onSubmit)">
-        <div class="register__header">
-          <h1 class="register__title">{{ $t("signup") }}</h1>
-          <div class="register__soc-networks">
-            <!-- <i @click="$emit('change')" class="register__header-icon icon-google" />
+  <ValidationObserver v-slot="{ handleSubmit, errors }">
+    <form class="register" @submit.prevent="handleSubmit(onSubmit)">
+      <div class="register__header">
+        <h1 class="register__title">{{ $t("signup") }}</h1>
+        <div class="register__soc-networks">
+          <!-- <i @click="$emit('change')" class="register__header-icon icon-google" />
             <i @click="$emit('change')" class="register__header-icon icon-vk" /> -->
-            <i @click="onLinkAccount('steam')" class="register__header-icon icon-steam" />
-            <!-- v-tooltip="$t('registerWith') + 'steam'" -->
-            <i @click="onLinkAccount('twitch')" class="register__header-icon icon-twitch" />
-            <i @click="onLinkAccount('discord')" class="register__header-icon icon-discord" />
-            <i @click="onLinkAccount('battlenet')" class="register__header-icon icon-battlenet" />
+          <i @click="onLinkAccount('steam')" class="register__header-icon icon-steam" />
+          <!-- v-tooltip="$t('registerWith') + 'steam'" -->
+          <i @click="onLinkAccount('twitch')" class="register__header-icon icon-twitch" />
+          <i @click="onLinkAccount('discord')" class="register__header-icon icon-discord" />
+          <i @click="onLinkAccount('battlenet')" class="register__header-icon icon-battlenet" />
+        </div>
+        <span v-show="isSocNetworkLoading">{{ $t("load") }}</span>
+      </div>
+
+      <!-- Ошибки -->
+      <span class="register__errors">{{ getErrorsText(errors) }}</span>
+
+      <!-- Поля ввода -->
+      <div class="register__inputs">
+        <div class="register__row">
+          <!-- Блок для ввода емайла -->
+          <div class="register__block">
+            <div class="register__label">
+              <i class="register__block-icon icon-email" />
+              {{ $t("email") }}
+              <i class="register__required-star">{{ $t("star") }}</i>
+            </div>
+            <Input
+              class="register__input"
+              placeholder="example@email.com"
+              v-model="email"
+              rules="required|email"
+              name="Email"
+            />
           </div>
-          <span v-show="isSocNetworkLoading">{{ $t("load") }}</span>
+          <!-- Блок для ввода логина -->
+          <div class="register__block">
+            <div class="register__label">
+              <i class="register__block-icon icon-person_outlineperm_identity" />
+              {{ $t("username") }}
+              <i class="register__required-star">{{ $t("star") }}</i>
+            </div>
+            <Input
+              class="register__input"
+              placeholder="example@email.com"
+              v-model="username"
+              rules="required|min:3"
+              name="Логин"
+            />
+          </div>
         </div>
 
-        <!-- Ошибки -->
-        <span class="register__errors">{{ getErrorsText(errors) }}</span>
-
-        <!-- Поля ввода -->
-        <div class="register__inputs">
-          <div class="register__row">
-            <!-- Блок для ввода емайла -->
-            <div class="register__block">
-              <div class="register__label">
-                <i class="register__block-icon icon-email" />
-                {{ $t("email") }}
-                <i class="register__required-star">{{ $t("star") }}</i>
-              </div>
-              <Input
-                class="register__input"
-                placeholder="example@email.com"
-                v-model="email"
-                rules="required|email"
-                name="Email"
-              />
+        <div class="register__row">
+          <!-- Блок для ввода пароля -->
+          <div class="register__block">
+            <div class="register__label">
+              <i class="register__block-icon icon-password" />
+              {{ $t("password") }}
+              <i class="register__required-star">{{ $t("star") }}</i>
             </div>
-            <!-- Блок для ввода логина -->
-            <div class="register__block">
-              <div class="register__label">
-                <i class="register__block-icon icon-person_outlineperm_identity" />
-                {{ $t("username") }}
-                <i class="register__required-star">{{ $t("star") }}</i>
-              </div>
-              <Input
-                class="register__input"
-                placeholder="example@email.com"
-                v-model="username"
-                rules="required|min:3"
-                name="Логин"
-              />
-            </div>
+            <Input
+              class="register__input"
+              v-model="password"
+              rules="required|min:10|is_not:email|is_not:username"
+              vid="password"
+              :placeholder="$t('passwordExample')"
+              type="password"
+              name="Пароль"
+            />
           </div>
-
-          <div class="register__row">
-            <!-- Блок для ввода пароля -->
-            <div class="register__block">
-              <div class="register__label">
-                <i class="register__block-icon icon-password" />
-                {{ $t("password") }}
-                <i class="register__required-star">{{ $t("star") }}</i>
-              </div>
-              <Input
-                class="register__input"
-                v-model="password"
-                rules="required|min:10|is_not:email|is_not:username"
-                vid="password"
-                :placeholder="$t('passwordExample')"
-                type="password"
-                name="Пароль"
-              />
+          <!-- Блок для повторного ввода пароля -->
+          <div class="register__block">
+            <div class="register__label">
+              <i class="register__block-icon icon-password" />
+              {{ $t("repeatPassword") }}
+              <i class="register__required-star">{{ $t("star") }}</i>
             </div>
-            <!-- Блок для повторного ввода пароля -->
-            <div class="register__block">
-              <div class="register__label">
-                <i class="register__block-icon icon-password" />
-                {{ $t("repeatPassword") }}
-                <i class="register__required-star">{{ $t("star") }}</i>
-              </div>
-              <Input
-                class="register__input"
-                v-model="repeatPassword"
-                rules="required|confirmed:password"
-                :placeholder="$t('passwordExample')"
-                data-vv-as="password"
-                type="password"
-                name="Повторение пароля"
-              />
-            </div>
+            <Input
+              class="register__input"
+              v-model="repeatPassword"
+              rules="required|confirmed:password"
+              :placeholder="$t('passwordExample')"
+              data-vv-as="password"
+              type="password"
+              name="Повторение пароля"
+            />
           </div>
+        </div>
 
-          <Checkbox
-            class="register__rules"
-            v-model="isAgree"
-            :rules="{ required: { allowFalse: false } }"
-            name="Принятие правил"
+        <Checkbox
+          class="register__rules"
+          v-model="isAgree"
+          :rules="{ required: { allowFalse: false } }"
+          name="Принятие правил"
+        >
+          {{ $t("iAgree") }}
+          <router-link
+            class="link register__rules-link"
+            :to="{ name: 'infoRules' }"
+            target="_blank"
           >
-            {{ $t("iAgree") }}
-            <router-link
-              class="link register__rules-link"
-              :to="{ name: 'infoRules' }"
-              target="_blank"
-            >
-              {{ $t("rules") }}
-            </router-link>
-          </Checkbox>
-        </div>
+            {{ $t("rules") }}
+          </router-link>
+        </Checkbox>
+      </div>
 
-        <div class="register__submit">
-          <Button type="submit" width="300px" :isLoading="isLoading">
-            {{ $t("registerButton") }}
-          </Button>
-        </div>
+      <div class="register__submit">
+        <Button type="submit" width="300px" :isLoading="isLoading">
+          {{ $t("registerButton") }}
+        </Button>
+      </div>
 
-        <p class="register__login">
-          {{ $t("loginText") }}
-          <span class="link login__signup" @click="onToLogin()">
-            {{ $t("loginLink") }}
-          </span>
-        </p>
-      </form>
-    </ValidationObserver>
-  </AuthModal>
+      <p class="register__login">
+        {{ $t("loginText") }}
+        <span class="link login__signup" @click="onToLogin()">
+          {{ $t("loginLink") }}
+        </span>
+      </p>
+    </form>
+  </ValidationObserver>
 </template>
 
 <i18n>
@@ -173,10 +165,9 @@ import Vue from "vue";
 import { mapActions } from "vuex";
 
 export default Vue.extend({
-  name: "AuthRegisterModal",
+  name: "Auth_Register",
 
   components: {
-    AuthModal: () => import("@layouts/AuthModal"),
     Input: () => import("@ui-components/Input"),
     Checkbox: () => import("@ui-components/Checkbox"),
     Button: () => import("@ui-components/Button")
@@ -194,29 +185,12 @@ export default Vue.extend({
       isAgree: false,
       isSocNetworkLoading: false as Boolean,
       backendError: "" as String,
-      isLoading: false as Boolean,
-      windowWidth: window.innerWidth
+      isLoading: false as Boolean
     };
-  },
-
-  mounted() {
-    window.addEventListener("resize", this.getWindowWidth);
-  },
-
-  beforeDestroy() {
-    window.removeEventListener("resize", this.getWindowWidth);
   },
 
   methods: {
     ...mapActions(["register", "getAccountLink"]),
-
-    getWindowWidth() {
-      this.windowWidth = window.innerWidth;
-    },
-
-    hide() {
-      this.$modal.hide("register");
-    },
 
     beforeOpen(event: any) {
       if (event.params) {
@@ -248,7 +222,7 @@ export default Vue.extend({
     },
 
     onToLogin() {
-      this.hide();
+      this.$emit("hide");
       this.$modal.show("login");
     },
 
@@ -274,7 +248,7 @@ export default Vue.extend({
         const { username, email, password, oauthId } = this;
         await this.register({ username, email, password, oauth_account: Number(oauthId) });
 
-        this.hide();
+        this.$emit("hide");
         this.$router.push("/home");
         this.$modal.show("register-confirm-warn");
       } catch (errors) {
@@ -330,7 +304,7 @@ export default Vue.extend({
     margin-top: -55px;
     margin-left: -25px;
     margin-right: 25px;
-    color: $red;
+    color: $red-1000;
     font-size: 12px;
   }
 
@@ -349,7 +323,7 @@ export default Vue.extend({
   }
 
   &__required-star {
-    // color: $red;
+    // color: $red-1000;
   }
 
   &__block {

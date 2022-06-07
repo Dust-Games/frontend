@@ -1,16 +1,6 @@
 <template>
-  <div class="sidebar-wrapper">
-    <!-- Большой экран -->
-    <div class="sidebar" v-if="windowWidth > 700">
-      <div class="sidebar__logo"><img src="@/assets/images/logo.png" /></div>
-      <User class="sidebar__user" />
-      <Nav class="sidebar__nav" />
-      <Footer class="sidebar__footer" @onChangeLanguage="onChangeLanguage" />
-    </div>
-
-    <!-- Маленький экран -->
-    <Mobile class="sidebar__mobile" v-else />
-  </div>
+  <IndexLarge class="sidebar large" v-if="windowWidth > 700" v-on="$listeners" />
+  <IndexMobile class="sidebar mobile" v-else v-on="$listeners" />
 </template>
 
 <script lang="ts">
@@ -20,10 +10,8 @@ export default Vue.extend({
   name: "Sidebar",
 
   components: {
-    User: () => import("./User"),
-    Nav: () => import("./Nav"),
-    Footer: () => import("./Footer.vue"),
-    Mobile: () => import("./Mobile")
+    IndexLarge: () => import("./IndexLarge"),
+    IndexMobile: () => import("./IndexMobile")
   },
 
   data() {
@@ -36,12 +24,6 @@ export default Vue.extend({
     window.addEventListener("resize", () => {
       this.windowWidth = window.innerWidth;
     });
-  },
-
-  methods: {
-    onChangeLanguage() {
-      this.$emit("onChangeLanguage");
-    }
   }
 });
 </script>
@@ -49,37 +31,13 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .sidebar {
   display: flex;
-  flex-direction: column;
 
-  padding: 30px;
-  background: $primary-color;
-  width: 276px;
-  height: 100vh;
+  &.large {
+    flex-direction: column;
+  }
 
-  &__mobile {
+  &.mobile {
     flex-direction: row;
-  }
-
-  &__logo {
-    margin-right: -5px;
-
-    & > * {
-      height: 40px;
-      width: 158px;
-    }
-  }
-
-  &__user {
-    margin-top: 40px;
-  }
-
-  &__nav {
-    flex: 1;
-    margin-top: 40px;
-  }
-
-  &__footer {
-    margin-top: 20px;
   }
 }
 

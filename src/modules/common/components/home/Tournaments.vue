@@ -53,7 +53,7 @@ export default Vue.extend({
   }
 
   &__content {
-    background: $gray-light;
+    background: $gray-900;
     height: 300px;
   }
 }

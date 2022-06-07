@@ -320,7 +320,7 @@ export default {
   }
 
   &__body {
-    background: $primary-color;
+    background: $blue-2000;
     border-radius: 15px;
     width: 100%;
     border-collapse: collapse;
@@ -330,13 +330,13 @@ export default {
       font-weight: normal;
 
       th {
-        border: 1px $gray solid;
+        border: 1px $gray-1000 solid;
         padding: 10px;
       }
     }
 
     td {
-      border: 1px $gray solid;
+      border: 1px $gray-1000 solid;
       padding: 10px;
     }
   }
@@ -350,7 +350,7 @@ export default {
 
   &__pagination {
     &-wrapper {
-      background: $primary-color;
+      background: $blue-2000;
       // border-radius: 5px;
       padding: 10px;
       margin-top: 5px;
@@ -362,7 +362,7 @@ export default {
     }
 
     &-disabled {
-      color: $gray !important;
+      color: $gray-1000 !important;
       pointer-events: none;
     }
 

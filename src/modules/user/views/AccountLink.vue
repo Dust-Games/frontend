@@ -1,8 +1,11 @@
 <template>
-  <div class="account-link">
-    <h1>{{ $t("authFor", { socNetwork }) }}</h1>
-    <p>{{ response || $t("proccess") }}</p>
-  </div>
+  <DefaultLayout>
+    <template #title>{{ $t("authFor", { socNetwork }) }}</template>
+
+    <div class="account-link">
+      <p>{{ response || $t("proccess") }}</p>
+    </div>
+  </DefaultLayout>
 </template>
 
 <i18n>
@@ -24,6 +27,10 @@ import { mapActions } from "vuex";
 
 export default Vue.extend({
   name: "CommonRegisterAccounLink",
+
+  components: {
+    DefaultLayout: () => import("@/layouts/Default")
+  },
 
   data() {
     return {

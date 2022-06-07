@@ -16,22 +16,10 @@
 <i18n>
 {
   "en": {
-    "soon": "(soon!)",
-    "home": "Main",
-    "tournaments": "Tournaments @:soon",
-    "bets": "Forecasts @:soon",
-    "leagues": "Leagues @:soon",
-    "lorLeague": "LoR Rate League",
-    "premium": "Premium @:soon"
+    "soon": "(soon!)"
   },
   "ru": {
-    "soon": "(скоро!)",
-    "home": "Главная",
-    "tournaments": "Турниры @:soon",
-    "bets": "Прогнозы @:soon",
-    "leagues": "Лиги @:soon",
-    "lorLeague": "LoR Rate League",
-    "premium": "Премиум @:soon"
+    "soon": "(скоро!)"
   }
 }
 </i18n>
@@ -40,25 +28,20 @@
 import Vue from "vue";
 import { mapActions } from "vuex";
 
+interface ItemType {
+  title: string;
+  path: string;
+  availablePaths: string[];
+  isDisabled?: boolean;
+}
+
 export default Vue.extend({
   name: "SidebarNav",
 
-  data() {
-    return {
-      items: [
-        {
-          title: this.$i18n.t("home"),
-          path: "/home",
-          availablePaths: ["/", "/home"],
-          isDisabled: false
-        },
-        { title: this.$i18n.t("tournaments"), path: "/user/wallet", isDisabled: true },
-        { title: this.$i18n.t("bets"), path: "/user/wallet", isDisabled: true },
-        { title: this.$i18n.t("leagues"), path: "/leagues", isDisabled: true },
-        { title: this.$i18n.t("lorLeague"), path: "/leagues", isDisabled: false },
-        { title: this.$i18n.t("premium"), path: "/leagues", isDisabled: true }
-      ]
-    };
+  computed: {
+    items() {
+      return [{ title: this.$i18n.t("Cards"), path: "/user/cards" }] as ItemType[];
+    }
   },
 
   methods: {
@@ -69,7 +52,7 @@ export default Vue.extend({
       this.setIsMobileMenuOpen(false);
     },
 
-    isActive(item: { availablePaths: string[]; path: string }) {
+    isActive(item: ItemType) {
       if (item.availablePaths) {
         return item.availablePaths.includes(this.$route.fullPath);
       } else {
@@ -92,12 +75,12 @@ export default Vue.extend({
     @include linkHover;
 
     &[disabled] {
-      color: $gray-dark;
+      color: $gray-2000;
       pointer-events: none;
     }
 
     &:not([disabled])[active] {
-      color: $orange;
+      color: $primary-color;
     }
   }
 }

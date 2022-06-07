@@ -61,10 +61,10 @@ export default Vue.extend({
   padding-top: 2px !important;
 
   &.state__true {
-    border-color: $gray-dark;
+    border-color: $gray-2000;
 
     &:hover {
-      border-color: rgba($gray-dark, 0.7);
+      border-color: rgba($gray-2000, 0.7);
     }
   }
 }
@@ -102,7 +102,7 @@ export default Vue.extend({
     height: 20px;
     width: 20px;
     background-color: $blue-dark;
-    border: 1px solid $gray;
+    border: 1px solid $gray-1000;
     border-radius: 5px;
     padding-left: 2px;
     padding-top: 3px;
@@ -110,7 +110,7 @@ export default Vue.extend({
     color: $white;
 
     &.error {
-      border-color: $red;
+      border-color: $red-1000;
     }
 
     // при наведении
@@ -131,13 +131,13 @@ export default Vue.extend({
     }
 
     &[disabled] {
-      background-color: $gray-light !important;
-      border-color: $gray !important;
+      background-color: $gray-900 !important;
+      border-color: $gray-1000 !important;
     }
 
     &__false {
       background: $blue-dark;
-      border-color: $gray;
+      border-color: $gray-1000;
       color: $white;
     }
 

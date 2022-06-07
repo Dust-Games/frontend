@@ -1,44 +1,44 @@
 <template>
-  <div class="wallet">
-    <h1 class="wallet__title">{{ $t("wallet") }}</h1>
-
-    <div class="wallet__balance">
-      <!-- dust коины -->
-      <div class="wallet__block">
-        <h3 class="wallet__block-title">{{ $t("DUSTtokens") }}</h3>
-        <p class="wallet__block-text">
-          <i class="wallet__icon icon-dust" />
-          <span>{{ balance.dust_coins_num || $t("notFound") }}</span>
-        </p>
+  <DefaultLayout>
+    <div class="wallet">
+      <div class="wallet__balance">
+        <!-- dust коины -->
+        <div class="wallet__block">
+          <h3 class="wallet__block-title">{{ $t("DUSTtokens") }}</h3>
+          <p class="wallet__block-text">
+            <i class="wallet__icon icon-dust" />
+            <span>{{ balance.dust_coins_num || $t("notFound") }}</span>
+          </p>
+        </div>
+        <!-- доллары -->
+        <div class="wallet__block">
+          <h3 class="wallet__block-title">{{ $t("USDtokens") }}</h3>
+          <p class="wallet__block-text">
+            <i class="wallet__icon icon-usd" />
+            <span>{{ balance.usd_tokens_num || $t("notFound") }}</span>
+          </p>
+        </div>
       </div>
-      <!-- доллары -->
-      <div class="wallet__block">
-        <h3 class="wallet__block-title">{{ $t("USDtokens") }}</h3>
-        <p class="wallet__block-text">
-          <i class="wallet__icon icon-usd" />
-          <span>{{ balance.usd_tokens_num || $t("notFound") }}</span>
-        </p>
+
+      <div class="wallet__trades">
+        <RadioButton
+          v-for="trade in trades"
+          :key="trade.id"
+          class="wallet__trades-item"
+          :value="trade.id"
+          v-model="selectedTradeId"
+        >
+          {{ $t(trade.id) }}
+        </RadioButton>
+      </div>
+
+      <div class="wallet__trades-content">
+        <!-- eslint-disable-next-line vue-i18n/no-dynamic-keys -->
+        <h2>{{ $t(selectedTradeId) }}</h2>
+        <p>В разработке.</p>
       </div>
     </div>
-
-    <div class="wallet__trades">
-      <RadioButton
-        v-for="trade in trades"
-        :key="trade.id"
-        class="wallet__trades-item"
-        :value="trade.id"
-        v-model="selectedTradeId"
-      >
-        {{ $t(trade.id) }}
-      </RadioButton>
-    </div>
-
-    <div class="wallet__trades-content">
-      <!-- eslint-disable-next-line vue-i18n/no-dynamic-keys -->
-      <h2>{{ $t(selectedTradeId) }}</h2>
-      <p>В разработке.</p>
-    </div>
-  </div>
+  </DefaultLayout>
 </template>
 
 <i18n>
@@ -76,6 +76,7 @@ export default Vue.extend({
   name: "Wallet",
 
   components: {
+    DefaultLayout: () => import("@/layouts/Default"),
     RadioButton: () => import("@ui-components/RadioButton")
   },
 
@@ -133,7 +134,7 @@ export default Vue.extend({
   }
 
   &__block {
-    background: $primary-color;
+    background: $blue-2000;
     color: $white;
     padding: 20px;
     margin: 0 30px 30px 0;

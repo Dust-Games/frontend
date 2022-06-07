@@ -7,14 +7,14 @@
     <!-- Само меню -->
     <transition name="slide-fade">
       <div class="sidebar-mobile__menu" v-show="isMenuShow">
-        <div class="sidebar-mobile__hr-large" />
+        <div class="sidebar-mobile__hr" />
         <!-- Вход/регистрация или ник юзера -->
         <User class="sidebar-mobile__user" mobile />
         <!-- Меню -->
         <Nav class="sidebar-mobile__nav" />
         <div class="sidebar-mobile__hr" />
         <!-- Футер -->
-        <Footer class="sidebar-mobile__footer" />
+        <Footer class="sidebar-mobile__footer" @on-change-language="$emit('on-change-language')" />
       </div>
     </transition>
   </div>
@@ -25,7 +25,7 @@ import Vue from "vue";
 import { mapGetters } from "vuex";
 
 export default Vue.extend({
-  name: "SidebarMobile",
+  name: "Sidebar_IndexMobile",
 
   components: {
     MobileHamburger: () => import("./MobileHamburger"),
@@ -45,10 +45,6 @@ export default Vue.extend({
   },
 
   methods: {
-    onChangeLanguage() {
-      this.$emit("onChangeLanguage");
-    },
-
     onHide() {
       this.isMenuShow = false;
     },
@@ -83,7 +79,7 @@ export default Vue.extend({
   justify-content: space-between;
   align-items: center;
 
-  background: $primary-color;
+  background: $from-black-to-red-hor;
   width: 100%;
   height: 70px;
 
@@ -106,7 +102,7 @@ export default Vue.extend({
     margin-top: 70px;
     top: 0;
     width: 100%;
-    background: $primary-color;
+    background: $from-black-to-red-hor;
     z-index: 10;
   }
 
@@ -122,18 +118,10 @@ export default Vue.extend({
 
   &__hr {
     height: 0;
-    border-top: 1px solid $white;
-    max-width: 250px;
-    margin: 0 30px 30px;
-
-    &-large {
-      height: 0;
-      border-top: 4px solid $gray-light;
-      border-bottom: 1px solid $gray-light;
-      border-radius: 5px;
-      width: calc(80%);
-      margin: 5px auto 20px;
-    }
+    border-top: 2px dashed $gray-900;
+    border-radius: 5px;
+    width: 100%;
+    margin: 5px 0 20px;
   }
 }
 </style>

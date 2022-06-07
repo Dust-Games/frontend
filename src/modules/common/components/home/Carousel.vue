@@ -39,7 +39,7 @@ export default Vue.extend({
   &__slide {
     width: 100%;
     height: 400px;
-    background: $gray-light;
+    background: $gray-900;
   }
 }
 </style>

@@ -84,7 +84,7 @@ export default Vue.extend({
   // Темы
 
   &.primary {
-    background: $red;
+    background: $primary-color;
     @include buttonHover;
   }
 
@@ -109,7 +109,7 @@ export default Vue.extend({
   }
 
   &.gray {
-    background: $gray-light;
+    background: $gray-900;
     @include buttonHover;
   }
 }

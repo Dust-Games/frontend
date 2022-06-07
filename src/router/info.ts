@@ -4,7 +4,7 @@ export default [
     name: "infoRules",
     component: () => import("@modules/info/views/Rules.vue"),
     meta: {
-      title: "Правила",
+      title: "Rules",
       public: true
     }
   },
@@ -13,7 +13,7 @@ export default [
     name: "infoAbout",
     component: () => import("@modules/info/views/About.vue"),
     meta: {
-      title: "О нас",
+      title: "About",
       public: true
     }
   },
@@ -22,7 +22,7 @@ export default [
     name: "infoContacts",
     component: () => import("@modules/info/views/Contacts.vue"),
     meta: {
-      title: "Контакты",
+      title: "Contacts",
       public: true
     }
   },
@@ -31,7 +31,7 @@ export default [
     name: "infoTeam",
     component: () => import("@modules/info/views/Team.vue"),
     meta: {
-      title: "Наша команда",
+      title: "Our team",
       public: true
     }
   }

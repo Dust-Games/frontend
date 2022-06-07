@@ -1,67 +1,79 @@
 <template>
-  <div class="leagues">
-    <div class="leagues__title-wrapper">
-      <h1 class="leagues__title">{{ $t("title") }}</h1>
-      <Button theme="blue-steel" @click.prevent="toLeagueRules()">{{ $t("rules") }}</Button>
-    </div>
-
-    <p class="leagues__info">{{ $t("info") }}</p>
-
-    <div class="leagues__filter">
-      <p class="leagues__filter-title">{{ $t("filter") }}</p>
-
-      <div class="leagues__filter-inner">
-        <InputFilter class="leagues__filter-input" :value="filter" @input="onFilter" theme="light">
-          <i class="leagues__filter-input-icon ui-input__icon icon-spinner3" v-show="isFiltering" />
-        </InputFilter>
-
-        <Button
-          class="leagues__filter-clear"
-          @click="onClearFilter"
-          theme="blue-steel"
-          width="40px"
-          height="35px"
-        >
-          <i class="icon-close" />
-        </Button>
+  <DefaultLayout>
+    <template #title>
+      <div class="leagues__title-wrapper">
+        <span class="leagues__title">{{ $t("title") }}</span>
+        <Button theme="blue-steel" @click.prevent="toLeagueRules()">{{ $t("rules") }}</Button>
       </div>
-    </div>
+    </template>
 
-    <div class="leagues__weeks">
-      <RadioButton
-        v-for="week in weeks"
-        :key="week"
-        class="leagues__weeks-item"
-        :value="week"
-        v-model="selectedWeek"
-      >
-        {{ $t("week") + week }}
-      </RadioButton>
-    </div>
+    <div class="leagues">
+      <p class="leagues__info">{{ $t("info") }}</p>
 
-    <div class="leagues__table-wrapper">
-      <div class="leagues__table" v-for="(className, index) in classNames" :key="className">
-        <div v-if="rows[className].data.length != 0">
-          <h2 class="leagues__table-title">
-            {{ $t("class", { value: className.toUpperCase() }) }}
-          </h2>
+      <div class="leagues__filter">
+        <p class="leagues__filter-title">{{ $t("filter") }}</p>
 
-          <Table
-            :header="header"
-            :rows="rows[className].data"
-            :pagination="getPagination(rows[className])"
-            trackBy="id"
-            detailRow="table-detail-row2"
-            withPagination
-            @cell-clicked="onCellClicked($event, className)"
-            @change-page="onChangePage($event, className, classNames.length - index)"
+        <div class="leagues__filter-inner">
+          <InputFilter
+            class="leagues__filter-input"
+            :value="filter"
+            @input="onFilter"
+            theme="light"
           >
-            <template #_detailRow><TableDetailRow2 /></template>
-          </Table>
+            <i
+              class="leagues__filter-input-icon ui-input__icon icon-spinner3"
+              v-show="isFiltering"
+            />
+          </InputFilter>
+
+          <Button
+            class="leagues__filter-clear"
+            @click="onClearFilter"
+            theme="blue-steel"
+            width="40px"
+            height="35px"
+          >
+            <i class="icon-close" />
+          </Button>
+        </div>
+      </div>
+
+      <div class="leagues__weeks">
+        <RadioButton
+          v-for="week in weeks"
+          :key="week"
+          class="leagues__weeks-item"
+          :value="week"
+          v-model="selectedWeek"
+        >
+          {{ $t("week") + week }}
+        </RadioButton>
+      </div>
+
+      <div class="leagues__table-wrapper">
+        <div class="leagues__table" v-for="(className, index) in classNames" :key="className">
+          <div v-if="rows[className].data.length != 0">
+            <h2 class="leagues__table-title">
+              {{ $t("class", { value: className.toUpperCase() }) }}
+            </h2>
+
+            <Table
+              :header="header"
+              :rows="rows[className].data"
+              :pagination="getPagination(rows[className])"
+              trackBy="id"
+              detailRow="table-detail-row2"
+              withPagination
+              @cell-clicked="onCellClicked($event, className)"
+              @change-page="onChangePage($event, className, classNames.length - index)"
+            >
+              <template #_detailRow><TableDetailRow2 /></template>
+            </Table>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </DefaultLayout>
 </template>
 
 <i18n>
@@ -101,6 +113,7 @@ export default Vue.extend({
   name: "LeaguesMain",
 
   components: {
+    DefaultLayout: () => import("@/layouts/Default"),
     Table: () => import("@ui-components/Table/Index"),
     Button: () => import("@ui-components/Button"),
     InputFilter: () => import("@ui-components/Input"),

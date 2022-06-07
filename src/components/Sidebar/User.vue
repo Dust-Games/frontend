@@ -9,9 +9,9 @@
           {{ $t("login") }}
         </div>
         <!-- Кнопка регистрации -->
-        <div class="user__link user__not-auth-signup" @click="onSignup()">
+        <!-- <div class="user__link user__not-auth-signup" @click="onSignup()">
           {{ $t("signup") }}
-        </div>
+        </div> -->
       </div>
     </div>
 

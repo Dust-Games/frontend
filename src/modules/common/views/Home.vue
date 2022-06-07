@@ -1,13 +1,14 @@
 <template>
-  <div class="home">
-    <h1 class="home__title">{{ $t("home") }}</h1>
-    <div class="home__welcome">
-      {{ $t("description") }}
-      <br />
-      <!-- eslint-disable-next-line vue-i18n/no-v-html -->
-      <!-- <p v-html="$t('available')" /> -->
-    </div>
-    <!-- <Carousel class="home__carousel" />
+  <DefaultLayout>
+    <div class="home">
+      <div class="home__welcome">
+        {{ $t("description") }}
+        <br />
+        <!-- eslint-disable-next-line vue-i18n/no-v-html -->
+        <!-- <p v-html="$t('available')" /> -->
+      </div>
+
+      <!-- <Carousel class="home__carousel" />
     <Tournaments class="home__tournaments" />
     <div class="home__other">
       <News class="home__news" />
@@ -15,7 +16,8 @@
         TOPS
       </div>
     </div> -->
-  </div>
+    </div>
+  </DefaultLayout>
 </template>
 
 <i18n>
@@ -42,6 +44,7 @@ export default {
   name: "Home",
 
   components: {
+    DefaultLayout: () => import("@/layouts/Default")
     // Carousel: () => import("@components/Home/Carousel.vue"),
     // Tournaments: () => import("@components/Home/Tournaments.vue"),
     // News: () => import("@components/Home/News.vue")
@@ -57,14 +60,6 @@ export default {
 .home {
   text-align: left;
   // margin: 50px;
-
-  & > * {
-    // margin-bottom: 80px !important;
-  }
-
-  &__title {
-    margin-top: 0;
-  }
 
   &__welcome {
     // font-family: Roboto;

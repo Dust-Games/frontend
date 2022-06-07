@@ -1,7 +1,7 @@
 <template>
   <div class="footer">
     <div class="footer__soc-networks">
-      <span>{{ $t("socNetworksText") }}</span>
+      <span>{{ $t("Soc Networks") }}</span>
       <div class="footer__soc-networks-icons">
         <a href="https://vk.com/dust_global" target="_blank" @click="$emit('change')">
           <i class="footer__link footer__soc-networks-icon icon-vk" />
@@ -18,29 +18,29 @@
     <div class="footer__links">
       <!-- О нас -->
       <router-link class="footer__link footer__about" to="/info/about" @click="onChange()">
-        {{ $t("about") }}
+        {{ $t("About") }}
       </router-link>
       <!-- Разделитель -->
-      <span class="footer__delimiter">{{ $t("delimiter") }}</span>
+      <span class="footer__delimiter">|</span>
       <!-- Контакты -->
       <router-link class="footer__link footer__team" to="/info/team" @click="$emit('change')">
-        {{ $t("team") }}
+        {{ $t("Our Team") }}
       </router-link>
       <!-- Разделитель -->
-      <span class="footer__delimiter">{{ $t("delimiter") }}</span>
+      <span class="footer__delimiter">|</span>
       <!-- Правила -->
       <router-link class="footer__link footer__rules" to="/info/rules" @click="$emit('change')">
-        {{ $t("rules") }}
+        {{ $t("Rules") }}
       </router-link>
       <!-- Разделитель -->
-      <span class="footer__delimiter">{{ $t("delimiter") }}</span>
+      <span class="footer__delimiter">|</span>
       <!-- Контакты -->
       <router-link
         class="footer__link footer__contacts"
         to="/info/contacts"
         @click="$emit('change')"
       >
-        {{ $t("contacts") }}
+        {{ $t("Contacts") }}
       </router-link>
     </div>
     <br class="footer__new-line" />
@@ -48,7 +48,7 @@
       class="footer__link footer__link-with-underline footer__language-inner"
       @click="onChangeLanguage()"
     >
-      {{ $t("changeLanguage") }}
+      {{ $t("Change language") }}
     </div>
   </div>
 </template>
@@ -56,22 +56,12 @@
 <i18n>
 {
   "en": {
-    "socNetworksText": "We're on social networks",
-    "rules": "Rules",
-    "about": "About",
-    "contacts": "Contacts",
-    "team": "Our team",
-    "changeLanguage": "Russian version",
-    "delimiter": "|"
+    "Soc Networks": "We're on social networks",
+    "Change language": "Russian version"
   },
   "ru": {
-    "socNetworksText": "Мы в соцсетях",
-    "rules": "Правила",
-    "about": "О нас",
-    "contacts": "Контакты",
-    "team": "Наша команда",
-    "changeLanguage": "English version",
-    "delimiter": "|"
+    "Soc Networks": "Мы в соцсетях",
+    "Change language": "English version"
   }
 }
 </i18n>
@@ -87,7 +77,7 @@ export default Vue.extend({
     ...mapActions(["setIsMobileMenuOpen"]),
 
     onChangeLanguage() {
-      this.$emit("onChangeLanguage");
+      this.$emit("on-change-language");
     },
 
     onChange() {
@@ -110,6 +100,7 @@ a {
   &__link {
     color: $white;
     text-decoration: none;
+    user-select: none;
     @include linkHover;
 
     &-with-underline {
@@ -130,6 +121,7 @@ a {
 
   &__delimiter {
     padding: 0 3px;
+    color: $blue;
   }
 }
 </style>

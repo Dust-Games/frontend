@@ -1,19 +1,6 @@
 <template>
-  <Layout :component="component">
-    <template #title>{{ $t("about") }}</template>
-  </Layout>
+  <InfoLayout :component="component" />
 </template>
-
-<i18n>
-{
-  "en": {
-    "about": "About"
-  },
-  "ru": {
-    "about": "О нас"
-  }
-}
-</i18n>
 
 <script lang="ts">
 import Vue from "vue";
@@ -24,7 +11,7 @@ export default Vue.extend({
   name: "InfoAbout",
 
   components: {
-    Layout: () => import("@layouts/Info")
+    InfoLayout: () => import("@layouts/Info")
   },
 
   computed: {

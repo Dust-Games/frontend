@@ -104,16 +104,16 @@ export default Vue.extend({
   }
 
   &.light {
-    background: $primary-color;
+    background: $blue-2000;
   }
 
   &::placeholder {
-    color: $gray;
+    color: $gray-1000;
     opacity: 1;
   }
 
   &.error {
-    border-color: $red;
+    border-color: $red-1000;
   }
 }
 </style>

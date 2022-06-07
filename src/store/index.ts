@@ -7,9 +7,10 @@ import Wallet from "./wallet.store.ts";
 import League from "./league.store.ts";
 import Other from "./other.store.ts";
 import Orders from "./orders.store.ts";
+import Translator from "./translator.store.ts";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  modules: { Auth, User, Wallet, League, Other, Orders }
+  modules: { Auth, User, Wallet, League, Other, Orders, Translator }
 });

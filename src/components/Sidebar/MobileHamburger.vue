@@ -108,7 +108,7 @@ export default Vue.extend({
   &__checkbox:checked ~ &__span {
     opacity: 1;
     transform: rotate(45deg) translate(-5px, -16px);
-    background: $gray-light;
+    background: $gray-900;
     // left: calc(100% - 33px - 20px);
   }
 

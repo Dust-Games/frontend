@@ -92,7 +92,7 @@ export default Vue.extend({
     width: min-content;
     min-width: 100px;
     background-color: $blue-dark;
-    border: 1px solid $gray;
+    border: 1px solid $gray-1000;
     border-radius: 30px;
 
     font-size: 14px;
@@ -104,7 +104,7 @@ export default Vue.extend({
     align-items: center;
 
     &.error {
-      border-color: $red;
+      border-color: $red-1000;
     }
 
     // при наведении
@@ -120,13 +120,13 @@ export default Vue.extend({
     }
 
     &[disabled] {
-      background-color: $gray-light !important;
-      border-color: $gray !important;
+      background-color: $gray-900 !important;
+      border-color: $gray-1000 !important;
     }
 
     &__false {
       background: $blue-dark;
-      border-color: $gray;
+      border-color: $gray-1000;
       color: $white;
       transition: all 0.3s;
     }

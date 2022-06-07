@@ -43,18 +43,24 @@ h1,
 h2,
 h3 {
   font-family: "Dust";
+  font-weight: normal;
 }
 
 h1 {
-  font-size: 40px;
-  margin-top: 0;
-  margin-bottom: 40px;
+  font-size: 34px;
+  margin: 0;
 }
 
 a {
-  color: $white !important;
+  color: $blue !important;
+
   &:hover {
     transition: 0.3s;
     color: $orange !important;
   }
+}
+
+::selection {
+  background-color: $red-1000;
+  color: $white;
 }

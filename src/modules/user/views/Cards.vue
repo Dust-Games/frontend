@@ -1,6 +1,6 @@
 <template>
   <DefaultLayout>
-    Такой страницы у нас нет...
+    Картоооочки
   </DefaultLayout>
 </template>
 
@@ -8,7 +8,7 @@
 import Vue from "vue";
 
 export default Vue.extend({
-  name: "OtherNotFound",
+  name: "User_Cards",
 
   components: {
     DefaultLayout: () => import("@/layouts/Default")
