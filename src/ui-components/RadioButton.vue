@@ -132,7 +132,7 @@ export default Vue.extend({
     }
 
     &__true {
-      background: $orange-juice;
+      background: $from-orange-to-juice;
       border-color: $orange;
       color: $white;
       transition: all 0.3s;

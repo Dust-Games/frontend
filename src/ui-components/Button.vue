@@ -89,7 +89,7 @@ export default Vue.extend({
   }
 
   &.orange {
-    background: $orange-juice;
+    background: $from-orange-to-juice;
     @include buttonHover;
   }
 

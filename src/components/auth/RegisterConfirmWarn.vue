@@ -91,7 +91,7 @@ export default Vue.extend({
       margin-top: 80px;
       width: 100%;
       height: 90px;
-      background: $orange-juice;
+      background: $from-orange-to-juice;
       border-top-left-radius: 7px;
       border-bottom-left-radius: 7px;
     }

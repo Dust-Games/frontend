@@ -103,9 +103,10 @@ html {
   --blue-steel: #585e92;
   --orange-900: #ffb59f;
   --orange: #e66a41;
+  --juice: #fc6080;
   --orange-2000: #6f4132;
-  --orange-juice: linear-gradient(90deg, #fc6080 0%, var(--orange) 100%);
-  --orange-juice-dark: linear-gradient(90deg, #be3853 0%, #c77126 100%);
+  --from-orange-to-juice: linear-gradient(90deg, #fc6080 0%, var(--orange) 100%);
+  --from-orange-to-juice-dark: linear-gradient(90deg, #be3853 0%, #c77126 100%);
 
   // Красный
   --red-900: #ffb8cb;
