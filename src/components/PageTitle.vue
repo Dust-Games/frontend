@@ -15,7 +15,7 @@ export default Vue.extend({
   border-bottom: 2px dashed $red-3000;
   padding: 20px 50px;
 
-  @media (max-width: 700px) {
+  @media (max-width: 800px) {
     padding: 15px 40px;
   }
 }

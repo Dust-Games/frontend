@@ -82,7 +82,7 @@ export default Vue.extend({
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 800px) {
   #app {
     flex-direction: column;
   }

@@ -49,7 +49,7 @@ export default Vue.extend({
   &__content {
     padding: 30px 50px 50px;
 
-    @media (max-width: 700px) {
+    @media (max-width: 800px) {
       padding: 20px 40px;
     }
   }

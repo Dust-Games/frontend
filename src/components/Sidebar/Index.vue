@@ -1,5 +1,5 @@
 <template>
-  <IndexLarge class="sidebar large" v-if="windowWidth > 700" v-on="$listeners" />
+  <IndexLarge class="sidebar large" v-if="windowWidth > 800" v-on="$listeners" />
   <IndexMobile class="sidebar mobile" v-else v-on="$listeners" />
 </template>
 
@@ -41,7 +41,7 @@ export default Vue.extend({
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 800px) {
   #app {
     flex-direction: column;
   }

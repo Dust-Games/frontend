@@ -129,7 +129,7 @@ html {
   flex-direction: row;
   justify-content: space-between;
 
-  @media (max-width: 700px) {
+  @media (max-width: 800px) {
     min-height: 100vh;
     height: 100%;
 
@@ -143,7 +143,7 @@ html {
     width: 100%;
     overflow-y: auto;
 
-    @media (max-width: 700px) {
+    @media (max-width: 800px) {
       height: 100%;
       width: 100%;
     }

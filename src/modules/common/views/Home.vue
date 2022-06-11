@@ -97,7 +97,7 @@ export default {
   }
 }
 
-// @media (max-width: 700px) {
+// @media (max-width: 800px) {
 //   .home {
 //     margin: 20px;
 //   }
