@@ -29,7 +29,8 @@
 </i18n>
 
 <script lang="ts">
-import Vue from "vue";
+import { Vue } from "@/main";
+import { mapGetters } from "vuex";
 
 export default Vue.extend({
   name: "AuthRegisterConfirmWarnModal",
@@ -38,25 +39,11 @@ export default Vue.extend({
     AuthModal: () => import("@layouts/AuthModal")
   },
 
-  data() {
-    return {
-      windowWidth: window.innerWidth
-    };
-  },
-
-  mounted() {
-    window.addEventListener("resize", this.getWindowWidth);
-  },
-
-  beforeDestroy() {
-    window.removeEventListener("resize", this.getWindowWidth);
+  computed: {
+    ...mapGetters(["windowWidth"])
   },
 
   methods: {
-    getWindowWidth() {
-      this.windowWidth = window.innerWidth;
-    },
-
     hide() {
       this.$modal.hide("register-confirm-warn");
     }

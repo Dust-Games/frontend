@@ -25,8 +25,7 @@
 </i18n>
 
 <script lang="ts">
-import Vue from "vue";
-import { mapActions } from "vuex";
+import { Vue } from "@/main";
 
 interface ItemType {
   title: string;
@@ -40,16 +39,14 @@ export default Vue.extend({
 
   computed: {
     items() {
-      return [{ title: this.$i18n.t("Cards"), path: "/user/cards" }] as ItemType[];
+      return [{ title: this.$t("Cards"), path: "/user/cards" }] as ItemType[];
     }
   },
 
   methods: {
-    ...mapActions(["setIsMobileMenuOpen"]),
-
     onTo(path: string) {
       this.$router.push(path);
-      this.setIsMobileMenuOpen(false);
+      this.$eventBus.$emit("close-mobile-menu");
     },
 
     isActive(item: ItemType) {

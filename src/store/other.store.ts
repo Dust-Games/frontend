@@ -1,18 +1,39 @@
+interface SizesType {
+  width: number;
+  height: number;
+}
+
+const setWindowSizes = (commit: any) => {
+  commit("setWindowSizes", { width: window.innerWidth, height: window.innerHeight });
+};
+
 export default {
   state: {
-    isMobileMenuOpen: false as boolean
+    windowSizes: {} as SizesType
   },
+
   getters: {
-    isMobileMenuOpen: (state: any) => state.isMobileMenuOpen
+    windowWidth: (state: any) => state.windowSizes.width,
+    windowheight: (state: any) => state.windowSizes.height
   },
+
   mutations: {
-    setIsMobileMenuOpen(state: any, isOpen: boolean) {
-      state.isMobileMenuOpen = isOpen;
+    setWindowSizes(state: any, newSizes: SizesType) {
+      state.windowSizes = newSizes;
     }
   },
+
   actions: {
-    setIsMobileMenuOpen({ commit }: any, isOpen: boolean) {
-      commit("setIsMobileMenuOpen", isOpen);
+    fetchWindowSizes({ commit }: any) {
+      setWindowSizes(commit);
+
+      window.addEventListener("resize", () => {
+        setWindowSizes(commit);
+      });
+    },
+
+    destroyWindowSizes({ commit }: any) {
+      window.removeEventListener("resize", setWindowSizes);
     }
   }
 };

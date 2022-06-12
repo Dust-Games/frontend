@@ -61,10 +61,11 @@
 }
 </i18n>
 
-<script>
+<script lang="ts">
+import { Vue } from "@/main";
 import { mapActions, mapGetters } from "vuex";
 
-export default {
+export default Vue.extend({
   name: "SidebarUser",
 
   props: {
@@ -73,7 +74,7 @@ export default {
 
   data() {
     return {
-      isLogoutLoading: false
+      isLogoutLoading: false as boolean
     };
   },
 
@@ -89,7 +90,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(["getUser", "getBalance", "logout", "setIsMobileMenuOpen"]),
+    ...mapActions(["getUser", "getBalance", "logout"]),
 
     onToWallet() {
       this.$router.push("/user/wallet");
@@ -121,10 +122,10 @@ export default {
     },
 
     onChange() {
-      this.setIsMobileMenuOpen(false);
+      this.$eventBus.$emit("close-mobile-menu");
     }
   }
-};
+});
 </script>
 
 <style lang="scss" scoped>

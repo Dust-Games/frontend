@@ -1,14 +1,7 @@
 <template>
   <div class="hamburger">
     <input class="hamburger__checkbox" v-model="innerValue" type="checkbox" :value="true" />
-    <!-- <input
-      class="hamburger__checkbox"
-      type="checkbox"
-      ref="checkbox"
-      :value="innerValue"
-      :checked="aa"
-      @change="innerValue = $event.explicitOriginalTarget.checked"
-    /> -->
+
     <span class="hamburger__span" />
     <span class="hamburger__span" />
     <span class="hamburger__span" />
@@ -16,8 +9,7 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import { mapGetters, mapActions } from "vuex";
+import { Vue } from "@/main";
 
 export default Vue.extend({
   name: "SidebarMobileHamburger",
@@ -26,15 +18,7 @@ export default Vue.extend({
     value: { type: Boolean, default: false }
   },
 
-  data() {
-    return {
-      aa: false as boolean
-    };
-  },
-
   computed: {
-    ...mapGetters(["isMobileMenuOpen"]),
-
     innerValue: {
       get(): boolean {
         return this.value;
@@ -42,13 +26,18 @@ export default Vue.extend({
 
       set(isOpen: boolean) {
         this.$emit("input", isOpen);
-        this.setIsMobileMenuOpen(isOpen);
       }
     }
   },
 
-  methods: {
-    ...mapActions(["setIsMobileMenuOpen"])
+  created() {
+    this.$eventBus.$on("open-mobile-menu", () => {
+      this.innerValue = true;
+    });
+
+    this.$eventBus.$on("close-mobile-menu", () => {
+      this.innerValue = false;
+    });
   }
 });
 </script>

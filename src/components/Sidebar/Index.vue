@@ -4,7 +4,8 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import { Vue } from "@/main";
+import { mapGetters } from "vuex";
 
 export default Vue.extend({
   name: "Sidebar",
@@ -14,16 +15,8 @@ export default Vue.extend({
     IndexMobile: () => import("./IndexMobile")
   },
 
-  data() {
-    return {
-      windowWidth: window.innerWidth
-    };
-  },
-
-  mounted() {
-    window.addEventListener("resize", () => {
-      this.windowWidth = window.innerWidth;
-    });
+  computed: {
+    ...mapGetters(["windowWidth"])
   }
 });
 </script>

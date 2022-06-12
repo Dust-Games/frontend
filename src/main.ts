@@ -81,6 +81,8 @@ Vue.use(VueYandexMetrika, {
   env: process.env.NODE_ENV
 });
 
+export { Vue };
+
 new Vue({
   i18n,
   router,

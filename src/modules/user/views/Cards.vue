@@ -12,14 +12,21 @@
             class="cards__slot cards__slot-unlocked droppable"
             :class="{ active: hoveringSlotId == slot.id }"
           >
-            <img
-              v-if="slot.cardId"
-              class="cards__slot-unlocked-img"
-              :src="getCard(slot.cardId).img"
-            />
+            <template v-if="slot.cardId">
+              <img
+                class="cards__slot-unlocked-img"
+                :draggable="false"
+                :src="getCard(slot.cardId).img"
+              />
+
+              <div class="cards__slot-unlocked-actions" @click="onSetCardInSlot(slot.id, null)">
+                <i class="cards__slot-unlocked-actions-button icon-exit_to_app" />
+              </div>
+            </template>
 
             <template v-else>
-              <i class="cards__slot-unlocked-icon icon-exit_to_app" />
+              <i class="cards__slot-unlocked-icon icon-empty" />
+
               <span class="cards__slot-unlocked-text">{{ $t("Vacant") }}</span>
             </template>
           </div>
@@ -41,9 +48,12 @@
         <div v-for="card in cards" :key="card.id" class="cards__card-wrapper">
           <img
             class="cards__card"
-            :class="{ dragging: draggingCardId == card.id }"
+            :class="{
+              dragging: draggingCardId == card.id,
+              'ready-to-slot': !!hoveringSlotId && draggingCardId == card.id
+            }"
             :data-card-id="card.id"
-            :src="image"
+            :src="card.img"
             :draggable="false"
             @mousedown="onDragStart($event)"
             @mousemove="onDragMove($event)"
@@ -74,7 +84,7 @@
 </i18n>
 
 <script lang="ts">
-import Vue from "vue";
+import { Vue } from "@/main";
 import { numberWithCommas } from "@/helpers/number.helper";
 
 interface SlotType {
@@ -118,12 +128,20 @@ export default Vue.extend({
       return [
         { id: 1, img: this.image },
         { id: 2, img: this.image },
-        { id: 3, img: this.image },
+        {
+          id: 3,
+          img:
+            "https://i.ytimg.com/vi/K1yRL3wxWA0/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDoof_eARHm4xXVCqyypQbQoCtdTQ"
+        },
         { id: 4, img: this.image },
         { id: 5, img: this.image },
         { id: 6, img: this.image },
         { id: 7, img: this.image },
-        { id: 8, img: this.image },
+        {
+          id: 8,
+          img:
+            "https://i.ytimg.com/vi/XwGgMemO3j0/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBbB-k4jkIeNh6rEucQH29ZQ-PgBQ"
+        },
         { id: 9, img: this.image },
         { id: 10, img: this.image },
         { id: 11, img: this.image }
@@ -142,8 +160,12 @@ export default Vue.extend({
       return this.cards.find(card => card.id == cardId);
     },
 
-    getCardIndex(cardId: number) {
-      return this.slots.findIndex(slot => slot.id == cardId);
+    onSetCardInSlot(slotId: number, cardId: number | null) {
+      const slotIndex = this.slots.findIndex(slot => slot.id == slotId);
+
+      if (slotIndex != null) {
+        this.slots[slotIndex].cardId = cardId;
+      }
     },
 
     onDragStart(event: any) {
@@ -183,12 +205,7 @@ export default Vue.extend({
 
     onDragEnd(event: any) {
       if (this.hoveringSlotId) {
-        const slotIndex = this.getCardIndex(this.hoveringSlotId);
-
-        if (slotIndex != null) {
-          this.slots[slotIndex].cardId = this.draggingCardId;
-        }
-
+        this.onSetCardInSlot(this.hoveringSlotId, this.draggingCardId);
         this.hoveringSlotId = null;
       }
 
@@ -295,6 +312,7 @@ export default Vue.extend({
       color: $white;
       border: 2px dashed $white;
       padding: 10px;
+      user-select: none;
 
       display: flex;
       flex-direction: column;
@@ -309,17 +327,50 @@ export default Vue.extend({
       }
 
       &-img {
-        border-radius: 5px;
+        border-radius: 6px;
         width: 100%;
         height: 100%;
       }
 
+      &-actions {
+        background-color: $primary-color-1000;
+        width: 100%;
+        height: 40px;
+        border-radius: 6px;
+
+        margin-top: 10px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &:hover {
+          cursor: pointer;
+          transition: 0.3s;
+          background-color: $primary-color;
+        }
+
+        &-button {
+          font-size: 16px;
+          // padding: 6px 8px;
+          // border-radius: 10px;
+          // background-color: $primary-color-1000;
+
+          // &:hover {
+          //   cursor: pointer;
+          //   transition: 0.3s;
+          //   background-color: $primary-color;
+          // }
+        }
+      }
+
       &-icon {
-        font-size: 55px;
-        margin-bottom: 10px;
+        font-size: 40px;
+        margin-bottom: 15px;
 
         @media (max-width: 800px) {
-          font-size: 40px;
+          font-size: 30px;
+          margin-bottom: 10px;
         }
       }
 
@@ -329,7 +380,7 @@ export default Vue.extend({
 
         @media (max-width: 800px) {
           font-size: 13px;
-          margin-bottom: 5px;
+          margin-bottom: 0px;
         }
       }
 
@@ -420,13 +471,12 @@ export default Vue.extend({
 
   &__card {
     position: absolute;
-    cursor: move;
     user-select: none;
 
     width: 100%;
     height: 100%;
-    background-color: $primary-color-2000;
     border-radius: 5px;
+    border: 2px solid transparent;
 
     &-wrapper {
       position: relative;
@@ -447,8 +497,18 @@ export default Vue.extend({
       }
     }
 
+    &:hover {
+      cursor: move;
+      transition: 0.3s;
+      border-color: $primary-color;
+    }
+
     &.dragging {
       z-index: 100000;
+    }
+
+    &.ready-to-slot {
+      border-color: $blue-light;
     }
   }
 }

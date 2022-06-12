@@ -76,7 +76,7 @@
 </i18n>
 
 <script lang="ts">
-import Vue from "vue";
+import { Vue } from "@/main";
 import { mapGetters, mapActions } from "vuex";
 
 export default Vue.extend({

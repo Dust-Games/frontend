@@ -5,16 +5,17 @@ declare module "*.vue" {
 
 declare module "raw-loader!*";
 
-// declare module "vue/types/vue" {
-//   interface Vue {
-//     $notify: any;
-//   }
+declare module "vue/types/vue" {
+  interface Vue {
+    $notify: any;
+    $eventBus: any;
+  }
 
-//   interface VueConstructor {
-//     $notify: any;
-//     $t: any;
-//   }
-// }
+  // interface VueConstructor {
+  //   $notify: any;
+  //   $t: any;
+  // }
+}
 
 // declare module "vue/types/options" {
 //   interface ComponentOptions<V extends Vue> {

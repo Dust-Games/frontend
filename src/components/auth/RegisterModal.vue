@@ -11,8 +11,8 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import { mapActions } from "vuex";
+import { Vue } from "@/main";
+import { mapGetters } from "vuex";
 
 export default Vue.extend({
   name: "AuthRegisterModal",
@@ -22,25 +22,11 @@ export default Vue.extend({
     Register: () => import("./Register")
   },
 
-  data() {
-    return {
-      windowWidth: window.innerWidth
-    };
-  },
-
-  mounted() {
-    window.addEventListener("resize", this.getWindowWidth);
-  },
-
-  beforeDestroy() {
-    window.removeEventListener("resize", this.getWindowWidth);
+  computed: {
+    ...mapGetters(["windowWidth"])
   },
 
   methods: {
-    getWindowWidth() {
-      this.windowWidth = window.innerWidth;
-    },
-
     hide() {
       this.$modal.hide("register");
     },

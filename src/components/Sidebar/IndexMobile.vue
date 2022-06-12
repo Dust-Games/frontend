@@ -1,7 +1,10 @@
 <template>
   <div class="sidebar-mobile" v-click-outside="onHide">
     <!-- Лого -->
-    <div class="sidebar-mobile__logo"><img src="@/assets/images/logo.png" /></div>
+    <div class="sidebar-mobile__logo" @click="goToMain()">
+      <img src="@/assets/images/logo-new.svg" />
+    </div>
+
     <!-- Гамбургер -->
     <MobileHamburger class="sidebar-mobile__hamburger" v-model="isMenuShow" />
     <!-- Само меню -->
@@ -52,6 +55,10 @@ export default Vue.extend({
     onChangeHamburgerState(isChecked: boolean) {
       // console.log(123);
       this.isMenuShow = isChecked;
+    },
+
+    goToMain() {
+      this.$router.push("/");
     }
   }
 });
@@ -88,12 +95,21 @@ export default Vue.extend({
   }
 
   &__logo {
-    padding-left: 20px;
-    margin-top: 5px;
+    margin: -5px -30px -5px -8px;
+    padding: 8px 30px 5px;
+    background: transparent;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
 
     & > * {
-      height: 35px;
-      // width: 100px;
+      height: 40px;
+      width: 158px;
+    }
+
+    &:hover {
+      cursor: pointer;
+      transition: 0.3s;
+      background: $from-orange-to-juice-dark;
     }
   }
 

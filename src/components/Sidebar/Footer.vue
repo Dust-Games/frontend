@@ -68,20 +68,17 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { mapActions } from "vuex";
 
 export default Vue.extend({
   name: "Footer",
 
   methods: {
-    ...mapActions(["setIsMobileMenuOpen"]),
-
     onChangeLanguage() {
       this.$emit("on-change-language");
     },
 
     onChange() {
-      this.setIsMobileMenuOpen(false);
+      this.$eventBus.$emit("close-mobile-menu");
       // this.$emit("change");
     }
   }

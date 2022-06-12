@@ -10,7 +10,8 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import { Vue } from "@/main";
+import { mapGetters } from "vuex";
 
 export default Vue.extend({
   name: "Sidebar_IndexLarge",
@@ -21,16 +22,8 @@ export default Vue.extend({
     Footer: () => import("./Footer.vue")
   },
 
-  data() {
-    return {
-      windowWidth: window.innerWidth
-    };
-  },
-
-  mounted() {
-    window.addEventListener("resize", () => {
-      this.windowWidth = window.innerWidth;
-    });
+  computed: {
+    ...mapGetters(["windowWidth"])
   },
 
   methods: {
@@ -64,7 +57,8 @@ export default Vue.extend({
     &:hover {
       cursor: pointer;
       transition: 0.3s;
-      background: $from-black-to-red-hor;
+      background: $from-orange-to-juice-dark;
+      // background: $from-black-to-red-hor;
     }
   }
 

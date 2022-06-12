@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import { Vue } from "@/main";
 import { mapGetters, mapActions } from "vuex";
 import { updateTitle } from "@/helpers/title.helper";
 
@@ -64,10 +64,16 @@ export default Vue.extend({
     });
   },
 
-  mounted() {},
+  mounted() {
+    this.fetchWindowSizes();
+  },
+
+  beforeDestroy() {
+    this.destroyWindowSizes();
+  },
 
   methods: {
-    ...mapActions(["changeLanguage", "fetchLanguage"]),
+    ...mapActions(["changeLanguage", "fetchLanguage", "fetchWindowSizes", "destroyWindowSizes"]),
 
     onChangeLanguage() {
       if (this.lang == "en") {
@@ -91,6 +97,7 @@ html {
   --black-rgb: 17, 19, 27;
 
   --primary-color: #f12057;
+  --primary-color-1000: #731934;
   --primary-color-2000: #54172c;
 
   // Другие цвета
