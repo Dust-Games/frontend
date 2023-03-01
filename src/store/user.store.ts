@@ -66,15 +66,15 @@ export default {
       await commit("setUser", user);
     },
 
-    async getAccountLink({ commit }: any, data: accountLinkData) {
-      const resp: getAccountLinkResponse = await UserService.getAccountLink(data);
-      return resp.redirect_url;
-    },
+    // async getAccountLink({ commit }: any, data: accountLinkData) {
+    //   const resp: getAccountLinkResponse = await UserService.getAccountLink(data);
+    //   return resp.redirect_url;
+    // },
 
-    async setAccount({ commit }: any, url: string) {
-      const resp: any = await UserService.setAccount(url);
-      return resp;
-    },
+    // async setAccount({ commit }: any, url: string) {
+    //   const resp: any = await UserService.setAccount(url);
+    //   return resp;
+    // },
 
     async getAccounts({ commit }: any) {
       const resp: any = await UserService.getAccounts();

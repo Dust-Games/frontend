@@ -1,4 +1,4 @@
-import httpClient from "./httpClient.ts";
+import httpClient from "./_httpClient.ts";
 
 interface User {
   id: string;
@@ -42,53 +42,53 @@ export default {
     }
   },
 
-  // Начать привязку соцсети
-  // Возвращаем вместе со статусами и ош
-  async getAccountLink(data: accountLinkData) {
-    try {
-      const resp: any = await httpClient.get(`oauth/${data.accountName}/${data.type}`);
+  // // Начать привязку соцсети
+  // // Возвращаем вместе со статусами и ошибками
+  // async getAccountLink(data: accountLinkData) {
+  //   try {
+  //     const resp: any = await httpClient.get(`oauth/${data.accountName}/${data.type}`);
 
-      // switch (resp.status) {
-      //   case 201:
-      //     // console.log("Такого юзера еще нет");
-      //     throw "Такого юзера еще нет";
-      //   // break;
+  //     // switch (resp.status) {
+  //     //   case 201:
+  //     //     // console.log("Такого юзера еще нет");
+  //     //     throw "Такого юзера еще нет";
+  //     //   // break;
 
-      //   default:
-      //     break;
-      // }
+  //     //   default:
+  //     //     break;
+  //     // }
 
-      return resp.data;
-    } catch (errors) {
-      // console.log(errors, data);
+  //     return resp.data;
+  //   } catch (errors) {
+  //     // console.log(errors, data);
 
-      throw errors;
-    }
-  },
+  //     throw errors;
+  //   }
+  // },
 
-  // Закончить привязку соцсети
-  async setAccount(url: string) {
-    try {
-      const resp: any = await httpClient.get(url);
+  // // Закончить привязку соцсети
+  // async setAccount(url: string) {
+  //   try {
+  //     const resp: any = await httpClient.get(url);
 
-      switch (resp.status) {
-        case 201:
-          return {
-            status: "warning",
-            statusText: "Этот юзер не привязан ни к одному аккаунту. Надо зарегистрироваться.",
-            action: "register",
-            data: resp.data
-          };
+  //     switch (resp.status) {
+  //       case 201:
+  //         return {
+  //           status: "warning",
+  //           statusText: "Этот юзер не привязан ни к одному аккаунту. Надо зарегистрироваться.",
+  //           action: "register",
+  //           data: resp.data
+  //         };
 
-        default:
-          break;
-      }
+  //       default:
+  //         break;
+  //     }
 
-      return resp.data;
-    } catch (errors) {
-      throw errors.error;
-    }
-  },
+  //     return resp.data;
+  //   } catch (errors) {
+  //     throw errors.error;
+  //   }
+  // },
 
   // Получить все привязанные соцсети пользователя
   async getAccounts() {

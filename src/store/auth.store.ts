@@ -55,15 +55,15 @@ export default {
   },
 
   actions: {
-    async login({ commit }: any, data: UserLogin) {
-      const resp: AuthResponse = await AuthService.login(data);
-      localStorage.setItem("access_token", resp.access_token);
-      localStorage.setItem("refresh_token", resp.refresh_token);
+    // async login({ commit }: any, data: UserLogin) {
+    //   const resp: AuthResponse = await AuthService.login(data);
+    //   localStorage.setItem("access_token", resp.access_token);
+    //   localStorage.setItem("refresh_token", resp.refresh_token);
 
-      commit("setToken", resp.access_token);
-      commit("setUser", resp.user, { root: true });
-      commit("setBalance", resp.billing, { root: true });
-    },
+    //   commit("setToken", resp.access_token);
+    //   commit("setUser", resp.user, { root: true });
+    //   commit("setBalance", resp.billing, { root: true });
+    // },
 
     async setUser({ commit }: any, resp: AuthResponse) {
       localStorage.setItem("access_token", resp.access_token);
@@ -74,14 +74,23 @@ export default {
       commit("setBalance", resp.billing, { root: true });
     },
 
-    async register({ commit }: any, data: UserRegister) {
-      const resp: AuthResponse = await AuthService.register(data);
-      localStorage.setItem("access_token", resp.access_token);
-      localStorage.setItem("refresh_token", resp.refresh_token);
+    // async register({ commit }: any, data: UserRegister) {
+    //   const resp: AuthResponse = await AuthService.register(data);
+    //   localStorage.setItem("access_token", resp.access_token);
+    //   localStorage.setItem("refresh_token", resp.refresh_token);
 
-      commit("setToken", resp.access_token);
-      commit("setUser", resp.user, { root: true });
-      commit("setBalance", resp.billing, { root: true });
+    //   commit("setToken", resp.access_token);
+    //   commit("setUser", resp.user, { root: true });
+    //   commit("setBalance", resp.billing, { root: true });
+    // },
+
+    async loginViaSocNetworkStart({ commit }: any, { socNetworkName, successFunc }: any) {
+      await AuthService.loginViaSocNetworkStart(socNetworkName, successFunc);
+    },
+
+    async loginViaSocNetworkFinish({ commit, dispatch }: any, url: string) {
+      const user: any = await AuthService.loginViaSocNetworkFinish(url);
+      dispatch("setUser", user);
     },
 
     async refreshToken({ commit }: any) {

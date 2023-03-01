@@ -1,0 +1,36 @@
+@mixin corner($background, $hasFilter: false, $size: 39px) {
+  overflow: hidden;
+  position: relative;
+  border-radius: 9px;
+  transform: translateY(50%) rotate(30deg) skewY(30deg) scaleX(0.866);
+
+  width: calc(#{$size} + 6px);
+  height: calc(#{$size} + 6px);
+
+  &-wrapper {
+    width: calc(21px); // #{$size} / 2 - 3px
+    overflow: hidden;
+    margin-top: -9px;
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+
+    border-left: 4px solid #e1c25a;
+    border-bottom: 4px solid #e1c25a;
+
+    width: inherit;
+    height: inherit;
+
+    background-color: $background; // rgba(#f5f5f5, 0.6);
+
+    @if $hasFilter {
+      backdrop-filter: blur(4px);
+    }
+
+    border-radius: 0 0 0 20px;
+    transform: scaleX(1.155) skewY(-30deg) rotate(-30deg) translateY(-42.3%) skewX(-30deg)
+      scaleY(0.866) translateX(24%);
+  }
+}

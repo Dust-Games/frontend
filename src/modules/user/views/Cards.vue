@@ -9,7 +9,7 @@
             v-if="slot.unlocked"
             :key="slot.id"
             :data-slot-id="slot.id"
-            class="cards__slot cards__slot-unlocked droppable"
+            class="cards__slot cards__slot-unlocked"
             :class="{ active: hoveringSlotId == slot.id }"
           >
             <template v-if="slot.cardId">
@@ -46,20 +46,23 @@
       <div class="cards__description-cards">{{ $t("Drag and drop cards into vacant slots") }}</div>
       <div class="cards__cards">
         <div v-for="card in cards" :key="card.id" class="cards__card-wrapper">
-          <img
+          <div
             class="cards__card"
             :class="{
               dragging: draggingCardId == card.id,
               'ready-to-slot': !!hoveringSlotId && draggingCardId == card.id
             }"
             :data-card-id="card.id"
-            :src="card.img"
-            :draggable="false"
             @mousedown="onDragStart($event)"
             @mousemove="onDragMove($event)"
             @mouseup="onDragEnd($event)"
             @mouseleave="onDragEnd($event)"
-          />
+          >
+            <Card class="cards__card-inner" :card="card" />
+          </div>
+
+          <!-- :src="card.img"
+            :draggable="false" -->
         </div>
       </div>
     </div>
@@ -104,7 +107,8 @@ export default Vue.extend({
   name: "User_Cards",
 
   components: {
-    DefaultLayout: () => import("@/layouts/Default")
+    DefaultLayout: () => import("@/layouts/Default"),
+    Card: () => import("../components/Card/Index")
   },
 
   data() {
@@ -126,7 +130,11 @@ export default Vue.extend({
   computed: {
     cards(): CardType[] {
       return [
-        { id: 1, img: this.image },
+        {
+          id: 1,
+          img:
+            "https://psv4.userapi.com/c237031/u4837648/docs/d24/ff8ce14fef4d/1.jpg?extra=HHzopOdoea5OjpiNJyeiFpVpRs86yJ-46mUG5Wlcd2AjOA5fqILAb_xvKBeWoa281JTkbkLashbm38UmImxwzlu8ebY7aneMNAlVM7RR8EQvrbSI9w2mVEEINYTaJYUqXgeYdgn0p0qgmngRWxo"
+        },
         { id: 2, img: this.image },
         {
           id: 3,
@@ -171,8 +179,13 @@ export default Vue.extend({
     onDragStart(event: any) {
       event.target.position = { x: event.clientX, y: event.clientY };
 
-      const cardIdObject = event.target.attributes["data-card-id"];
-      this.draggingCardId = cardIdObject ? Number(cardIdObject.value) : null;
+      const cardIdObject = event.target.closest("div[data-card-id]");
+      if (cardIdObject) {
+        const cardId = cardIdObject.attributes["data-card-id"].value;
+        this.draggingCardId = Number(cardId);
+      } else {
+        this.draggingCardId = null;
+      }
     },
 
     onDragMove(event: any) {
@@ -191,7 +204,7 @@ export default Vue.extend({
       event.target.hidden = false;
 
       if (elemBelow) {
-        let droppableBelow = elemBelow.closest(".droppable");
+        let droppableBelow = elemBelow.closest("div[data-slot-id]");
         if (droppableBelow) {
           const slotIdObject = droppableBelow.attributes["data-slot-id"];
           this.hoveringSlotId = slotIdObject ? Number(slotIdObject.value) : null;
@@ -475,27 +488,13 @@ export default Vue.extend({
 
     width: 100%;
     height: 100%;
+
+    // zoom: 0.41;
+    // transform: scale(0.8); /* Standard Property */
+    // transform-origin: 0 0; /* Standard Property */
+
     border-radius: 5px;
     border: 2px solid transparent;
-
-    &-wrapper {
-      position: relative;
-      // border: 1px dashed $white;
-      margin: 0 15px 15px 0;
-
-      width: 160px;
-      height: 223px;
-
-      @media (max-width: 800px) {
-        width: 140px;
-        height: 203px;
-      }
-
-      @media (max-width: 600px) {
-        width: 100px;
-        height: 163px;
-      }
-    }
 
     &:hover {
       cursor: move;
@@ -509,6 +508,29 @@ export default Vue.extend({
 
     &.ready-to-slot {
       border-color: $blue-light;
+    }
+
+    &-wrapper {
+      position: relative;
+      // border: 1px dashed $white;
+      margin: 0 15px 15px 0;
+
+      width: 400px;
+      height: 560px;
+
+      // @media (max-width: 800px) {
+      //   width: 140px;
+      //   height: 203px;
+      // }
+
+      // @media (max-width: 600px) {
+      //   width: 100px;
+      //   height: 163px;
+      // }
+    }
+
+    &-inner {
+      position: relative;
     }
   }
 }

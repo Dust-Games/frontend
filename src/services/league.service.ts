@@ -1,4 +1,4 @@
-import httpClient from "./httpClient.ts";
+import httpClient from "./_httpClient.ts";
 
 export default {
   async getTableByWeek(week: number) {

@@ -93,13 +93,13 @@ export default Vue.extend({
     ...mapActions(["getUser", "getBalance", "logout"]),
 
     onToWallet() {
-      this.$router.push("/user/wallet");
+      this.$router.push({ name: "UserWallet" });
       // this.$emit("change");
       this.onChange();
     },
 
     onToProfile() {
-      this.$router.push({ name: "userProfile" });
+      this.$router.push({ name: "UserProfile" });
       this.onChange();
     },
 

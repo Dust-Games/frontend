@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter, { Route } from "vue-router";
 import { updateTitle } from "@/helpers/title.helper";
 import { eventBus } from "@/plugins/EventBus.plugin";
+import AuthService from "@/services/auth.service";
 
 import leagues from "./leagues";
 import info from "./info";
@@ -43,25 +44,25 @@ const routes = [
   // Всё, что касается пользователя - профиль, кошелек
   ...withPrefix("/leagues", leagues),
 
-  {
-    path: "/oauth/:accountName/:type/callback",
-    name: "accountLink",
-    component: () => import("@modules/user/views/AccountLink.vue"),
-    meta: {
-      title: "Social network auth",
-      public: true
-    }
-  },
+  // {
+  //   path: "/oauth/:accountName/:type/callback",
+  //   name: "AccountLink",
+  //   component: () => import("@modules/user/views/AccountLink.vue"),
+  //   meta: {
+  //     title: "Social network auth",
+  //     public: true
+  //   }
+  // },
 
-  {
-    path: "/oauth/:accountName/bind/:callback",
-    name: "accountLinkBind",
-    component: () => import("@modules/user/views/AccountLink.vue"),
-    meta: {
-      title: "Social network auth",
-      public: true
-    }
-  },
+  // {
+  //   path: "/oauth/:accountName/bind/:callback",
+  //   name: "AccountLinkBind",
+  //   component: () => import("@modules/user/views/AccountLink.vue"),
+  //   meta: {
+  //     title: "Social network auth",
+  //     public: true
+  //   }
+  // },
 
   ...withPrefix("/auth", [
     {
@@ -70,7 +71,7 @@ const routes = [
     },
     {
       path: "/login",
-      name: "authLogin",
+      name: "AuthLogin",
       meta: {
         title: "Login",
         public: true
@@ -82,6 +83,26 @@ const routes = [
           eventBus.$emit("login");
         }, 1);
       }
+    },
+    {
+      path: "/login-soc-network-confirm/:callback",
+      name: "AuthLoginSocNetworkConfirm",
+      meta: {
+        title: "Login via soc network",
+        public: true
+      },
+      component: () => import("@modules/auth/views/LoginSocNetworkConfirm.vue")
+
+      // beforeEnter: (to: Route, from: Route, next: any) => {
+      //   window.addEventListener("beforeunload", () => {
+      //     // Connection to a broadcast channel
+      //     const bc = new BroadcastChannel("callback");
+      //     // Example of sending of a very simple message
+      //     bc.postMessage("callback-success");
+      //   });
+
+      //   next({ name: "home" });
+      // }
     }
     // {
     //   path: "/register",
@@ -98,7 +119,7 @@ const routes = [
   ...withPrefix("/user", [
     {
       path: "/wallet",
-      name: "userWallet",
+      name: "UserWallet",
       component: () => import("@modules/user/views/Wallet.vue"),
       meta: {
         title: "Wallet"
@@ -106,7 +127,7 @@ const routes = [
     },
     {
       path: "/profile",
-      name: "userProfile",
+      name: "UserProfile",
       component: () => import("@modules/user/views/Profile.vue"),
       meta: {
         title: "Profile"
@@ -144,7 +165,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const isLogged = localStorage.getItem("access_token") || false;
+  const isLogged = AuthService.checkToken();
   const isPublic = to.matched.some(record => record.meta.public);
 
   // console.log({ isLogged, isPublic, to });
