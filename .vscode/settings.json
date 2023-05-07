@@ -1,0 +1,9 @@
+{
+    "javascript.preferences.quoteStyle": "double",
+  
+    // Eslint
+    "eslint.format.enable": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll": true
+    }
+}
