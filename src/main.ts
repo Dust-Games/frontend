@@ -1,22 +1,31 @@
 import { createApp } from 'vue';
-import './style.css';
 import App from './App.vue';
 
-import i18n from './i18n';
-
-const createdApp = createApp(App);
+const app = createApp(App);
 
 import router from './router';
-createdApp.use(router);
+app.use(router);
 
-// Яндекс метрика для подсчета посетителей
-import VueYandexMetrika from 'vue-yandex-metrika';
-createdApp.use(VueYandexMetrika, {
-  id: '62301178',
-  router: router,
-  env: process.env.NODE_ENV
-});
+import { createPinia } from 'pinia';
+const pinia = createPinia();
+app.use(pinia);
 
-createdApp.use(i18n);
+/**
+ * Иконки из icomoon
+ * Это такой сайт, на котором можно набрать
+ * бесплатных (и платных) иконок и сгенерировать
+ * zip, после чего распаковать его в проекте и
+ * получить возможность подключать эти иконки с
+ * помощью присоединения классов с названием иконки
+ * к нужному тегу. Например,
+ * <span class="icon-eye"/> (это иконка глаза)
+ */
+import '@/assets/icomoon/style.css';
 
-createdApp.mount('#app');
+import VueEventer from 'vue-eventer';
+app.provide('eventBus', new VueEventer());
+
+import i18n from './i18n';
+app.use(i18n);
+
+app.mount('#app');

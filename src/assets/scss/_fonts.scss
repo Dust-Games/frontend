@@ -1,0 +1,67 @@
+@font-face {
+  font-family: "Dust";
+  src: url("~@assets/fonts/DUST-Type.otf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "NotoSans";
+  src: url("~@assets/fonts/NotoSans/NotoSans-Regular.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "NotoSans";
+  src: url("~@assets/fonts/NotoSans/NotoSans-Bold.ttf");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "NotoSans";
+  src: url("~@assets/fonts/NotoSans/NotoSans-BoldItalic.ttf");
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "NotoSans";
+  src: url("~@assets/fonts/NotoSans/NotoSans-Italic.ttf");
+  font-weight: normal;
+  font-style: italic;
+}
+
+* {
+  font-family: "NotoSans";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Dust";
+  font-weight: normal;
+  margin: 0 !important;
+}
+
+h1 {
+  font-size: 34px;
+  margin: 0;
+}
+
+a {
+  color: $blue !important;
+
+  &:hover {
+    transition: 0.3s;
+    color: $orange !important;
+  }
+}
+
+::selection {
+  background-color: $red-1000;
+  color: $white;
+}
