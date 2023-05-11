@@ -7,28 +7,28 @@
 
 @font-face {
   font-family: "NotoSans";
-  src: url("~@assets/fonts/NotoSans/NotoSans-Regular.ttf");
+  src: url("assets/fonts/NotoSans/NotoSans-Regular.ttf");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: "NotoSans";
-  src: url("~@assets/fonts/NotoSans/NotoSans-Bold.ttf");
+  src: url("assets/fonts/NotoSans/NotoSans-Bold.ttf");
   font-weight: bold;
   font-style: normal;
 }
 
 @font-face {
   font-family: "NotoSans";
-  src: url("~@assets/fonts/NotoSans/NotoSans-BoldItalic.ttf");
+  src: url("assets/fonts/NotoSans/NotoSans-BoldItalic.ttf");
   font-weight: bold;
   font-style: italic;
 }
 
 @font-face {
   font-family: "NotoSans";
-  src: url("~@assets/fonts/NotoSans/NotoSans-Italic.ttf");
+  src: url("assets/fonts/NotoSans/NotoSans-Italic.ttf");
   font-weight: normal;
   font-style: italic;
 }
@@ -53,15 +53,15 @@ h1 {
 }
 
 a {
-  color: $blue !important;
+  color: var(--blue) !important;
 
   &:hover {
     transition: 0.3s;
-    color: $orange !important;
+    color: var(--orange) !important;
   }
 }
 
 ::selection {
-  background-color: $red-1000;
-  color: $white;
+  background-color: var(--red-1000);
+  color: var(--white);
 }
