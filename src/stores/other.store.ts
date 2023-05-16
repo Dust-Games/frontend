@@ -34,6 +34,6 @@ export const useOtherStore = defineStore('other', {
 
     destroyWindowSizes() {
       window.removeEventListener('resize', setWindowSizes);
-    },
+    }
   }
 });
