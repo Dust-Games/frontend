@@ -25,7 +25,14 @@ import '@/assets/icomoon/style.css';
 import VueEventer from 'vue-eventer';
 app.provide('eventBus', new VueEventer());
 
-import i18n from './i18n';
+// import i18n from './i18n';
+import { createI18n } from 'vue-i18n';
+// import messages from '@intlify/unplugin-vue-i18n/messages';
+const i18n = createI18n({
+    locale: import.meta.env.VITE_DEFAULT_LOCALE,
+    fallbackLocale: import.meta.env.VITE_FALLBACK_LOCALE,
+    legacy: false // you must set `false`, to use Composition API
+})
 app.use(i18n);
 
 app.mount('#app');

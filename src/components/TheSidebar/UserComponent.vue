@@ -38,7 +38,7 @@
       <!-- Кнопка выхода из аккаунта -->
       <div class="user__link user__block" @click="onLogout()">
         <i class="user__icon icon-exit_to_app" />
-        {{ !isLogoutLoading ? $t('logout') : $t('load') }}
+        {{ !isLogoutLoading ? $t('logout') : $t('load') + '...' }}
       </div>
     </div>
   </div>
@@ -50,13 +50,11 @@
     "login": "login",
     "signup": "signup",
     "logout": "logout",
-    "load": "loading..."
   },
   "ru": {
     "login": "вход",
     "signup": "регистрация",
     "logout": "выйти",
-    "load": "загрузка..."
   }
 }
 </i18n>
@@ -71,7 +69,7 @@ const route = useRoute();
 const eventBus: any = inject('eventBus');
 
 const props = defineProps({
-  mobile: Boolean
+  mobile: Boolean,
 });
 
 const isLogoutLoading: boolean = ref(false);
