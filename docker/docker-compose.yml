@@ -1,14 +1,14 @@
 version: '3'
 
 services:
-
   dust3_frontend:
     container_name: dust3_frontend
-    build:
+    build: 
       context: ../
       dockerfile: ./docker/frontend.Dockerfile
     volumes:
       - ..:/app
+      # # теперь node_modules внутри докера и снаружи - разные
       - app/node_modules
     ports:
       - "5173:5173"
