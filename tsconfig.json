@@ -23,7 +23,8 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
-    }
+    },
+    "types": ["@intlify/unplugin-vue-i18n/messages"]
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "src/i18n/index.ts", "src/i18n/index.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]

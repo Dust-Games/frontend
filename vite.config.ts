@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import path from 'path';
-// import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
+import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -9,14 +9,15 @@ export default defineConfig({
     port: 5173
   },
   plugins: [
-    vue()
-    // VueI18nPlugin({
-    //   include: path.resolve(__dirname, './src/i18n/locales/**'), // provide a path to the folder where you'll store translation data (see below)
-    // })
+    vue(),
+    VueI18nPlugin({
+      include: path.resolve(__dirname, './src/i18n/**')
+    })
   ],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src')
+      '@': path.resolve(__dirname, './src'),
+      'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js',
     }
   }
   // css: {
