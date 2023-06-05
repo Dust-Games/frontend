@@ -6,7 +6,7 @@
       <div class="user__not-auth-links">
         <!-- Кнопка входа -->
         <div class="user__link user__not-auth-login" @click="onLogin()">
-          {{ $t('login') }}
+          {{ $t('user.login') }}
         </div>
         <!-- Кнопка регистрации -->
         <!-- <div class="user__link user__not-auth-signup" @click="onSignup()">
@@ -38,26 +38,11 @@
       <!-- Кнопка выхода из аккаунта -->
       <div class="user__link user__block" @click="onLogout()">
         <i class="user__icon icon-exit_to_app" />
-        {{ !isLogoutLoading ? $t('logout') : $t('load') + '...' }}
+        {{ !isLogoutLoading ? $t('user.logout') : $t('load') + '...' }}
       </div>
     </div>
   </div>
 </template>
-
-<i18n>
-{
-  "en": {
-    "login": "login",
-    "signup": "signup",
-    "logout": "logout",
-  },
-  "ru": {
-    "login": "вход",
-    "signup": "регистрация",
-    "logout": "выйти",
-  }
-}
-</i18n>
 
 <script setup lang="ts">
 import { ref, inject, defineProps, onMounted } from 'vue';

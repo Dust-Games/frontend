@@ -28,9 +28,12 @@ app.provide('eventBus', new VueEventer());
 // import i18n from './i18n';
 import { createI18n } from 'vue-i18n';
 // import messages from '@intlify/unplugin-vue-i18n/messages';
+import ru from "./i18n/ru/index.ts";
+import en from "./i18n/en/index.ts";
 const i18n = createI18n({
     locale: import.meta.env.VITE_DEFAULT_LOCALE,
     fallbackLocale: import.meta.env.VITE_FALLBACK_LOCALE,
+    messages: { ru, en },
     legacy: false // you must set `false`, to use Composition API
 })
 app.use(i18n);

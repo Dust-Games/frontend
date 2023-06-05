@@ -1,3 +1,13 @@
 {
-    "load": "loading..."
+    "load": "loading...",
+    "soon": "(soon!)",
+
+    "footer": {
+        "About": "About",
+        "Our Team": "Our team",
+        "Rules": "Rules",
+        "Contacts": "Contacts",
+        "Soc Networks": "We're on social networks",
+        "Change language": "Russian version"
+    }
 }

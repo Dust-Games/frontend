@@ -1,3 +1,13 @@
 {
-    "load": "загрузка..."
+    "load": "загрузка...",
+    "soon": "(скоро!)",
+
+    "footer": {
+        "About": "О нас",
+        "Our Team": "Наша команда",
+        "Rules": "Правила",
+        "Contacts": "Контакты",
+        "Soc Networks": "Мы в соцсетях",
+        "Change language": "English version"
+    }
 }

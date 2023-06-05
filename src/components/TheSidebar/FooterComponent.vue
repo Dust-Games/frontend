@@ -1,7 +1,7 @@
 <template>
   <div class="footer">
     <div class="footer__soc-networks">
-      <span>{{ t('Soc Networks') }}</span>
+      <span>{{ t('footer.Soc Networks') }}</span>
       <div class="footer__soc-networks-icons">
         <a href="https://vk.com/dust_global" target="_blank" @click="$emit('change')">
           <i class="footer__link footer__soc-networks-icon icon-vk" />
@@ -18,19 +18,19 @@
     <div class="footer__links">
       <!-- О нас -->
       <router-link class="footer__link footer__about" to="/info/about" @click="onChange()">
-        {{ t('About') }}
+        {{ t('footer.About') }}
       </router-link>
       <!-- Разделитель -->
       <span class="footer__delimiter">|</span>
       <!-- Контакты -->
       <router-link class="footer__link footer__team" to="/info/team" @click="$emit('change')">
-        {{ t('Our Team') }}
+        {{ t('footer.Our Team') }}
       </router-link>
       <!-- Разделитель -->
       <span class="footer__delimiter">|</span>
       <!-- Правила -->
       <router-link class="footer__link footer__rules" to="/info/rules" @click="$emit('change')">
-        {{ t('Rules') }}
+        {{ t('footer.Rules') }}
       </router-link>
       <!-- Разделитель -->
       <span class="footer__delimiter">|</span>
@@ -40,7 +40,7 @@
         to="/info/contacts"
         @click="$emit('change')"
       >
-        {{ t('Contacts') }}
+        {{ t('footer.Contacts') }}
       </router-link>
     </div>
     <br class="footer__new-line" />
@@ -48,31 +48,10 @@
       class="footer__link footer__link-with-underline footer__language-inner"
       @click="onChangeLanguage()"
     >
-      {{ t('Change language') }}
+      {{ t('footer.Change language') }}
     </div>
   </div>
 </template>
-
-<i18n>
-{
-  "en": {
-    "About": "About",
-    "Our Team": "Our team",
-    "Rules": "Rules",
-    "Contacts": "Contacts",
-    "Soc Networks": "We're on social networks",
-    "Change language": "Russian version"
-  },
-  "ru": {
-    "About": "О нас",
-    "Our Team": "Наша команда",
-    "Rules": "Правила",
-    "Contacts": "Контакты",
-    "Soc Networks": "Мы в соцсетях",
-    "Change language": "English version"
-  }
-}
-</i18n>
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';

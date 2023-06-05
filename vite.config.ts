@@ -11,7 +11,7 @@ export default defineConfig({
   plugins: [
     vue(),
     VueI18nPlugin({
-      include: path.resolve(__dirname, './src/i18n/**')
+      include: path.resolve(__dirname, './src/i18n/**.json')
     })
   ],
   resolve: {

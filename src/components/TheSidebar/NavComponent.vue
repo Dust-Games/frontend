@@ -13,17 +13,6 @@
   </nav>
 </template>
 
-<i18n>
-{
-  "en": {
-    "soon": "(soon!)"
-  },
-  "ru": {
-    "soon": "(скоро!)"
-  }
-}
-</i18n>
-
 <script setup lang="ts">
 import { computed, inject } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
