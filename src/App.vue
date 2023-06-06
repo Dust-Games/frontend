@@ -9,33 +9,40 @@
     <TheSidebar class="app__sidebar" @on-change-language="onChangeLanguage()" />
 
     <main class="app__main">
-      Главная
       <!-- <InDevelopment v-if="showIsInDevelopment && isInDevelopment" /> -->
+      <h2>{{ routeTitle }}</h2>
       <router-view />
     </main>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, onBeforeUnmount, onBeforeMount, watch } from 'vue';
+import { onMounted, onBeforeUnmount, onBeforeMount, watch, ref } from 'vue';
+import { getRouteTitle } from '@/helpers/route.helper';
+import { storeToRefs } from 'pinia'
+
 import { useOtherStore } from '@/stores/other.store';
 import { useTranslatorStore } from '@/stores/translator.store';
-import { storeToRefs } from 'pinia'
 import { useI18n } from "vue-i18n";
-
+import { useRoute } from 'vue-router';
 
 import TheSidebar from '@/components/TheSidebar/_Index.vue';
+
 // // import InDevelopment from "@components/InDevelopment"
 // import  LoginModal from "@/components/auth/LoginModal"
 // import  RegisterModal from "@/components/auth/RegisterModal"
 // import  RegisterConfirmWarn from "@/components/auth/RegisterConfirmWarn"
 // import  RegisterConfirmSuccess from "@/components/auth/RegisterConfirmSuccess"
 
-const {  locale } = useI18n();
+const { locale, t } = useI18n();
 
 const otherStore = useOtherStore();
 const translatorStore = useTranslatorStore();
 const { lang } = storeToRefs(translatorStore)
+
+const route = useRoute();
+// const routeTitleForI18n = route.meta?.titleForI18n
+const routeTitle = ref<string>("Default")
 
 onBeforeMount(() => {
   translatorStore.fetchLanguage();
@@ -47,10 +54,22 @@ onBeforeUnmount(() => {
   otherStore.destroyWindowSizes();
 });
 
+watch(
+  () => route.meta?.titleForI18n,
+  () => onUpdateRouteTitle()
+)
+
 watch(lang, (newLang) => {
-  console.log("watch", {newLang})
   locale.value = newLang;
+  onUpdateRouteTitle()
 });
+
+const onUpdateRouteTitle = () => {
+  const normalizedRouteTitle = getRouteTitle(route.meta, t);
+
+  routeTitle.value = normalizedRouteTitle
+  document.title = normalizedRouteTitle;
+}
 
 const onChangeLanguage = () => {
   console.log('onChangeLanguage');
@@ -93,6 +112,7 @@ body {
   &__main {
     width: 100%;
     overflow-y: auto;
+    margin: 1rem 2rem;
 
     @media (max-width: 800px) {
       height: 100%;
